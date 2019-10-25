@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,5 +34,10 @@ public class AllenBrainServiceTest {
                 "allen/structure_graph_download/1.json",
                 Object.class
         );
+    }
+
+    @Test
+    public void dummyFailingTest() {
+        fail("planned failure");
     }
 }
