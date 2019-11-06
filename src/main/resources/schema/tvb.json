@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "schema for area and connections for tvb",
+  "type": "object",
+  "properties": {
+    "area": { "type":  "number" },
+    "average_orientation": {
+      "type": "object",
+      "properties": {
+        "x": { "type":  "number" },
+        "y": { "type":  "number" },
+        "z": { "type":  "number" }
+      }
+    },
+    "centre": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "x": { "type":  "number" },
+        "y": { "type":  "number" },
+        "z": { "type":  "number" }
+      }
+    },
+    "cortical": { "type": "boolean" },
+    "tract_lengths": { "type": "array" },
+    "volume": { "type":  "number" },
+    "weights": { "type":  "array" }
+  }
+}
