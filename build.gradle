@@ -35,11 +35,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.json:json:20190722'
-    compile("io.springfox:springfox-swagger2:2.9.2")
-    compile("io.springfox:springfox-swagger-ui:2.9.2")
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testCompile "org.mockito:mockito-core:2.+"
-    testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile 'org.springframework.boot:spring-boot-starter-jetty'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.mockito:mockito-core:2.+'
+    testCompile 'org.mockito:mockito-junit-jupiter:2.18.3'
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
 }
 
 task unpack(type: Copy) {
