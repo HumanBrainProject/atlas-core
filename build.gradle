@@ -19,7 +19,7 @@ apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'atlas-core'
+    archiveBaseName = 'atlas-core'
 }
 
 group = 'de.fzj'
@@ -53,7 +53,7 @@ task unpack(type: Copy) {
     into("build/dependency")
 }
 docker {
-    name "${project.group}/${bootJar.baseName}"
+    name "${project.group}/${bootJar.archiveBaseName}"
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
