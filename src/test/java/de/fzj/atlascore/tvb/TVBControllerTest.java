@@ -68,13 +68,4 @@ public class TVBControllerTest {
         verify(response).setContentLength((int) resource.getFile().length());
         verify(response).flushBuffer();
     }
-
-    @Test
-    public void shouldHandleIoExceptionWithNotFoundError() throws IOException {
-        doThrow(new IOException("")).when(resource).getFile();
-
-        TVBController.getDummyData(response);
-
-        verify(response, times(0)).flushBuffer();
-    }
 }

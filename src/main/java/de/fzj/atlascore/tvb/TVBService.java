@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -18,6 +19,28 @@ public class TVBService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    public List<String> getAllNodes() {
+        LinkedHashMap result = restTemplate.getForObject(connectivityUrl + "/connectivitywholebrain/brain", LinkedHashMap.class);
+
+        JSONObject jsonResult = new JSONObject(result);
+
+        Iterator<String> keys = jsonResult.keys();
+
+        return Stream.generate(() -> null)
+                .takeWhile(x -> keys.hasNext())
+                .map(x -> keys.next())
+                .sorted()
+                .map(Object::toString)
+                .collect(Collectors.toList());
+    }
+
+    public void getConnectivityForNode(String nodeValue) {
+        restTemplate.postForObject(connectivityUrl + "/connectivitywholebrain/" , "{\"area\":\"" + "\"}", LinkedHashMap.class);
+    }
+
+
+
 
     public LinkedHashMap getConnectivityForBrain(String brain) {
         return restTemplate.getForObject(connectivityUrl + "/connectivitywholebrain/" +  brain, LinkedHashMap.class);

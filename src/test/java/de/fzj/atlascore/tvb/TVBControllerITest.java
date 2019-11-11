@@ -46,7 +46,7 @@ public class TVBControllerITest {
 
     @Test
     public void shouldStartDownload() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/tvb/dummy")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(get("/brain/fz/dummy")).andExpect(status().isOk()).andReturn();
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(mvcResult.getResponse().getContentAsByteArray());
         ZipInputStream zipInputStream = new ZipInputStream(byteArrayInputStream);
