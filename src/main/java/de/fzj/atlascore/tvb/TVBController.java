@@ -1,5 +1,7 @@
 package de.fzj.atlascore.tvb;
 
+import de.fzj.atlascore.entity.Node;
+import de.fzj.atlascore.entity.Vector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -34,8 +36,8 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getInformationForNode(String nodeValue) {
-        return new ResponseEntity<>("{\"value\": \"Information for node: " +  nodeValue +"\"}", HttpStatus.OK);
+    public ResponseEntity<Node> getInformationForNode(String nodeValue) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override
@@ -44,13 +46,13 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getAverageOrientationForNode(String nodeValue) {
-        return new ResponseEntity<>("Average Orientation", HttpStatus.OK);
+    public ResponseEntity<Vector> getAverageOrientationForNode(String nodeValue) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<String> getCentresForNode(String nodeValue) {
-        return new ResponseEntity<>("Centre", HttpStatus.OK);
+    public ResponseEntity<Vector> getCentresForNode(String nodeValue) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override
@@ -59,8 +61,8 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getTractLengthsForNode(String nodeValue) {
-        return new ResponseEntity<>("Tract Length", HttpStatus.OK);
+    public ResponseEntity<String[]> getTractLengthsForNode(String nodeValue) {
+        return new ResponseEntity<>(new String[]{}, HttpStatus.OK);
     }
 
     @Override
@@ -69,8 +71,8 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getWeightsForNode(String nodeValue) {
-        return new ResponseEntity<>("Weights", HttpStatus.OK);
+    public ResponseEntity<String[]> getWeightsForNode(String nodeValue) {
+        return new ResponseEntity<>(new String[]{}, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{brainId}/node/{nodeValue}/connectivity", produces = MediaType.APPLICATION_JSON_VALUE)

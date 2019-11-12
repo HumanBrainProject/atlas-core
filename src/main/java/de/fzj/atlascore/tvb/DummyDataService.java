@@ -1,5 +1,7 @@
 package de.fzj.atlascore.tvb;
 
+import de.fzj.atlascore.entity.Node;
+import de.fzj.atlascore.entity.Vector;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -113,20 +115,28 @@ public class DummyDataService {
         return "";
     }
 
-    public String getAverageOrientationForNode(String node) throws IOException {
+    public Vector getAverageOrientationForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getAverageOrientations().get(indexOfNode);
+            return new Vector(
+                    Double.valueOf(getAverageOrientations().get(indexOfNode).split(" ")[0]),
+                    Double.valueOf(getAverageOrientations().get(indexOfNode).split(" ")[1]),
+                    Double.valueOf(getAverageOrientations().get(indexOfNode).split(" ")[2])
+            );
         }
-        return "";
+        return null;
     }
 
-    public String getCentreForNode(String node) throws IOException {
+    public Vector getCentreForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getCentres().get(indexOfNode);
+            return new Vector(
+                    Double.valueOf(getCentres().get(indexOfNode).split(" ")[1]),
+                    Double.valueOf(getCentres().get(indexOfNode).split(" ")[2]),
+                    Double.valueOf(getCentres().get(indexOfNode).split(" ")[3])
+            );
         }
-        return "";
+        return null;
     }
 
     public String getCorticalForNode(String node) throws IOException {
@@ -137,12 +147,12 @@ public class DummyDataService {
         return "";
     }
 
-    public String getTractLengthForNode(String node) throws IOException {
+    public String[] getTractLengthForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getTractLength().get(indexOfNode);
+            return getTractLength().get(indexOfNode).split(" ");
         }
-        return "";
+        return new String[]{};
     }
 
     public String getVolumeForNode(String node) throws IOException {
@@ -153,12 +163,24 @@ public class DummyDataService {
         return "";
     }
 
-    public String getWeightsForNode(String node) throws IOException {
+    public String[] getWeightsForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getWeights().get(indexOfNode);
+            return getWeights().get(indexOfNode).split(" ");
         }
-        return "";
+        return new String[]{};
+    }
+
+    public Node getAllNodeInformation(String node) throws IOException {
+        return new Node(
+            getAreaForNode(node),
+                getAverageOrientationForNode(node),
+                getCentreForNode(node),
+                getCorticalForNode(node),
+                getTractLengthForNode(node),
+                getVolumeForNode(node),
+                getWeightsForNode(node)
+        );
     }
     //endregion
 }
