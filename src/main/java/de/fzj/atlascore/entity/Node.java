@@ -1,19 +1,23 @@
 package de.fzj.atlascore.entity;
 
+/**
+ * Representation for one Node with all data for TVB simulation
+ */
 public class Node {
 
-    private String area;
+    private Double area;
     private Vector averageOrientation;
     private Vector centre;
-    private String cortical;
-    private String[] tractLength;
-    private String volume;
-    private String[] weights;
+    private Integer cortical;
+    private Double[] tractLength;
+    private Double volume;
+    private Double[] weights;
 
+    // For JSON parsing
     public Node() {
     }
 
-    public Node(String area, Vector averageOrientation, Vector centre, String cortical, String[] tractLength, String volume, String[] weights) {
+    public Node(Double area, Vector averageOrientation, Vector centre, Integer cortical, Double[] tractLength, Double volume, Double[] weights) {
         this.area = area;
         this.averageOrientation = averageOrientation;
         this.centre = centre;
@@ -23,11 +27,11 @@ public class Node {
         this.weights = weights;
     }
 
-    public String getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 
@@ -47,35 +51,35 @@ public class Node {
         this.centre = centre;
     }
 
-    public String getCortical() {
+    public Integer getCortical() {
         return cortical;
     }
 
-    public void setCortical(String cortical) {
+    public void setCortical(Integer cortical) {
         this.cortical = cortical;
     }
 
-    public String[] getTractLength() {
+    public Double[] getTractLength() {
         return tractLength;
     }
 
-    public void setTractLength(String[] tractLength) {
+    public void setTractLength(Double[] tractLength) {
         this.tractLength = tractLength;
     }
 
-    public String getVolume() {
+    public Double getVolume() {
         return volume;
     }
 
-    public void setVolume(String volume) {
+    public void setVolume(Double volume) {
         this.volume = volume;
     }
 
-    public String[] getWeights() {
+    public Double[] getWeights() {
         return weights;
     }
 
-    public void setWeights(String[] weights) {
+    public void setWeights(Double[] weights) {
         this.weights = weights;
     }
 }

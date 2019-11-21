@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -107,12 +108,12 @@ public class DummyDataService {
         return nodes;
     }
 
-    public String getAreaForNode(String node) throws IOException {
+    public Double getAreaForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getAllAreas().get(indexOfNode);
+            return Double.valueOf(getAllAreas().get(indexOfNode));
         }
-        return "";
+        return null;
     }
 
     public Vector getAverageOrientationForNode(String node) throws IOException {
@@ -139,36 +140,42 @@ public class DummyDataService {
         return null;
     }
 
-    public String getCorticalForNode(String node) throws IOException {
+    public Integer getCorticalForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getCortical().get(indexOfNode);
+            return Integer.valueOf(getCortical().get(indexOfNode));
         }
-        return "";
+        return null;
     }
 
-    public String[] getTractLengthForNode(String node) throws IOException {
+    public Double[] getTractLengthForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getTractLength().get(indexOfNode).split(" ");
+            return Arrays.stream(
+                    getTractLength().get(indexOfNode).split(" "))
+                    .map(Double::valueOf)
+                    .toArray(Double[]::new);
         }
-        return new String[]{};
+        return new Double[]{};
     }
 
-    public String getVolumeForNode(String node) throws IOException {
+    public Double getVolumeForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getVolumes().get(indexOfNode);
+            return Double.valueOf(getVolumes().get(indexOfNode));
         }
-        return "";
+        return null;
     }
 
-    public String[] getWeightsForNode(String node) throws IOException {
+    public Double[] getWeightsForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return getWeights().get(indexOfNode).split(" ");
+            return Arrays.stream(
+                    getWeights().get(indexOfNode).split(" "))
+                    .map(Double::valueOf)
+                    .toArray(Double[]::new);
         }
-        return new String[]{};
+        return new Double[]{};
     }
 
     public Node getAllNodeInformation(String node) throws IOException {

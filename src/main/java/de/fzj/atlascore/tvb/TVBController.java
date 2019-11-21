@@ -41,8 +41,8 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getAreaForNode(String nodeValue) {
-        return new ResponseEntity<>("Area", HttpStatus.OK);
+    public ResponseEntity<Double> getAreaForNode(String nodeValue) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override
@@ -56,23 +56,23 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> isCorticalForNode(String nodeValue) {
-        return new ResponseEntity<>("Cortical", HttpStatus.OK);
+    public ResponseEntity<Integer> isCorticalForNode(String nodeValue) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<String[]> getTractLengthsForNode(String nodeValue) {
-        return new ResponseEntity<>(new String[]{}, HttpStatus.OK);
+    public ResponseEntity<Double[]> getTractLengthsForNode(String nodeValue) {
+        return new ResponseEntity<>(new Double[]{}, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<String> getVolumesForNode(String nodeValue) {
-        return new ResponseEntity<>("Volumes", HttpStatus.OK);
+    public ResponseEntity<Double> getVolumesForNode(String nodeValue) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<String[]> getWeightsForNode(String nodeValue) {
-        return new ResponseEntity<>(new String[]{}, HttpStatus.OK);
+    public ResponseEntity<Double[]> getWeightsForNode(String nodeValue) {
+        return new ResponseEntity<>(new Double[]{}, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{brainId}/node/{nodeValue}/connectivity", produces = MediaType.APPLICATION_JSON_VALUE)

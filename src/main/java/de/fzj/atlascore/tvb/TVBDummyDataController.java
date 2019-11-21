@@ -63,9 +63,9 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getAreaForNode(String nodeValue) {
+    public ResponseEntity<Double> getAreaForNode(String nodeValue) {
         try {
-            return new ResponseEntity<>("{\"area\": " + dummyDataService.getAreaForNode(nodeValue) +"}", HttpStatus.OK);
+            return new ResponseEntity<>(dummyDataService.getAreaForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -93,9 +93,9 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> isCorticalForNode(String nodeValue) {
+    public ResponseEntity<Integer> isCorticalForNode(String nodeValue) {
         try {
-            return new ResponseEntity<>("{\"cortical\": " + dummyDataService.getCorticalForNode(nodeValue) +"}", HttpStatus.OK);
+            return new ResponseEntity<>(dummyDataService.getCorticalForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -103,7 +103,7 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String[]> getTractLengthsForNode(String nodeValue) {
+    public ResponseEntity<Double[]> getTractLengthsForNode(String nodeValue) {
         try {
             return new ResponseEntity<>(dummyDataService.getTractLengthForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {
@@ -113,9 +113,9 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String> getVolumesForNode(String nodeValue) {
+    public ResponseEntity<Double> getVolumesForNode(String nodeValue) {
         try {
-            return new ResponseEntity<>("{\"volume\": " + dummyDataService.getVolumeForNode(nodeValue) +"}", HttpStatus.OK);
+            return new ResponseEntity<>(dummyDataService.getVolumeForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -123,7 +123,7 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<String[]> getWeightsForNode(String nodeValue) {
+    public ResponseEntity<Double[]> getWeightsForNode(String nodeValue) {
         try {
             return new ResponseEntity<>(dummyDataService.getWeightsForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {
