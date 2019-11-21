@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -27,22 +26,12 @@ public class TVBDummyDataController implements ITVBController {
 
     @Override
     public ResponseEntity<List<String>> getAllNodes() {
-        try {
-            return new ResponseEntity<>(dummyDataService.getAllNodes(), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getAllNodes(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Node> getInformationForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getAllNodeInformation(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getAllNodeInformation(nodeValue), HttpStatus.OK);
     }
 
     @GetMapping(value = "/node/{nodeValue}/restful", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,71 +54,36 @@ public class TVBDummyDataController implements ITVBController {
 
     @Override
     public ResponseEntity<Double> getAreaForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getAreaForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getAreaForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vector> getAverageOrientationForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getAverageOrientationForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getAverageOrientationForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vector> getCentresForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getCentreForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getCentreForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Integer> isCorticalForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getCorticalForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getCorticalForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TractLength[]> getTractLengthsForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getTractLengthForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getTractLengthForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Double> getVolumesForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getVolumeForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getVolumeForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Weights[]> getWeightsForNode(String nodeValue) {
-        try {
-            return new ResponseEntity<>(dummyDataService.getWeightsForNode(nodeValue), HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new ResponseEntity<>(dummyDataService.getWeightsForNode(nodeValue), HttpStatus.OK);
     }
 }

@@ -39,7 +39,7 @@ public class TVBController implements ITVBController {
 
     @Override
     public ResponseEntity<Node> getInformationForNode(String nodeValue) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getAllNodeInformation(nodeValue), HttpStatus.OK);
     }
 
     @Override
@@ -105,10 +105,5 @@ public class TVBController implements ITVBController {
     public ResponseEntity<Object> getConnectivityForBrainArea(
             @PathVariable("id") String id, @PathVariable("area") String area) {
         return new ResponseEntity<>(tvbService.getConnectivityForBrain(id), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/export")
-    public ResponseEntity<Object> createExport() {
-        return new ResponseEntity<>(tvbService.createTVBExport(), HttpStatus.OK);
     }
 }
