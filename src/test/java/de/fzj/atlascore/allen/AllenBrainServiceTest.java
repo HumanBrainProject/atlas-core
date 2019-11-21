@@ -35,9 +35,4 @@ public class AllenBrainServiceTest {
                 Object.class
         );
     }
-
-    @Test
-    public void dummyFailingTest() {
-        fail("planned failure");
-    }
 }
