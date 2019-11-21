@@ -3,7 +3,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+        classpath 'gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1'
     }
 }
 
@@ -11,20 +12,25 @@ plugins {
     id 'org.springframework.boot' version '2.1.8.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'org.sonarqube' version '2.7'
 }
 
-apply plugin: 'com.palantir.docker'
+//apply plugin: 'com.palantir.docker'
 apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
 
 bootJar {
     archiveBaseName = 'atlas-core'
 }
 
+
+
 group = 'de.fzj'
 version = '0.1.0'
-sourceCompatibility = '8'
+sourceCompatibility = '9'
 
 repositories {
     mavenCentral()
@@ -43,17 +49,29 @@ dependencies {
     testCompile 'org.mockito:mockito-junit-jupiter:2.18.3'
 }
 
+sonarqube {
+    properties {
+        property 'sonar.sourceEncoding', 'UTF-8'
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
 configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
 }
 
-task unpack(type: Copy) {
-    dependsOn bootJar
-    from(zipTree(tasks.bootJar.outputs.files.singleFile))
-    into("build/dependency")
-}
-docker {
-    name "${project.group}/${bootJar.archiveBaseName}"
-    copySpec.from(tasks.unpack.outputs).into("dependency")
-    buildArgs(['DEPENDENCY': "dependency"])
-}
+//task unpack(type: Copy) {
+//    dependsOn bootJar
+//    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+//    into("build/dependency")
+//}
+//docker {
+//    name "${project.group}/${bootJar.archiveBaseName}"
+//    copySpec.from(tasks.unpack.outputs).into("dependency")
+//    buildArgs(['DEPENDENCY': "dependency"])
+//}
