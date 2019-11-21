@@ -1,6 +1,8 @@
 package de.fzj.atlascore.tvb;
 
 import de.fzj.atlascore.entity.Node;
+import de.fzj.atlascore.entity.TractLength;
+import de.fzj.atlascore.entity.Weights;
 import de.fzj.atlascore.entity.Vector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -61,8 +63,8 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<Double[]> getTractLengthsForNode(String nodeValue) {
-        return new ResponseEntity<>(new Double[]{}, HttpStatus.OK);
+    public ResponseEntity<TractLength[]> getTractLengthsForNode(String nodeValue) {
+        return new ResponseEntity<>(new TractLength[]{}, HttpStatus.OK);
     }
 
     @Override
@@ -71,8 +73,8 @@ public class TVBController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<Double[]> getWeightsForNode(String nodeValue) {
-        return new ResponseEntity<>(new Double[]{}, HttpStatus.OK);
+    public ResponseEntity<Weights[]> getWeightsForNode(String nodeValue) {
+        return new ResponseEntity<>(tvbService.getWeightsForNode(nodeValue), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{brainId}/node/{nodeValue}/connectivity", produces = MediaType.APPLICATION_JSON_VALUE)

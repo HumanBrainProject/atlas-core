@@ -1,6 +1,8 @@
 package de.fzj.atlascore.tvb;
 
 import de.fzj.atlascore.entity.Node;
+import de.fzj.atlascore.entity.TractLength;
+import de.fzj.atlascore.entity.Weights;
 import de.fzj.atlascore.entity.Vector;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +30,9 @@ public interface ITVBController {
     @GetMapping(value = "/node/{nodeValue}/cortical", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Integer> isCorticalForNode(@PathVariable(value = "nodeValue") String nodeValue);
     @GetMapping(value = "/node/{nodeValue}/tract-length", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Double[]> getTractLengthsForNode(@PathVariable(value = "nodeValue") String nodeValue);
+    ResponseEntity<TractLength[]> getTractLengthsForNode(@PathVariable(value = "nodeValue") String nodeValue);
     @GetMapping(value = "/node/{nodeValue}/volume", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Double> getVolumesForNode(@PathVariable(value = "nodeValue") String nodeValue);
     @GetMapping(value = "/node/{nodeValue}/weights", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Double[]> getWeightsForNode(@PathVariable(value = "nodeValue") String nodeValue);
+    ResponseEntity<Weights[]> getWeightsForNode(@PathVariable(value = "nodeValue") String nodeValue);
 }

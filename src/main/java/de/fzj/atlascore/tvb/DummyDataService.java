@@ -1,6 +1,8 @@
 package de.fzj.atlascore.tvb;
 
 import de.fzj.atlascore.entity.Node;
+import de.fzj.atlascore.entity.TractLength;
+import de.fzj.atlascore.entity.Weights;
 import de.fzj.atlascore.entity.Vector;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -148,15 +150,17 @@ public class DummyDataService {
         return null;
     }
 
-    public Double[] getTractLengthForNode(String node) throws IOException {
+    public TractLength[] getTractLengthForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return Arrays.stream(
-                    getTractLength().get(indexOfNode).split(" "))
-                    .map(Double::valueOf)
-                    .toArray(Double[]::new);
+            List<TractLength> tractLengths = new LinkedList<>();
+            String[] lengthAsString = getTractLength().get(indexOfNode).split(" ");
+            for(int i=0; i<lengthAsString.length; i++) {
+                tractLengths.add(new TractLength(getAllNodes().get(i), Double.valueOf(lengthAsString[i])));
+            }
+            return tractLengths.stream().toArray(TractLength[]::new);
         }
-        return new Double[]{};
+        return new TractLength[]{};
     }
 
     public Double getVolumeForNode(String node) throws IOException {
@@ -167,15 +171,17 @@ public class DummyDataService {
         return null;
     }
 
-    public Double[] getWeightsForNode(String node) throws IOException {
+    public Weights[] getWeightsForNode(String node) throws IOException {
         int indexOfNode = getAllNodes().indexOf(node);
         if(indexOfNode > -1) {
-            return Arrays.stream(
-                    getWeights().get(indexOfNode).split(" "))
-                    .map(Double::valueOf)
-                    .toArray(Double[]::new);
+            List<Weights> weights = new LinkedList<>();
+            String[] weightsAsString = getWeights().get(indexOfNode).split(" ");
+            for(int i=0; i<weightsAsString.length; i++) {
+                weights.add(new Weights(getAllNodes().get(i), Double.valueOf(weightsAsString[i])));
+            }
+            return weights.stream().toArray(Weights[]::new);
         }
-        return new Double[]{};
+        return new Weights[]{};
     }
 
     public Node getAllNodeInformation(String node) throws IOException {

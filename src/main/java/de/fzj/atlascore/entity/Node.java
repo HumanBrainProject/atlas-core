@@ -9,15 +9,15 @@ public class Node {
     private Vector averageOrientation;
     private Vector centre;
     private Integer cortical;
-    private Double[] tractLength;
+    private TractLength[] tractLength;
     private Double volume;
-    private Double[] weights;
+    private Weights[] weights;
 
     // For JSON parsing
     public Node() {
     }
 
-    public Node(Double area, Vector averageOrientation, Vector centre, Integer cortical, Double[] tractLength, Double volume, Double[] weights) {
+    public Node(Double area, Vector averageOrientation, Vector centre, Integer cortical, TractLength[] tractLength, Double volume, Weights[] weights) {
         this.area = area;
         this.averageOrientation = averageOrientation;
         this.centre = centre;
@@ -59,11 +59,11 @@ public class Node {
         this.cortical = cortical;
     }
 
-    public Double[] getTractLength() {
+    public TractLength[] getTractLength() {
         return tractLength;
     }
 
-    public void setTractLength(Double[] tractLength) {
+    public void setTractLength(TractLength[] tractLength) {
         this.tractLength = tractLength;
     }
 
@@ -75,11 +75,11 @@ public class Node {
         this.volume = volume;
     }
 
-    public Double[] getWeights() {
+    public Weights[] getWeights() {
         return weights;
     }
 
-    public void setWeights(Double[] weights) {
+    public void setWeights(Weights[] weights) {
         this.weights = weights;
     }
 }

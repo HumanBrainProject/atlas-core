@@ -1,6 +1,8 @@
 package de.fzj.atlascore.tvb;
 
 import de.fzj.atlascore.entity.Node;
+import de.fzj.atlascore.entity.TractLength;
+import de.fzj.atlascore.entity.Weights;
 import de.fzj.atlascore.entity.Vector;
 import org.eclipse.jetty.server.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
@@ -103,7 +104,7 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<Double[]> getTractLengthsForNode(String nodeValue) {
+    public ResponseEntity<TractLength[]> getTractLengthsForNode(String nodeValue) {
         try {
             return new ResponseEntity<>(dummyDataService.getTractLengthForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {
@@ -123,7 +124,7 @@ public class TVBDummyDataController implements ITVBController {
     }
 
     @Override
-    public ResponseEntity<Double[]> getWeightsForNode(String nodeValue) {
+    public ResponseEntity<Weights[]> getWeightsForNode(String nodeValue) {
         try {
             return new ResponseEntity<>(dummyDataService.getWeightsForNode(nodeValue), HttpStatus.OK);
         } catch (IOException e) {

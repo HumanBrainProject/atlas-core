@@ -1,6 +1,7 @@
 package de.fzj.atlascore.tvb;
 
 import de.fzj.atlascore.entity.Area;
+import de.fzj.atlascore.entity.Weights;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,9 @@ import java.util.stream.Stream;
 @Service
 public class TVBService {
 
+    private static List<String> nodes = null;
+    private static Weights[] weights = null;
+
     @Value("${connectivity.url}")
     private String connectivityUrl;
 
@@ -21,25 +25,39 @@ public class TVBService {
     private RestTemplate restTemplate;
 
     public List<String> getAllNodes() {
-        LinkedHashMap result = restTemplate.getForObject(connectivityUrl + "/connectivitywholebrain/brain", LinkedHashMap.class);
+        if (nodes == null) {
+            LinkedHashMap result = restTemplate.getForObject(connectivityUrl + "/connectivitywholebrain/brain", LinkedHashMap.class);
 
-        JSONObject jsonResult = new JSONObject(result);
+            JSONObject jsonResult = new JSONObject(result);
 
-        Iterator<String> keys = jsonResult.keys();
+            Iterator<String> keys = jsonResult.keys();
+            nodes = Stream.generate(() -> null)
+                    .takeWhile(x -> keys.hasNext())
+                    .map(x -> keys.next())
+                    .sorted()
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
 
-        return Stream.generate(() -> null)
-                .takeWhile(x -> keys.hasNext())
-                .map(x -> keys.next())
-                .sorted()
-                .map(Object::toString)
-                .collect(Collectors.toList());
+        }
+        return nodes;
     }
 
-    public void getConnectivityForNode(String nodeValue) {
-        restTemplate.postForObject(connectivityUrl + "/connectivitywholebrain/" , "{\"area\":\"" + "\"}", LinkedHashMap.class);
+    private LinkedHashMap getConnectivityForNode(String nodeValue) {
+        return restTemplate.postForObject(
+                connectivityUrl + "/connectivity" ,
+                "{\"area\":\"" + nodeValue + "\"}",
+                LinkedHashMap.class
+        );
     }
 
-
+    public Weights[] getWeightsForNode(String node) {
+        LinkedHashMap connectivityForBrain = getConnectivityForNode(node);
+        List<Weights> weights = new LinkedList<>();
+        for(Object key : connectivityForBrain.keySet()) {
+            weights.add(new Weights(key.toString(), Double.valueOf(connectivityForBrain.get(key).toString())));
+        }
+        return weights.stream().toArray(Weights[]::new);
+    }
 
 
     public LinkedHashMap getConnectivityForBrain(String brain) {
