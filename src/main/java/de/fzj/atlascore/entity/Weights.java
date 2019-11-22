@@ -1,5 +1,7 @@
 package de.fzj.atlascore.entity;
 
+import java.util.Objects;
+
 public class Weights {
 
     private String node;
@@ -28,5 +30,19 @@ public class Weights {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Weights weights = (Weights) o;
+        return Double.compare(weights.weight, weight) == 0 &&
+                Objects.equals(node, weights.node);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(node, weight);
     }
 }

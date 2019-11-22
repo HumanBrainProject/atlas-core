@@ -103,10 +103,4 @@ public class TVBController implements ITVBController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping(value = "/brain/{id}/{area}")
-    public ResponseEntity<Object> getConnectivityForBrainArea(
-            @PathVariable("id") String id, @PathVariable("area") String area) {
-        return new ResponseEntity<>(tvbService.getConnectivityForBrain(id), HttpStatus.OK);
-    }
 }

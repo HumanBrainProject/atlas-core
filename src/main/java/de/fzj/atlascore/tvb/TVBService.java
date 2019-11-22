@@ -102,8 +102,4 @@ public class TVBService implements ITVBService {
         }
         return weights;
     }
-
-    public LinkedHashMap getConnectivityForBrain(String brain) {
-        return restTemplate.getForObject(connectivityUrl + "/connectivitywholebrain/" +  brain, LinkedHashMap.class);
-    }
 }
