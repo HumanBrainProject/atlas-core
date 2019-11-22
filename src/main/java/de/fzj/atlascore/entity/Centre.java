@@ -7,6 +7,7 @@ public class Centre {
     private double y;
     private double z;
 
+    // For JSON parsing
     public Centre() {
     }
 

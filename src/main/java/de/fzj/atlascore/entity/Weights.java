@@ -5,6 +5,7 @@ public class Weights {
     private String node;
     private double weight;
 
+    // For JSON parsing
     public Weights() {
     }
 

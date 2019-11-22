@@ -30,5 +30,5 @@ public interface ITVBService {
                 getVolumeForNode(node),
                 getWeightsForNode(node)
         );
-    };
+    }
 }

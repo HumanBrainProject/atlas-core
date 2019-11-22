@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Interface for TVB controller with defined path values
+ * Base root of the class must be replaced.
+ * Example: default -> brain/brainId
+ */
 @RestController
 @RequestMapping("default")
 public interface ITVBController {

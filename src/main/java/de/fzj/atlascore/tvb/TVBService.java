@@ -13,9 +13,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Service to deliver data from connectivity app
+ *
+ * @see ITVBService
+ */
 @Service
 public class TVBService implements ITVBService {
 
+    /**
+     * static cache
+     */
     private static List<String> nodes = null;
     private static Weights[] weights = null;
 

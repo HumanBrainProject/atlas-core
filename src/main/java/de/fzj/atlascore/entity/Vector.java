@@ -6,6 +6,7 @@ public class Vector {
     private double y;
     private double z;
 
+    // For JSON parsing
     public Vector() {
     }
 

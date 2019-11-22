@@ -1,14 +1,18 @@
 package de.fzj.atlascore.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Representation for one Node with all data for TVB simulation
  */
 public class Node {
 
     private Double area;
+    @JsonProperty("average-orientation")
     private Vector averageOrientation;
     private Vector centre;
     private Integer cortical;
+    @JsonProperty("tract-length")
     private TractLength[] tractLength;
     private Double volume;
     private Weights[] weights;

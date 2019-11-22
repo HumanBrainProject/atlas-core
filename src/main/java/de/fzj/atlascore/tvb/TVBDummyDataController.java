@@ -17,21 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * Controller to deliver dummy data.
+ * All data is static and only to test the endpoints with valid values.
+ *
+ * @see ITVBController
+ */
 @RestController
 @RequestMapping("/brain/dummy")
 public class TVBDummyDataController implements ITVBController {
 
     @Autowired
-    private DummyDataService dummyDataService;
+    private TVBDummyDataService TVBDummyDataService;
 
     @Override
     public ResponseEntity<List<String>> getAllNodes() {
-        return new ResponseEntity<>(dummyDataService.getAllNodes(), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getAllNodes(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Node> getInformationForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getAllNodeInformation(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getAllNodeInformation(nodeValue), HttpStatus.OK);
     }
 
     @GetMapping(value = "/node/{nodeValue}/restful", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,36 +60,36 @@ public class TVBDummyDataController implements ITVBController {
 
     @Override
     public ResponseEntity<Double> getAreaForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getAreaForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getAreaForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vector> getAverageOrientationForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getAverageOrientationForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getAverageOrientationForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vector> getCentresForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getCentreForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getCentreForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Integer> isCorticalForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getCorticalForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getCorticalForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TractLength[]> getTractLengthsForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getTractLengthForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getTractLengthForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Double> getVolumesForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getVolumeForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getVolumeForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Weights[]> getWeightsForNode(String nodeValue) {
-        return new ResponseEntity<>(dummyDataService.getWeightsForNode(nodeValue), HttpStatus.OK);
+        return new ResponseEntity<>(TVBDummyDataService.getWeightsForNode(nodeValue), HttpStatus.OK);
     }
 }

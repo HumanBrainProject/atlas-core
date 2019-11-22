@@ -5,6 +5,7 @@ public class TractLength {
     private String node;
     private double length;
 
+    // For JSON parsing
     public TractLength() {
     }
 

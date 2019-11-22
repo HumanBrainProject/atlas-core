@@ -1,6 +1,5 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.entity.Node;
 import de.fzj.atlascore.entity.TractLength;
 import de.fzj.atlascore.entity.Weights;
 import de.fzj.atlascore.entity.Vector;
@@ -8,13 +7,17 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service to read static dummy data from resources
+ *
+ * @see ITVBService
+ */
 @Service
-public class DummyDataService implements ITVBService {
+public class TVBDummyDataService implements ITVBService {
 
     /**
      * Static data as cache
@@ -167,7 +170,7 @@ public class DummyDataService implements ITVBService {
             for(int i=0; i<lengthAsString.length; i++) {
                 tractLengths.add(new TractLength(getAllNodes().get(i), Double.valueOf(lengthAsString[i])));
             }
-            return tractLengths.stream().toArray(TractLength[]::new);
+            return tractLengths.toArray(new TractLength[0]);
         }
         return new TractLength[]{};
     }
@@ -188,7 +191,7 @@ public class DummyDataService implements ITVBService {
             for(int i=0; i<weightsAsString.length; i++) {
                 weights.add(new Weights(getAllNodes().get(i), Double.valueOf(weightsAsString[i])));
             }
-            return weights.stream().toArray(Weights[]::new);
+            return weights.toArray(new Weights[0]);
         }
         return new Weights[]{};
     }
