@@ -1,14 +1,14 @@
 #Atlas Core
 
-## Explanation
+Prototype of an application to provide endpoints with functionality for the atlas viewer and further information using also the knowledge graph.
 
-## swagger
+## Documentation 
+All endpoints are documented with swagger.
+
+URL: <Base-URL>/swagger-ui.html
 
 ## Health and Metrics
 
-## Running
+There are health endpoints provided with Spring Boot Actuator:
 
-
-
-POST - https://connectivityquery-connectivity.apps-dev.hbp.eu/connectivity
-Payload: {"area":"Area FG1 (FusG)"}
+URL: <Base-URL>/actuator/health
