@@ -47,32 +47,32 @@ public class TVBController implements ITVBController {
 
     @Override
     public ResponseEntity<Double> getAreaForNode(String nodeValue) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getAreaForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vector> getAverageOrientationForNode(String nodeValue) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getAverageOrientationForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vector> getCentresForNode(String nodeValue) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getCentreForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Integer> isCorticalForNode(String nodeValue) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getCorticalForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TractLength[]> getTractLengthsForNode(String nodeValue) {
-        return new ResponseEntity<>(new TractLength[]{}, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getTractLengthForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Double> getVolumesForNode(String nodeValue) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(tvbService.getVolumeForNode(nodeValue), HttpStatus.OK);
     }
 
     @Override

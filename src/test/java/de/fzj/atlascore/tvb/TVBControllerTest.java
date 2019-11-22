@@ -25,6 +25,8 @@ public class TVBControllerTest {
 
     private static final String DUMMY_ZIP_FILE = "DUMMY_ZIP_FILE";
     private static final long DUMMY_FILE_SIZE = 1337;
+    private static final String NODE_1 = "node1";
+
     @Mock
     private ResourceLoader resourceLoader;
 
@@ -43,8 +45,11 @@ public class TVBControllerTest {
     @Mock
     private InputStream inputStream;
 
+    @Mock
+    private TVBService tvbService;
+
     @InjectMocks
-    private TVBController TVBController;
+    private TVBController tvbController;
 
     @Before
     public void setUp() throws IOException {
@@ -59,8 +64,70 @@ public class TVBControllerTest {
     }
 
     @Test
+    public void shouldGetAllNodes() {
+        tvbController.getAllNodes();
+
+        verify(tvbService, times(1)).getAllNodes();
+    }
+
+    @Test
+    public void shouldGetInformationForNode() {
+        tvbController.getInformationForNode(NODE_1);
+
+        verify(tvbService, times(1)).getAllNodeInformation(NODE_1);
+    }
+
+    @Test
+    public void shouldGetAreaForNode() {
+        tvbController.getAreaForNode(NODE_1);
+
+        verify(tvbService, times(1)).getAreaForNode(NODE_1);
+    }
+
+    @Test
+    public void shouldGetAverageOrientationForNode() {
+        tvbController.getAverageOrientationForNode(NODE_1);
+
+        verify(tvbService, times(1)).getAverageOrientationForNode(NODE_1);
+    }
+    @Test
+    public void shouldGetCentresForNode() {
+        tvbController.getCentresForNode(NODE_1);
+
+        verify(tvbService, times(1)).getCentreForNode(NODE_1);
+    }
+
+    @Test
+    public void isCorticalForNode() {
+        tvbController.isCorticalForNode(NODE_1);
+
+        verify(tvbService, times(1)).getCorticalForNode(NODE_1);
+    }
+
+    @Test
+    public void shouldGetTractLengthsForNode() {
+        tvbController.getTractLengthsForNode(NODE_1);
+
+        verify(tvbService, times(1)).getTractLengthForNode(NODE_1);
+    }
+
+    @Test
+    public void shouldGetVolumesForNode() {
+        tvbController.getVolumesForNode(NODE_1);
+
+        verify(tvbService, times(1)).getVolumeForNode(NODE_1);
+    }
+
+    @Test
+    public void shouldGetWeightsForNode() {
+        tvbController.getWeightsForNode(NODE_1);
+
+        verify(tvbService, times(1)).getWeightsForNode(NODE_1);
+    }
+
+    @Test
     public void shouldReturnAResourceAsStream() throws IOException {
-        TVBController.getDummyData(response);
+        tvbController.getDummyData(response);
 
         verify(response).setHeader(HttpHeaders.CONTENT_ENCODING, "binary");
         verify(response).setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
