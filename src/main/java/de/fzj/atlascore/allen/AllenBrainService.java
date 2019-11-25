@@ -1,5 +1,7 @@
 package de.fzj.atlascore.allen;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AllenBrainService {
 
+    private static final Logger LOGGER = LogManager.getLogger(AllenBrainService.class);
+
     @Value("${allen.url}")
     private String allenBrainUrl;
 
@@ -20,6 +24,7 @@ public class AllenBrainService {
 
     @Cacheable("api-data")
     public Object getOntologyStructure() {
+        LOGGER.info("Getting Allen brain structure by requesting api");
         return restTemplate.getForObject(
                 allenBrainUrl + "/structure_graph_download/1.json",
                 Object.class
