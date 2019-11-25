@@ -64,16 +64,4 @@ public class SwaggerConfig {
         return new SecurityReference(AUTHORIZATION_HEADER, new AuthorizationScope[0]);
     }
     //endregion
-
-    //region === Scheme and reference for Basic Auth in swagger ui (NOT USED AT THE MOMENT)
-    /*private SecurityScheme basicAuthScheme() {
-        return new BasicAuth("basicAuth");
-    }
-
-    private SecurityReference basicAuthReference() {
-        return new SecurityReference("basicAuth", new AuthorizationScope[0]);
-    }
-    */
-    //endregion
-
 }

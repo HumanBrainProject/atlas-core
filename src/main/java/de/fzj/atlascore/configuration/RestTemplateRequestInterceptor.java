@@ -13,7 +13,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * An interceptor for the custom {@link org.springframework.web.client.RestTemplate} bean.
@@ -43,9 +43,8 @@ public class RestTemplateRequestInterceptor implements ClientHttpRequestIntercep
         if(!Strings.isNullOrEmpty(requestContextService.getAuthorizationHeader())) {
             request.getHeaders().add(HttpHeaders.AUTHORIZATION, requestContextService.getAuthorizationHeader());
         }
-        request.getHeaders().setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        request.getHeaders().setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         request.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-        ClientHttpResponse response = execution.execute(request, body);
-        return response;
+        return execution.execute(request, body);
     }
 }
