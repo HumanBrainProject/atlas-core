@@ -3,7 +3,6 @@ package de.fzj.atlascore.configuration;
 import com.google.common.base.Strings;
 import de.fzj.atlascore.service.RequestContextService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
@@ -18,7 +17,7 @@ import java.util.Collections;
 /**
  * An interceptor for the custom {@link org.springframework.web.client.RestTemplate} bean.
  *
- * @see RestTemplateConfiguration#restTemplate(RestTemplateBuilder)
+ * @see RestTemplateConfiguration
  */
 @Component
 public class RestTemplateRequestInterceptor implements ClientHttpRequestInterceptor {

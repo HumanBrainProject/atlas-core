@@ -31,6 +31,11 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
+                .tags(
+                        new Tag("Allen brain", "Data from allen brain api"),
+                        new Tag("Knowledge Graph", "Data from the knowledge graph"),
+                        new Tag("TVB", "TVB data for simulations")
+                )
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(authorizationHeaderScheme()));
     }
@@ -40,7 +45,7 @@ public class SwaggerConfig {
                 "Atlas Core REST API",
                 "Description of all endpoints provided by the atlas core",
                 "0.0.1",
-                "Terms of Service",
+                "/tos",
                 new Contact("Vadim Marcenko", "", "v.marcenko@fz-juelich.de"),
                 "License ...",
                 "License URL ...",

@@ -4,6 +4,7 @@ import de.fzj.atlascore.entity.Node;
 import de.fzj.atlascore.entity.TractLength;
 import de.fzj.atlascore.entity.Weights;
 import de.fzj.atlascore.entity.Vector;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/brain/fz")
+@Api(tags = {"TVB"})
 public class TVBController implements ITVBController {
 
     @Autowired
