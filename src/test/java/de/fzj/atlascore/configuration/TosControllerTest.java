@@ -15,6 +15,6 @@ public class TosControllerTest {
 
     @Test
     public void shouldReturnTosSite() {
-        assertEquals("/tos", tosController.getTos());
+        assertEquals("tos", tosController.getTos());
     }
 }

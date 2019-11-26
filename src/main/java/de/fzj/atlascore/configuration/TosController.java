@@ -11,6 +11,6 @@ public class TosController {
 
     @RequestMapping(value = "/tos")
     public String getTos() {
-        return "/tos";
+        return "tos";
     }
 }
