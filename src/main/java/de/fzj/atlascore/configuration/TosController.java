@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TosController {
 
-    @RequestMapping(path = "tos")
+    @RequestMapping(value = "/tos")
     public String getTos() {
         return "/tos";
     }
