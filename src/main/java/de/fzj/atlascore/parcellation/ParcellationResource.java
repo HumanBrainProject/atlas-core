@@ -19,4 +19,8 @@ public class ParcellationResource extends ResourceSupport {
                 .getAllRegions(referencespace, parcellation.getName())
         ).withRel("regions"));
     }
+
+    public Parcellation getParcellation() {
+        return parcellation;
+    }
 }

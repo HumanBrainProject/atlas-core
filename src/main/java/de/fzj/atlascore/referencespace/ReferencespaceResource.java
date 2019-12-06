@@ -19,4 +19,8 @@ public class ReferencespaceResource extends ResourceSupport {
                 .getAllParcellationsForReferencespace(referencespace.getName())
         ).withRel("parcellations"));
     }
+
+    public Referencespace getReferencespace() {
+        return referencespace;
+    }
 }

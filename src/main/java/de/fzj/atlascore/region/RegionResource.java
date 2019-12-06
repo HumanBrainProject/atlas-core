@@ -15,4 +15,8 @@ public class RegionResource extends ResourceSupport {
                 .getRegion(referencespace, parcellation, region.getName())
         ).withSelfRel());
     }
+
+    public Region getRegion() {
+        return region;
+    }
 }
