@@ -25,7 +25,7 @@ public class ParcellationController {
 
     @GetMapping
     public Resources<ParcellationResource> getAllParcellationsForReferencespace(@PathVariable("refSpaceName") String refSpaceName) {
-        List<Parcellation> parcellations = parcellationService.getParcellations();
+        List<Parcellation> parcellations = parcellationService.getParcellations(refSpaceName);
 
         return new Resources<>(
                 parcellations
