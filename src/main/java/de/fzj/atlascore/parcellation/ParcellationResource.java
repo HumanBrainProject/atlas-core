@@ -2,10 +2,12 @@ package de.fzj.atlascore.parcellation;
 
 import de.fzj.atlascore.region.RegionController;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.core.Relation;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Relation(collectionRelation = "parcellations")
 public class ParcellationResource extends ResourceSupport {
 
     private final Parcellation parcellation;

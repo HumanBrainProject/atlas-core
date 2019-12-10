@@ -1,10 +1,13 @@
 package de.fzj.atlascore.region;
 
+import de.fzj.atlascore.region.entity.Region;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.core.Relation;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Relation(collectionRelation = "regions")
 public class RegionResource extends ResourceSupport {
 
     private final Region region;
@@ -14,27 +17,6 @@ public class RegionResource extends ResourceSupport {
         add(linkTo(methodOn(RegionController.class)
                 .getRegion(referencespace, parcellation, region.getName())
         ).withSelfRel());
-        add(linkTo(methodOn(RegionController.class)
-                .getArea(referencespace, parcellation, region.getName())
-        ).withRel("data"));
-        add(linkTo(methodOn(RegionController.class)
-                .getAverageOrientation(referencespace, parcellation, region.getName())
-        ).withRel("data"));
-        add(linkTo(methodOn(RegionController.class)
-                .getCentres(referencespace, parcellation, region.getName())
-        ).withRel("data"));
-        add(linkTo(methodOn(RegionController.class)
-                .getTractLengths(referencespace, parcellation, region.getName())
-        ).withRel("data"));
-        add(linkTo(methodOn(RegionController.class)
-                .getVolumes(referencespace, parcellation, region.getName())
-        ).withRel("data"));
-        add(linkTo(methodOn(RegionController.class)
-                .getWeights(referencespace, parcellation, region.getName())
-        ).withRel("data"));
-        add(linkTo(methodOn(RegionController.class)
-                .isCortical(referencespace, parcellation, region.getName())
-        ).withRel("data"));
     }
 
     public Region getRegion() {

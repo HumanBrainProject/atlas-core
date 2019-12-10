@@ -1,6 +1,9 @@
-package de.fzj.atlascore.entity;
+package de.fzj.atlascore.tvb;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.fzj.atlascore.region.entity.TractLength;
+import de.fzj.atlascore.region.entity.Vector;
+import de.fzj.atlascore.region.entity.Weights;
 
 /**
  * Representation for one Node with all data for TVB simulation

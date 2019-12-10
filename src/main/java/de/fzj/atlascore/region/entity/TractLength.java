@@ -1,4 +1,4 @@
-package de.fzj.atlascore.entity;
+package de.fzj.atlascore.region.entity;
 
 public class TractLength {
 

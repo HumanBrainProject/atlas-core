@@ -11,6 +11,8 @@ server:
 spring:
   main:
     banner-mode: console
+  hateoas:
+    use-hal-as-default-json-media-type: true
 management:
   endpoint:
     health:

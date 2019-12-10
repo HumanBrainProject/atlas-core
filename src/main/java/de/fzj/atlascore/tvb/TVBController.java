@@ -1,9 +1,8 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.entity.Node;
-import de.fzj.atlascore.entity.TractLength;
-import de.fzj.atlascore.entity.Weights;
-import de.fzj.atlascore.entity.Vector;
+import de.fzj.atlascore.region.entity.TractLength;
+import de.fzj.atlascore.region.entity.Weights;
+import de.fzj.atlascore.region.entity.Vector;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -59,6 +58,7 @@ public class TVBController implements ITVBController {
 
     @Override
     public ResponseEntity<Vector> getCentresForNode(String nodeValue) {
+        tvbService.getJuBrainDataFromFile();
         return new ResponseEntity<>(tvbService.getCentreForNode(nodeValue), HttpStatus.OK);
     }
 

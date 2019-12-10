@@ -4,6 +4,7 @@ public class Referencespace {
 
     private String name;
 
+    // for JSON mapper
     public Referencespace() {
     }
 

@@ -4,6 +4,7 @@ import de.fzj.atlascore.configuration.ControllerPaths;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class ParcellationController {
         this.parcellationService = parcellationService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Resources<ParcellationResource> getAllParcellationsForReferencespace(@PathVariable("refSpaceName") String refSpaceName) {
         List<Parcellation> parcellations = parcellationService.getParcellations(refSpaceName);
 
@@ -35,7 +36,7 @@ public class ParcellationController {
         );
     }
 
-    @GetMapping(value = "/{parcellationName}")
+    @GetMapping(value = "/{parcellationName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource<ParcellationResource> getParcellationForName(
             @PathVariable("refSpaceName") String refSpaceName,
             @PathVariable("parcellationName") String parcellationName) {

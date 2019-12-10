@@ -1,29 +1,19 @@
-package de.fzj.atlascore.entity;
+package de.fzj.atlascore.region.entity;
 
+public class Vector {
 
-public class Centre {
-    private String label;
     private double x;
     private double y;
     private double z;
 
     // For JSON parsing
-    public Centre() {
+    public Vector() {
     }
 
-    public Centre(String label, double x, double y, double z) {
-        this.label = label;
+    public Vector(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public double getX() {

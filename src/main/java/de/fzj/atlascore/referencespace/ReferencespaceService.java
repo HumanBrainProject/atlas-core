@@ -2,9 +2,9 @@ package de.fzj.atlascore.referencespace;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReferencespaceService {
@@ -19,7 +19,7 @@ public class ReferencespaceService {
     }
 
     public List<Referencespace> getReferencespaces() {
-        return referencespaceRepo.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(referencespaceRepo.values());
     }
 
     public Referencespace getReferencespaceByName(String name) {

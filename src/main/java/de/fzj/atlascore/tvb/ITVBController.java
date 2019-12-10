@@ -1,9 +1,8 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.entity.Node;
-import de.fzj.atlascore.entity.TractLength;
-import de.fzj.atlascore.entity.Weights;
-import de.fzj.atlascore.entity.Vector;
+import de.fzj.atlascore.region.entity.TractLength;
+import de.fzj.atlascore.region.entity.Weights;
+import de.fzj.atlascore.region.entity.Vector;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

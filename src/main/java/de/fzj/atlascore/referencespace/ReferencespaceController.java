@@ -3,6 +3,7 @@ package de.fzj.atlascore.referencespace;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,14 +20,15 @@ public class ReferencespaceController {
         this.referencespaceService = referencespaceService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Resources<ReferencespaceResource> getAllReferencespaces() {
         List<Referencespace> referencespaces = referencespaceService.getReferencespaces();
         return new Resources<>(referencespaces.stream().map(ReferencespaceResource::new).collect(Collectors.toList()));
     }
 
-    @GetMapping(value = "/{refSpaceName}")
+    @GetMapping(value = "/{refSpaceName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public Resource<ReferencespaceResource> getReferencespaceByName(@PathVariable("refSpaceName") String refSpaceName) {
         Referencespace referencespaceByName = referencespaceService.getReferencespaceByName(refSpaceName);
         if (referencespaceByName == null) {

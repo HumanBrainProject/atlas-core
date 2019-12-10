@@ -1,9 +1,8 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.entity.Node;
-import de.fzj.atlascore.entity.TractLength;
-import de.fzj.atlascore.entity.Weights;
-import de.fzj.atlascore.entity.Vector;
+import de.fzj.atlascore.region.entity.TractLength;
+import de.fzj.atlascore.region.entity.Weights;
+import de.fzj.atlascore.region.entity.Vector;
 import org.eclipse.jetty.server.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

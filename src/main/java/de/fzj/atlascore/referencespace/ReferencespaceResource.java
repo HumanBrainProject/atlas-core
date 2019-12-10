@@ -2,10 +2,12 @@ package de.fzj.atlascore.referencespace;
 
 import de.fzj.atlascore.parcellation.ParcellationController;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.core.Relation;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Relation(collectionRelation = "referencespaces")
 public class ReferencespaceResource extends ResourceSupport {
 
     private final Referencespace referencespace;

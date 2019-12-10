@@ -1,8 +1,6 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.entity.TractLength;
-import de.fzj.atlascore.entity.Weights;
-import de.fzj.atlascore.entity.Vector;
+import de.fzj.atlascore.region.entity.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -120,6 +118,25 @@ public class TVBDummyDataService implements ITVBService {
             nodes = strings.stream().map(s -> s.split(" ")[0]).collect(Collectors.toList());
         }
         return nodes;
+    }
+
+    public List<Region> getAllRegions() {
+        List<Region> result = new LinkedList<>();
+        for (String region: this.getAllNodes()) {
+            result.add(RegionBuilder
+                    .aRegion()
+                    .withName(region)
+                    .withArea(getAreaForNode(region))
+                    .withAverageOrientation(getAverageOrientationForNode(region))
+                    .withCentres(getCentreForNode(region))
+                    .withCortical(getCorticalForNode(region))
+                    .withTractLengths(getTractLengthForNode(region))
+                    .withVolume(getVolumeForNode(region))
+                    .withWeights(getWeightsForNode(region))
+                    .build()
+            );
+        }
+        return result;
     }
 
     public Double getAreaForNode(String node) {

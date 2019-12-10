@@ -1,14 +1,17 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.entity.TractLength;
-import de.fzj.atlascore.entity.Vector;
-import de.fzj.atlascore.entity.Weights;
+import de.fzj.atlascore.region.entity.*;
+import de.fzj.atlascore.region.entity.Vector;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,6 +44,25 @@ public class TVBService implements ITVBService {
         );
     }
 
+    public JSONObject getJuBrainDataFromFile() {
+        try {
+
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            new ClassPathResource("data/brains/bigbrain.json", this.getClass().getClassLoader()).getInputStream()
+                    )
+            );
+
+            String fileAsString = reader.lines().collect(Collectors.joining(" "));
+
+            JSONObject jsonObject = new JSONObject(fileAsString);
+            return jsonObject;
+        } catch (IOException e) {
+            //TODO Log error
+        }
+        return new JSONObject();
+    }
+
     @Override
     public List<String> getAllNodes() {
         if (nodes == null) {
@@ -58,6 +80,14 @@ public class TVBService implements ITVBService {
 
         }
         return nodes;
+    }
+
+    public List<Region> getAllRegions() {
+        List<Region> regions = new LinkedList<>();
+        for(String region : getAllNodes()) {
+            regions.add(RegionBuilder.aRegion().withName(region).withWeights(getWeightsForNode(region)).build());
+        }
+        return regions;
     }
 
     @Override
