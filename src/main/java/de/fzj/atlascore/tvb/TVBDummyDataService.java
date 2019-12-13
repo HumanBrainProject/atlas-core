@@ -163,4 +163,22 @@ public class TVBDummyDataService {
         }
         return result;
     }
+
+    public Region getRegionByName(String name) {
+        if (regionNames.contains(name)) {
+            return RegionBuilder
+                    .aRegion()
+                    .withName(name)
+                    .withArea(getAreaForNode(name))
+                    .withAverageOrientation(getAverageOrientationForNode(name))
+                    .withCentres(getCentreForNode(name))
+                    .withCortical(getCorticalForNode(name))
+                    .withTractLengths(getTractLengthForNode(name))
+                    .withVolume(getVolumeForNode(name))
+                    .withWeights(getWeightsForNode(name))
+                    .build();
+        } else {
+            return null;
+        }
+    }
 }

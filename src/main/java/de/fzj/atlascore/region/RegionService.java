@@ -31,7 +31,10 @@ public class RegionService {
         );
     }
 
-    public Region getRegionByName(String name) {
+    public Region getRegionByName(String refSpaceName, String name) {
+        if(refSpaceName.equals("tvb")) {
+            return tvbDummyDataService.getRegionByName(name);
+        }
         return RegionBuilder.aRegion().withName(name).build();
     }
 }

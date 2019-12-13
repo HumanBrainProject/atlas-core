@@ -48,7 +48,7 @@ public class RegionController {
             @PathVariable("refSpaceName") String refSpaceName,
             @PathVariable("parcellationName") String parcellationName,
             @PathVariable("region") String regionName) {
-        Region region = regionService.getRegionByName(regionName);
+        Region region = regionService.getRegionByName(refSpaceName, regionName);
         if (region == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
