@@ -19,7 +19,7 @@ public class ParcellationServiceTest {
     private static final String INVALID_REF_SPACE_NAME = "smallbrain";
     private static final String PARCELLATION_NAME = "par1";
 
-    private ParcellationService parcellationService = new ParcellationService();
+    private ParcellationService parcellationService = new ParcellationService(referencespaceRepository, referencespaceRepository);
 
     @Test
     public void shouldReturnParcellationsForBigBrain() {

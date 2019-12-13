@@ -1,5 +1,7 @@
 package de.fzj.atlascore.region;
 
+import de.fzj.atlascore.parcellation.ParcellationRepository;
+import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.region.entity.*;
 import de.fzj.atlascore.tvb.TVBDummyDataService;
 import de.fzj.atlascore.tvb.TVBService;
@@ -11,30 +13,42 @@ import java.util.List;
 @Service
 public class RegionService {
 
+    private static final String TVB = "tvb";
+    private static final String JUBRAIN = "jubrain";
+
+    private final ReferencespaceRepository referencespaceRepository;
+    private final ParcellationRepository parcellationRepository;
+    private final RegionRepository regionRepository;
     private final TVBDummyDataService tvbDummyDataService;
     private final TVBService tvbService;
 
-    public RegionService(TVBDummyDataService tvbDummyDataService, TVBService tvbService) {
+    public RegionService(
+            ReferencespaceRepository referencespaceRepository,
+            ParcellationRepository parcellationRepository,
+            RegionRepository regionRepository, TVBDummyDataService tvbDummyDataService,
+            TVBService tvbService) {
+        this.referencespaceRepository = referencespaceRepository;
+        this.parcellationRepository = parcellationRepository;
+        this.regionRepository = regionRepository;
         this.tvbDummyDataService = tvbDummyDataService;
         this.tvbService = tvbService;
     }
 
     public List<Region> getAllRegions(String refSpaceName, String parcellationName) {
-        if(refSpaceName.equals("tvb")) {
+        regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
+        if(refSpaceName.equals(TVB)) {
             return tvbDummyDataService.getAllRegions();
         }
-        if(refSpaceName.equals("jubrain")) {
+        if(refSpaceName.equals(JUBRAIN)) {
             return tvbService.getAllRegions();
         }
-        return Arrays.asList(
-                RegionBuilder.aRegion().withName("Region 1").build()
-        );
+        return regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
     }
 
-    public Region getRegionByName(String refSpaceName, String name) {
-        if(refSpaceName.equals("tvb")) {
+    public Region getRegionByName(String refSpaceName, String parcellationName, String name) {
+        if(refSpaceName.equals(TVB)) {
             return tvbDummyDataService.getRegionByName(name);
         }
-        return RegionBuilder.aRegion().withName(name).build();
+        return regionRepository.findOneByReferencespaceAndParcellationAndName(refSpaceName, parcellationName, name);
     }
 }

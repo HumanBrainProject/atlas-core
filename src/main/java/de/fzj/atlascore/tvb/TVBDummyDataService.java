@@ -70,51 +70,51 @@ public class TVBDummyDataService {
         return resultList;
     }
 
-    private Double getAreaForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
-            return Double.valueOf(areas.get(indexOfNode));
+    private Double getAreaForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
+            return Double.valueOf(areas.get(indexOfRegion));
         }
         return null;
     }
 
-    private Vector getAverageOrientationForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
+    private Vector getAverageOrientationForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
             return new Vector(
-                    Double.valueOf(averageOrientations.get(indexOfNode).split(" ")[0]),
-                    Double.valueOf(averageOrientations.get(indexOfNode).split(" ")[1]),
-                    Double.valueOf(averageOrientations.get(indexOfNode).split(" ")[2])
+                    Double.valueOf(averageOrientations.get(indexOfRegion).split(" ")[0]),
+                    Double.valueOf(averageOrientations.get(indexOfRegion).split(" ")[1]),
+                    Double.valueOf(averageOrientations.get(indexOfRegion).split(" ")[2])
             );
         }
         return null;
     }
 
-    private Vector getCentreForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
+    private Vector getCentreForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
             return new Vector(
-                    Double.valueOf(centres.get(indexOfNode).split(" ")[1]),
-                    Double.valueOf(centres.get(indexOfNode).split(" ")[2]),
-                    Double.valueOf(centres.get(indexOfNode).split(" ")[3])
+                    Double.valueOf(centres.get(indexOfRegion).split(" ")[1]),
+                    Double.valueOf(centres.get(indexOfRegion).split(" ")[2]),
+                    Double.valueOf(centres.get(indexOfRegion).split(" ")[3])
             );
         }
         return null;
     }
 
-    private Integer getCorticalForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
-            return Integer.valueOf(cortical.get(indexOfNode));
+    private Integer getCorticalForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
+            return Integer.valueOf(cortical.get(indexOfRegion));
         }
         return null;
     }
 
-    private TractLength[] getTractLengthForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
+    private TractLength[] getTractLengthForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
             List<TractLength> tractLengthsList = new LinkedList<>();
-            String[] lengthAsString = tractLength.get(indexOfNode).split(" ");
+            String[] lengthAsString = tractLength.get(indexOfRegion).split(" ");
             for(int i=0; i<lengthAsString.length; i++) {
                 tractLengthsList.add(new TractLength(regionNames.get(i), Double.valueOf(lengthAsString[i])));
             }
@@ -123,19 +123,19 @@ public class TVBDummyDataService {
         return new TractLength[]{};
     }
 
-    private Double getVolumeForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
-            return Double.valueOf(volumes.get(indexOfNode));
+    private Double getVolumeForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
+            return Double.valueOf(volumes.get(indexOfRegion));
         }
         return null;
     }
 
-    private Weights[] getWeightsForNode(String node) {
-        int indexOfNode = regionNames.indexOf(node);
-        if(indexOfNode > -1) {
+    private Weights[] getWeightsForRegionName(String name) {
+        int indexOfRegion = regionNames.indexOf(name);
+        if(indexOfRegion > -1) {
             List<Weights> weightsList = new LinkedList<>();
-            String[] weightsAsString = weights.get(indexOfNode).split(" ");
+            String[] weightsAsString = weights.get(indexOfRegion).split(" ");
             for(int i=0; i<weightsAsString.length; i++) {
                 weightsList.add(new Weights(regionNames.get(i), Double.valueOf(weightsAsString[i])));
             }
@@ -151,13 +151,13 @@ public class TVBDummyDataService {
             result.add(RegionBuilder
                     .aRegion()
                     .withName(region)
-                    .withArea(getAreaForNode(region))
-                    .withAverageOrientation(getAverageOrientationForNode(region))
-                    .withCentres(getCentreForNode(region))
-                    .withCortical(getCorticalForNode(region))
-                    .withTractLengths(getTractLengthForNode(region))
-                    .withVolume(getVolumeForNode(region))
-                    .withWeights(getWeightsForNode(region))
+                    .withArea(getAreaForRegionName(region))
+                    .withAverageOrientation(getAverageOrientationForRegionName(region))
+                    .withCentres(getCentreForRegionName(region))
+                    .withCortical(getCorticalForRegionName(region))
+                    .withTractLengths(getTractLengthForRegionName(region))
+                    .withVolume(getVolumeForRegionName(region))
+                    .withWeights(getWeightsForRegionName(region))
                     .build()
             );
         }
@@ -169,13 +169,13 @@ public class TVBDummyDataService {
             return RegionBuilder
                     .aRegion()
                     .withName(name)
-                    .withArea(getAreaForNode(name))
-                    .withAverageOrientation(getAverageOrientationForNode(name))
-                    .withCentres(getCentreForNode(name))
-                    .withCortical(getCorticalForNode(name))
-                    .withTractLengths(getTractLengthForNode(name))
-                    .withVolume(getVolumeForNode(name))
-                    .withWeights(getWeightsForNode(name))
+                    .withArea(getAreaForRegionName(name))
+                    .withAverageOrientation(getAverageOrientationForRegionName(name))
+                    .withCentres(getCentreForRegionName(name))
+                    .withCortical(getCorticalForRegionName(name))
+                    .withTractLengths(getTractLengthForRegionName(name))
+                    .withVolume(getVolumeForRegionName(name))
+                    .withWeights(getWeightsForRegionName(name))
                     .build();
         } else {
             return null;

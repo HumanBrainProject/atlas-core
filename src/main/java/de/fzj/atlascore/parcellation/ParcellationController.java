@@ -40,7 +40,7 @@ public class ParcellationController {
     public Resource<ParcellationResource> getParcellationForName(
             @PathVariable("refSpaceName") String refSpaceName,
             @PathVariable("parcellationName") String parcellationName) {
-        Parcellation parcellationByName = parcellationService.getParcellationByName(parcellationName);
+        Parcellation parcellationByName = parcellationService.getParcellationByName(refSpaceName, parcellationName);
         if (parcellationByName == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

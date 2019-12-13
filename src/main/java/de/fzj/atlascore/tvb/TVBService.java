@@ -31,17 +31,17 @@ public class TVBService {
         this.restTemplate = restTemplate;
     }
 
-    private LinkedHashMap getConnectivityForNode(String nodeValue) {
+    private LinkedHashMap getConnectivityForRegion(String region) {
         return restTemplate.postForObject(
                 connectivityUrl + "/connectivity" ,
-                "{\"area\":\"" + nodeValue + "\"}",
+                "{\"area\":\"" + region + "\"}",
                 LinkedHashMap.class
         );
     }
 
-    private Weights[] getWeightsForNode(String node) {
+    private Weights[] getWeightsForRegion(String region) {
         if (weights == null) {
-            LinkedHashMap connectivityForBrain = getConnectivityForNode(node);
+            LinkedHashMap connectivityForBrain = getConnectivityForRegion(region);
             List<Weights> weightsList = new LinkedList<>();
             for (Object key : connectivityForBrain.keySet()) {
                 weightsList.add(new Weights(key.toString(), Double.valueOf(connectivityForBrain.get(key).toString())));
@@ -72,7 +72,7 @@ public class TVBService {
     public List<Region> getAllRegions() {
         List<Region> regions = new LinkedList<>();
         for(String region : getAllRegionNames()) {
-            regions.add(RegionBuilder.aRegion().withName(region).withWeights(getWeightsForNode(region)).build());
+            regions.add(RegionBuilder.aRegion().withName(region).withWeights(getWeightsForRegion(region)).build());
         }
         return regions;
     }
