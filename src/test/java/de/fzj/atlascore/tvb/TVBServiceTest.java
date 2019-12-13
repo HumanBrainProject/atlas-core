@@ -1,7 +1,6 @@
 package de.fzj.atlascore.tvb;
 
-import de.fzj.atlascore.region.entity.TractLength;
-import de.fzj.atlascore.region.entity.Weights;
+import de.fzj.atlascore.region.entity.Region;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +15,6 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -45,69 +43,15 @@ public class TVBServiceTest {
     }
 
     @Test
-    public void shouldReturnAListWithNodes() {
+    public void shouldReturnAllRegions() {
         when(restTemplate.getForObject(anyString(), eq(LinkedHashMap.class))).thenReturn(REST_RESULT);
+        when(restTemplate.postForObject(anyString(), anyString(), eq(LinkedHashMap.class))).thenReturn(REST_RESULT);
 
-        List<String> allNodes = tvbService.getAllNodes();
+        List<Region> regions = tvbService.getAllRegions();
         //Call a second time to trigger and test the cache functionality
-        tvbService.getAllNodes();
+        tvbService.getAllRegions();
 
-        assertThat(allNodes, hasItems(NODE_1, NODE_2));
-        assertThat(allNodes, hasSize(2));
+        assertThat(regions, hasSize(2));
         verify(restTemplate, times(1)).getForObject(anyString(), eq(LinkedHashMap.class));
-    }
-
-    @Test
-    public void shouldReturnArea() {
-        //Must be implemented, when data is provided
-        assertNull(tvbService.getAreaForNode(NODE_1));
-    }
-
-    @Test
-    public void shouldReturnAverageOrientation() {
-        //Must be implemented, when data is provided
-        assertNull(tvbService.getAverageOrientationForNode(NODE_1));
-    }
-
-    @Test
-    public void shouldReturnCenter() {
-        //Must be implemented, when data is provided
-        assertNull(tvbService.getCentreForNode(NODE_1));
-    }
-
-    @Test
-    public void shouldReturnCortical() {
-        //Must be implemented, when data is provided
-        assertNull(tvbService.getCorticalForNode(NODE_1));
-    }
-
-    @Test
-    public void shouldReturnVolume() {
-        //Must be implemented, when data is provided
-        assertNull(tvbService.getVolumeForNode(NODE_1));
-    }
-
-    @Test
-    public void shouldReturnTractLength() {
-        //Must be implemented, when data is provided
-        TractLength[] tractLengthForNode = tvbService.getTractLengthForNode(NODE_1);
-
-        assertThat(tractLengthForNode, arrayWithSize(0));
-    }
-
-    @Test
-    public void shouldReturnWeights() {
-        when(restTemplate.postForObject(anyString(), anyString(), eq(LinkedHashMap.class)))
-                .thenReturn(REST_RESULT);
-
-        Weights[] weightsForNode = tvbService.getWeightsForNode(NODE_1);
-        //Call a second time to trigger and test the cache functionality
-        tvbService.getWeightsForNode(NODE_2);
-
-        assertThat(weightsForNode, arrayWithSize(2));
-        assertThat(weightsForNode, hasItemInArray(new Weights(NODE_1, VALUE_1)));
-        assertThat(weightsForNode, hasItemInArray(new Weights(NODE_2, VALUE_2)));
-        verify(restTemplate, times(1))
-                .postForObject(anyString(), anyString(), eq(LinkedHashMap.class));
     }
 }
