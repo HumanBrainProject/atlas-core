@@ -46,7 +46,7 @@ public class RegionServiceTest {
 
     @Test
     public void shouldReturnRegionForName() {
-        Region region = regionService.getRegionByName(REGION_1);
+        Region region = regionService.getRegionByName(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME, REGION_1);
 
         assertEquals(RegionBuilder.aRegion().withName(REGION_1).build(), region);
     }

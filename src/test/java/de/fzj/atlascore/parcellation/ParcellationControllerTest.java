@@ -45,7 +45,7 @@ public class ParcellationControllerTest {
     @Before
     public void setUp() {
         when(parcellationService.getParcellations(REF_SPACE_NAME)).thenReturn(PARCELLATIONS);
-        when(parcellationService.getParcellationByName(PARCELLATION_NAME_A)).thenReturn(PARCELLATION_A);
+        when(parcellationService.getParcellationByName(REF_SPACE_NAME, PARCELLATION_NAME_A)).thenReturn(PARCELLATION_A);
     }
 
     @Test
