@@ -18,6 +18,17 @@ public class RegionRepository {
 
     private HashMap<String, Set<String>> refSpaceRegions = new HashMap<>();
 
+    private void getRegionsFromStaticJson(String refSpace, JSONObject jsonObject) {
+        JSONArray children = jsonObject.getJSONArray("children");
+        if(children.isEmpty()) {
+            refSpaceRegions.get(refSpace).add(jsonObject.get("name").toString().split("-")[0].trim());
+        } else {
+            for(Object o : children) {
+                getRegionsFromStaticJson(refSpace, (JSONObject) o);
+            }
+        }
+    }
+
     public List<Region> findAllByReferencespaceAndParcellation(String refSpace, String parcellation) {
         if(!refSpaceRegions.containsKey(refSpace)) {
             refSpaceRegions.put(refSpace, new HashSet<>());
@@ -35,7 +46,7 @@ public class RegionRepository {
                 for (Object o : jsonArray) {
                     if (((JSONObject) o).get("name").toString().equals(parcellation)) {
                         for (int i = 0; i < ((JSONObject) o).getJSONArray("regions").length(); i++) {
-                            getRegionTMP(refSpace, ((JSONObject) o).getJSONArray("regions").getJSONObject(i));
+                            getRegionsFromStaticJson(refSpace, ((JSONObject) o).getJSONArray("regions").getJSONObject(i));
                         }
                     }
                 }
@@ -48,17 +59,6 @@ public class RegionRepository {
             regions.add(RegionBuilder.aRegion().withName(region).build());
         };
         return regions;
-    }
-
-    private void getRegionTMP(String refSpace, JSONObject jsonObject) {
-        JSONArray children = jsonObject.getJSONArray("children");
-        if(children.isEmpty()) {
-            refSpaceRegions.get(refSpace).add(jsonObject.get("name").toString().split("-")[0].trim());
-        } else {
-            for(Object o : children) {
-                getRegionTMP(refSpace, (JSONObject) o);
-            }
-        }
     }
 
     public Region findOneByReferencespaceAndParcellationAndName(String refSpace, String parcellation, String name) {

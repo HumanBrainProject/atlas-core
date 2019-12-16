@@ -34,7 +34,6 @@ public class RegionService {
     }
 
     public List<Region> getAllRegions(String refSpaceName, String parcellationName) {
-//        regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
         if(refSpaceName.equals(TVB)) {
             return tvbDummyDataService.getAllRegions();
         }
