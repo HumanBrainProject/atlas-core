@@ -7,7 +7,6 @@ import de.fzj.atlascore.tvb.TVBDummyDataService;
 import de.fzj.atlascore.tvb.TVBService;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -35,7 +34,7 @@ public class RegionService {
     }
 
     public List<Region> getAllRegions(String refSpaceName, String parcellationName) {
-        regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
+//        regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
         if(refSpaceName.equals(TVB)) {
             return tvbDummyDataService.getAllRegions();
         }

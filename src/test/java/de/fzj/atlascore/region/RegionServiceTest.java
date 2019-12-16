@@ -1,53 +1,83 @@
 package de.fzj.atlascore.region;
 
-import de.fzj.atlascore.region.entity.Region;
-import de.fzj.atlascore.region.entity.RegionBuilder;
+import de.fzj.atlascore.parcellation.ParcellationRepository;
+import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.tvb.TVBDummyDataService;
+import de.fzj.atlascore.tvb.TVBService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RegionServiceTest {
 
-    public static final String BIGBRAIN_REFERENCESPACE = "bigbrain";
-    public static final String PARCELLATION_NAME = "par1";
-    public static final String REGION_1 = "Region 1";
+    private static final String BIGBRAIN_REFERENCESPACE = "bigbrain";
+    private static final String PARCELLATION_NAME = "par1";
+    private static final String REGION_1 = "Region 1";
+    private static final String TVB = "tvb";
+    private static final String JUBRAIN = "jubrain";
 
     @Mock
+    private ReferencespaceRepository referencespaceRepository;
+    @Mock
+    private ParcellationRepository parcellationRepository;
+    @Mock
+    private RegionRepository regionRepository;
+    @Mock
     private TVBDummyDataService tvbDummyDataService;
+    @Mock
+    private TVBService tvbService;
 
     @InjectMocks
     private RegionService regionService;
 
     @Test
-    public void shouldReturnDummyDataForTvb() {
-        regionService.getAllRegions("tvb", PARCELLATION_NAME);
+    public void shouldReturnTvbData() {
+        regionService.getAllRegions(TVB, PARCELLATION_NAME);
 
         verify(tvbDummyDataService).getAllRegions();
+        verifyZeroInteractions(tvbService);
+        verify(regionRepository, times(0))
+                .findAllByReferencespaceAndParcellation(anyString(), anyString());
     }
 
     @Test
-    public void shouldReturnRegionList() {
-        List<Region> allRegions = regionService.getAllRegions(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME);
+    public void shouldReturnJubrainData() {
+        regionService.getAllRegions(JUBRAIN, PARCELLATION_NAME);
 
-        assertThat(allRegions, hasItem(RegionBuilder.aRegion().withName(REGION_1).build()));
-        assertThat(allRegions, hasSize(1));
+        verify(tvbService).getAllRegions();
+        verifyZeroInteractions(tvbDummyDataService);
+        verify(regionRepository, times(0))
+                .findAllByReferencespaceAndParcellation(anyString(), anyString());
     }
 
     @Test
-    public void shouldReturnRegionForName() {
-        Region region = regionService.getRegionByName(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME, REGION_1);
+    public void shouldReturnDataFromRegionRepository() {
+        regionService.getAllRegions(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME);
 
-        assertEquals(RegionBuilder.aRegion().withName(REGION_1).build(), region);
+        verifyZeroInteractions(tvbDummyDataService);
+        verifyZeroInteractions(tvbService);
+        verify(regionRepository).findAllByReferencespaceAndParcellation(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME);
+    }
+
+    @Test
+    public void shouldReturnOneRegionForTvb() {
+        regionService.getRegionByName(TVB, PARCELLATION_NAME, REGION_1);
+
+        verify(tvbDummyDataService).getRegionByName(REGION_1);
+        verifyZeroInteractions(regionRepository);
+    }
+
+    @Test
+    public void shoulReturnOneRegionFromRepository() {
+        regionService.getRegionByName(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME, REGION_1);
+
+        verifyZeroInteractions(tvbDummyDataService);
+        verify(regionRepository)
+                .findOneByReferencespaceAndParcellationAndName(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME, REGION_1);
     }
 }
