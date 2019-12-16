@@ -51,6 +51,7 @@ dependencies {
     testCompile 'org.mockito:mockito-core:2.+'
     testCompile 'org.mockito:mockito-junit-jupiter:2.18.3'
     testCompile 'com.openpojo:openpojo:0.8.13'
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:3.0.3'
 }
 
 sonarqube {
@@ -69,14 +70,3 @@ configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
     compile.exclude module: 'spring-boot-starter-logging'
 }
-
-//task unpack(type: Copy) {
-//    dependsOn bootJar
-//    from(zipTree(tasks.bootJar.outputs.files.singleFile))
-//    into("build/dependency")
-//}
-//docker {
-//    name "${project.group}/${bootJar.archiveBaseName}"
-//    copySpec.from(tasks.unpack.outputs).into("dependency")
-//    buildArgs(['DEPENDENCY': "dependency"])
-//}

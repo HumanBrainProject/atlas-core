@@ -53,7 +53,7 @@ public class RegionRepository {
     private void getRegionTMP(String refSpace, JSONObject jsonObject) {
         JSONArray children = jsonObject.getJSONArray("children");
         if(children.isEmpty()) {
-            refSpaceRegions.get(refSpace).add(jsonObject.get("name").toString().split("-")[0]);
+            refSpaceRegions.get(refSpace).add(jsonObject.get("name").toString().split("-")[0].trim());
         } else {
             for(Object o : children) {
                 getRegionTMP(refSpace, (JSONObject) o);
@@ -65,11 +65,7 @@ public class RegionRepository {
         if(!refSpaceRegions.containsKey(refSpace)) {
             findAllByReferencespaceAndParcellation(refSpace, parcellation);
         }
-        String s = refSpaceRegions.get(refSpace).stream().filter(region -> region.equals(name)).findFirst().get();
-        if(s != null) {
-            return RegionBuilder.aRegion().withName(s).build();
-        } else {
-            return null;
-        }
+        Optional<String> regionName = refSpaceRegions.get(refSpace).stream().filter(region -> region.equals(name)).findFirst();
+        return regionName.map(s -> RegionBuilder.aRegion().withName(s).build()).orElse(null);
     }
 }
