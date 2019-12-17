@@ -1,8 +1,10 @@
 package de.fzj.atlascore.referencespace;
 
 import de.fzj.atlascore.parcellation.ParcellationController;
+import io.swagger.annotations.ApiModel;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
+import springfox.documentation.annotations.ApiIgnore;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;

@@ -1,6 +1,7 @@
 package de.fzj.atlascore.parcellation;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
+import io.swagger.annotations.Api;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(ControllerPaths.REFERENCESPACES + "/{refSpaceName}" + ControllerPaths.PARCELLATIONS)
+@Api(value = "Parcellations for all valid referencespaces", tags = {"Parcellations"})
 public class ParcellationController {
 
     private final ParcellationService parcellationService;

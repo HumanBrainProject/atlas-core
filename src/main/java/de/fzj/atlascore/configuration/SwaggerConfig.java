@@ -33,8 +33,9 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .tags(
                         new Tag("Allen brain", "Data from allen brain api"),
-                        new Tag("Knowledge Graph", "Data from the knowledge graph"),
-                        new Tag("TVB", "TVB data for simulations")
+                        new Tag("Referencespace", "Referencespace"),
+                        new Tag("Parcellations", "Parcellations by referencespace"),
+                        new Tag("Regions", "Regions by referencespace and parcellation")
                 )
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(authorizationHeaderScheme()));

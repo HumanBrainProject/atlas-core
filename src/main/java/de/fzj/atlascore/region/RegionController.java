@@ -2,6 +2,7 @@ package de.fzj.atlascore.region;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
 import de.fzj.atlascore.region.entity.Region;
+import io.swagger.annotations.Api;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
         ControllerPaths.PARCELLATIONS + "/{parcellationName}" +
         ControllerPaths.REGIONS
 )
+@Api(value = "Regions for a valid parcellation and referencespace", tags = {"Regions"})
 public class RegionController {
 
     private final RegionService regionService;
@@ -43,11 +45,11 @@ public class RegionController {
 
     }
 
-    @GetMapping(value = "/{region}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{regionName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource<RegionResource> getRegion(
             @PathVariable("refSpaceName") String refSpaceName,
             @PathVariable("parcellationName") String parcellationName,
-            @PathVariable("region") String regionName) {
+            @PathVariable("regionName") String regionName) {
         Region region = regionService.getRegionByName(refSpaceName, parcellationName, regionName);
         if (region == null) {
             throw new ResponseStatusException(

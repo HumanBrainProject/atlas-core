@@ -1,5 +1,7 @@
 package de.fzj.atlascore.referencespace;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/referencespaces")
+@Api(value = "All valid referencespaces", tags = {"Referencespace"})
 public class ReferencespaceController {
 
     private final ReferencespaceService referencespaceService;
