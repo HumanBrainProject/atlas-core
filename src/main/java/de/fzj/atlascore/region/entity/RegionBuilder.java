@@ -1,5 +1,8 @@
 package de.fzj.atlascore.region.entity;
 
+/**
+ * Builder for a {@link Region}
+ */
 public final class RegionBuilder {
     private String name;
     private Double area;

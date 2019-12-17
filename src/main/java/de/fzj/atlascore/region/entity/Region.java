@@ -5,6 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Representation of a Region
+ * When converted to JSON, only not null properties will be included
+ *
+ * A Region with values can only be build by a {@link RegionBuilder}
+ *
+ * @author Vadim Marcenko
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Region {
 

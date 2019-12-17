@@ -7,6 +7,13 @@ import org.springframework.hateoas.core.Relation;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Resource to wrap a Region and add HATEOAS support with a self link
+ *
+ * @see Region
+ *
+ * @author Vadim Marcenko
+ */
 @Relation(collectionRelation = "regions")
 public class RegionResource extends ResourceSupport {
 

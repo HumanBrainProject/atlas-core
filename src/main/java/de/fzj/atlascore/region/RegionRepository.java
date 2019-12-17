@@ -13,6 +13,12 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Repository for all regions for in a given parcellation and referencespace
+ * The data is stored in static files
+ *
+ * @author Vadim Marcenko
+ */
 @Repository
 public class RegionRepository {
 

@@ -9,6 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service to communicate with all kind of repository sources and other services, to get regions and details
+ * The service decides from the given referencespace and parcellation which repository or service should be used
+ *
+ * @see ParcellationRepository
+ * @see ReferencespaceRepository
+ * @see RegionRepository
+ * @see TVBService
+ * @see TVBDummyDataService
+ *
+ * @author Vadim Marcenko
+ */
 @Service
 public class RegionService {
 

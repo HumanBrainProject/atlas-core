@@ -2,6 +2,11 @@ package de.fzj.atlascore.region.entity;
 
 import java.util.Objects;
 
+/**
+ * Representation of weights
+ *
+ * @author Vadim Marcenko
+ */
 public class Weights {
 
     private String node;

@@ -1,5 +1,10 @@
 package de.fzj.atlascore.region.entity;
 
+/**
+ * Representation of a vector with x, y, z values
+ *
+ * @author Vadim Marcenko
+ */
 public class Vector {
 
     private double x;

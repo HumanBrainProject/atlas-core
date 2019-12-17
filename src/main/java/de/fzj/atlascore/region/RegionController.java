@@ -16,6 +16,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to deliver a list of valid regions for a parcellation and more details to one region by name
+ *
+ * @see Region
+ * @see RegionResource
+ * @see RegionService
+ *
+ * @author Vadim Marcenko
+ */
 @RestController
 @RequestMapping(
         ControllerPaths.REFERENCESPACES + "/{refSpaceName}" +

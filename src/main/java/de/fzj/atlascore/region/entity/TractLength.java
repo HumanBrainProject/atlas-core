@@ -1,5 +1,10 @@
 package de.fzj.atlascore.region.entity;
 
+/**
+ * Representation of a tract length
+ *
+ * @author Vadim Marcenko
+ */
 public class TractLength {
 
     private String node;
