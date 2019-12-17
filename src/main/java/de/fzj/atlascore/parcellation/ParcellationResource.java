@@ -7,6 +7,13 @@ import org.springframework.hateoas.core.Relation;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Resource to wrap a parcellation and add HATEOAS support with link to all regions and a self link
+ *
+ * @see Parcellation
+ *
+ * @author Vadim Marcenko
+ */
 @Relation(collectionRelation = "parcellations")
 public class ParcellationResource extends ResourceSupport {
 

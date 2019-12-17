@@ -15,6 +15,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Repository for all parcellations in a given referencespace
+ * At the moment the data is read from files
+ *
+ * @see ReferencespaceRepository
+ *
+ * @author Vadim Marcenko
+ */
 @Repository
 public class ParcellationRepository {
 

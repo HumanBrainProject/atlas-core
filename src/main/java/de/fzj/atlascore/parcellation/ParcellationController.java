@@ -15,6 +15,16 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to deliver a list of all parcellations for a referencespace and details to one parcellation by name
+ * and referencespace
+ *
+ * @see Parcellation
+ * @see ParcellationResource
+ * @see ParcellationService
+ *
+ * @author Vadim Marcenko
+ */
 @RestController
 @RequestMapping(ControllerPaths.REFERENCESPACES + "/{refSpaceName}" + ControllerPaths.PARCELLATIONS)
 @Api(value = "Parcellations for all valid referencespaces", tags = {"Parcellations"})

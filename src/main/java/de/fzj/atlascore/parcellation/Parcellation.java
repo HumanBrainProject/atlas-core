@@ -2,6 +2,11 @@ package de.fzj.atlascore.parcellation;
 
 import java.util.Objects;
 
+/**
+ * Representation of a Parcellation
+ *
+ * @author Vadim Marcenko
+ */
 public class Parcellation {
 
     private String name;

@@ -7,6 +7,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+/**
+ * Service to communicate with all kind of repository sources, to get parcellations and details
+ * The service decides from the given referencespace which repository should be used
+ *
+ * @see ParcellationRepository
+ * @see ReferencespaceRepository
+ *
+ * @author Vadim Marcenko
+ */
 @Service
 public class ParcellationService {
 
