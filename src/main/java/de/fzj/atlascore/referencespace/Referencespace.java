@@ -1,5 +1,10 @@
 package de.fzj.atlascore.referencespace;
 
+/**
+ * Representation of a Referencespace
+ *
+ * @author Vadim Marcenko
+ */
 public class Referencespace {
 
     private String name;

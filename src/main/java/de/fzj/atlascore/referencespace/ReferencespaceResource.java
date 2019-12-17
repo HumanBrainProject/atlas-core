@@ -1,14 +1,19 @@
 package de.fzj.atlascore.referencespace;
 
 import de.fzj.atlascore.parcellation.ParcellationController;
-import io.swagger.annotations.ApiModel;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
-import springfox.documentation.annotations.ApiIgnore;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Resource to wrap a referencespace and add HATEOAS support with link to all parcellations and a self link
+ *
+ * @see Referencespace
+ *
+ * @author Vadim Marcenko
+ */
 @Relation(collectionRelation = "referencespaces")
 public class ReferencespaceResource extends ResourceSupport {
 

@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Static Repository with all referencespaces that are valid at the moment
+ *
+ * @author Vadim Marcenko
+ */
 @Repository
 public class ReferencespaceRepository {
 

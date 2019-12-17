@@ -4,6 +4,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service to communicate with all kind of repository sources, to get referencespaces and details
+ *
+ * {@link ReferencespaceRepository}
+ *
+ * @author Vadim Marcenko
+ */
 @Service
 public class ReferencespaceService {
 
