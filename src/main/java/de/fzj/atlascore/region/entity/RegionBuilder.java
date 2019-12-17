@@ -1,8 +1,5 @@
 package de.fzj.atlascore.region.entity;
 
-/**
- * Builder for a {@link Region}
- */
 public final class RegionBuilder {
     private String name;
     private Double area;
@@ -12,6 +9,9 @@ public final class RegionBuilder {
     private TractLength[] tractLengths;
     private Double volume;
     private Weights[] weights;
+    private Integer[] rgb;
+    private Integer[] position;
+    private String status;
 
     private RegionBuilder() {
     }
@@ -60,6 +60,21 @@ public final class RegionBuilder {
         return this;
     }
 
+    public RegionBuilder withRgb(Integer[] rgb) {
+        this.rgb = rgb;
+        return this;
+    }
+
+    public RegionBuilder withPosition(Integer[] position) {
+        this.position = position;
+        return this;
+    }
+
+    public RegionBuilder withStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
     public Region build() {
         Region region = new Region();
         region.setName(name);
@@ -70,6 +85,9 @@ public final class RegionBuilder {
         region.setTractLengths(tractLengths);
         region.setVolume(volume);
         region.setWeights(weights);
+        region.setRgb(rgb);
+        region.setPosition(position);
+        region.setStatus(status);
         return region;
     }
 }

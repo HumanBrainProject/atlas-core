@@ -24,6 +24,9 @@ public class Region {
     private TractLength[] tractLengths;
     private Double volume;
     private Weights[] weights;
+    private Integer[] rgb;
+    private Integer[] position;
+    private String status;
 
     public Region() {
     }
@@ -92,6 +95,30 @@ public class Region {
         this.weights = weights;
     }
 
+    public Integer[] getRgb() {
+        return rgb;
+    }
+
+    void setRgb(Integer[] rgb) {
+        this.rgb = rgb;
+    }
+
+    public Integer[] getPosition() {
+        return position;
+    }
+
+    void setPosition(Integer[] position) {
+        this.position = position;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,14 +131,19 @@ public class Region {
                 Objects.equals(cortical, region.cortical) &&
                 Arrays.equals(tractLengths, region.tractLengths) &&
                 Objects.equals(volume, region.volume) &&
-                Arrays.equals(weights, region.weights);
+                Arrays.equals(weights, region.weights) &&
+                Arrays.equals(rgb, region.rgb) &&
+                Arrays.equals(position, region.position) &&
+                Objects.equals(status, region.status);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, area, averageOrientation, centres, cortical, volume);
+        int result = Objects.hash(name, area, averageOrientation, centres, cortical, volume, status);
         result = 31 * result + Arrays.hashCode(tractLengths);
         result = 31 * result + Arrays.hashCode(weights);
+        result = 31 * result + Arrays.hashCode(rgb);
+        result = 31 * result + Arrays.hashCode(position);
         return result;
     }
 }
