@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 
 /**
  * Service to deliver data from connectivity app
+ *
+ * @author Vadim Marcenko
  */
 @Service
 public class TVBService {
@@ -44,9 +46,9 @@ public class TVBService {
             LinkedHashMap connectivityForBrain = getConnectivityForRegion(region);
             List<Weights> weightsList = new LinkedList<>();
             for (Object key : connectivityForBrain.keySet()) {
-                weightsList.add(new Weights(key.toString(), Double.valueOf(connectivityForBrain.get(key).toString())));
+                weightsList.add(new Weights(key.toString(), Double.parseDouble(connectivityForBrain.get(key).toString())));
             }
-            weights = weightsList.stream().toArray(Weights[]::new);
+            weights = weightsList.toArray(new Weights[0]);
         }
         return weights;
     }

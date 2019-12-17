@@ -21,6 +21,7 @@ import java.io.IOException;
  *     "path": "application path that caused the error"
  * }
  *
+ * @author Vadim Marcenko
  */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {

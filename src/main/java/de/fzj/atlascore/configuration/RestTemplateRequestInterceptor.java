@@ -2,7 +2,6 @@ package de.fzj.atlascore.configuration;
 
 import com.google.common.base.Strings;
 import de.fzj.atlascore.service.RequestContextService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
@@ -18,12 +17,17 @@ import java.util.Collections;
  * An interceptor for the custom {@link org.springframework.web.client.RestTemplate} bean.
  *
  * @see RestTemplateConfiguration
+ *
+ * @author Vadim Marcenko
  */
 @Component
 public class RestTemplateRequestInterceptor implements ClientHttpRequestInterceptor {
 
-    @Autowired
-    private RequestContextService requestContextService;
+    private final RequestContextService requestContextService;
+
+    public RestTemplateRequestInterceptor(RequestContextService requestContextService) {
+        this.requestContextService = requestContextService;
+    }
 
     /**
      * Each request with the {@link org.springframework.web.client.RestTemplate} is extended by headers.

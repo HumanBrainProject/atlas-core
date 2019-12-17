@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Service to read static dummy data from resources
+ * Service to read TVB example data from files and convert them to {@link Region}
+ *
+ * @author Vadim Marcenko
  */
 @Service
 public class TVBDummyDataService {
@@ -82,9 +84,9 @@ public class TVBDummyDataService {
         int indexOfRegion = regionNames.indexOf(name);
         if(indexOfRegion > -1) {
             return new Vector(
-                    Double.valueOf(averageOrientations.get(indexOfRegion).split(" ")[0]),
-                    Double.valueOf(averageOrientations.get(indexOfRegion).split(" ")[1]),
-                    Double.valueOf(averageOrientations.get(indexOfRegion).split(" ")[2])
+                    Double.parseDouble(averageOrientations.get(indexOfRegion).split(" ")[0]),
+                    Double.parseDouble(averageOrientations.get(indexOfRegion).split(" ")[1]),
+                    Double.parseDouble(averageOrientations.get(indexOfRegion).split(" ")[2])
             );
         }
         return null;
@@ -94,9 +96,9 @@ public class TVBDummyDataService {
         int indexOfRegion = regionNames.indexOf(name);
         if(indexOfRegion > -1) {
             return new Vector(
-                    Double.valueOf(centres.get(indexOfRegion).split(" ")[1]),
-                    Double.valueOf(centres.get(indexOfRegion).split(" ")[2]),
-                    Double.valueOf(centres.get(indexOfRegion).split(" ")[3])
+                    Double.parseDouble(centres.get(indexOfRegion).split(" ")[1]),
+                    Double.parseDouble(centres.get(indexOfRegion).split(" ")[2]),
+                    Double.parseDouble(centres.get(indexOfRegion).split(" ")[3])
             );
         }
         return null;
@@ -116,7 +118,7 @@ public class TVBDummyDataService {
             List<TractLength> tractLengthsList = new LinkedList<>();
             String[] lengthAsString = tractLength.get(indexOfRegion).split(" ");
             for(int i=0; i<lengthAsString.length; i++) {
-                tractLengthsList.add(new TractLength(regionNames.get(i), Double.valueOf(lengthAsString[i])));
+                tractLengthsList.add(new TractLength(regionNames.get(i), Double.parseDouble(lengthAsString[i])));
             }
             return tractLengthsList.toArray(new TractLength[0]);
         }
@@ -137,7 +139,7 @@ public class TVBDummyDataService {
             List<Weights> weightsList = new LinkedList<>();
             String[] weightsAsString = weights.get(indexOfRegion).split(" ");
             for(int i=0; i<weightsAsString.length; i++) {
-                weightsList.add(new Weights(regionNames.get(i), Double.valueOf(weightsAsString[i])));
+                weightsList.add(new Weights(regionNames.get(i), Double.parseDouble(weightsAsString[i])));
             }
             return weightsList.toArray(new Weights[0]);
         }

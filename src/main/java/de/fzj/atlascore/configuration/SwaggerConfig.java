@@ -16,6 +16,8 @@ import java.util.Collections;
 
 /**
  * Configuration for the swagger documentation
+ *
+ * @author Vadim Marcenko
  */
 @Configuration
 @EnableSwagger2

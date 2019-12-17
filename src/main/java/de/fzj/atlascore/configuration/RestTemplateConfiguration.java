@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
  * This configuration creates a custom {@link RestTemplate} with interceptors to extend the outgoing requests.
  *
  * @see RestTemplateRequestInterceptor
+ *
+ * @author Vadim Marcenko
  */
 @Configuration
 public class RestTemplateConfiguration {

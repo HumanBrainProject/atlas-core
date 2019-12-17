@@ -1,7 +1,6 @@
 package de.fzj.atlascore.knowledgegraph;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +12,18 @@ import springfox.documentation.annotations.ApiIgnore;
  * The AtlasCoreController is an abstraction for all endpoints of the AtlasCore Webservice
  *
  * @see KnowledgeGraphService
+ *
+ *  @author Vadim Marcenko
  */
 @RestController
 @ApiIgnore
 public class KnowledgeGraphController {
 
-    @Autowired
-    private KnowledgeGraphService knowledgeGraphService;
+    private final KnowledgeGraphService knowledgeGraphService;
+
+    public KnowledgeGraphController(KnowledgeGraphService knowledgeGraphService) {
+        this.knowledgeGraphService = knowledgeGraphService;
+    }
 
     @ApiOperation(value = "Get a list of all species")
     @GetMapping(value = "kg/species", produces = MediaType.APPLICATION_JSON_VALUE)

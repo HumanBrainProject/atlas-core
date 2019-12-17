@@ -6,6 +6,8 @@ import org.springframework.web.context.annotation.RequestScope;
 /**
  * The RequestContextService is used to store request information.
  * It is used by other services and interceptors to get information about the current request.
+ *
+ * @author Vadim Marcenko
  */
 @Service
 @RequestScope

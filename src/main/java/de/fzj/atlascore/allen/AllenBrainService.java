@@ -2,7 +2,6 @@ package de.fzj.atlascore.allen;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * The AllenBrainService calls the allen brain atlas rest api, to get information needed for the atlas core service
+ *
+ * @author Vadim Marcenko
  */
 @Service
 public class AllenBrainService {
@@ -19,8 +20,11 @@ public class AllenBrainService {
     @Value("${allen.url}")
     private String allenBrainUrl;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public AllenBrainService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Cacheable("api-data")
     public Object getOntologyStructure() {

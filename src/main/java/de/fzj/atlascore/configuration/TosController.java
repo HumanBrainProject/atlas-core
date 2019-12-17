@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller for the static page to deliver the Terms of Service
+ *
+ * @author Vadim Marcenko
  */
 @Controller
 public class TosController {
