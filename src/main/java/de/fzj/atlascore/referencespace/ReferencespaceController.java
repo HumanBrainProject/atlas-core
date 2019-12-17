@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 /**
  * Controller to deliver a list of valid referencespaces and more details to one referencespace by name
  *
+ * @see Referencespace
+ * @see ReferencespaceResource
+ * @see ReferencespaceService
+ *
  * @author Vadim Marcenko
  */
 @RestController
