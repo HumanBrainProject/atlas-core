@@ -13,7 +13,7 @@ public class RegionRepositoryTest {
 
     private static final String COLIN = "colin";
     private static final String COLIN_PARCELLATION = "JuBrain Cytoarchitectonic Atlas";
-    private static final String COLIN_REGION = "Area 3a (PostCG)";
+    private static final String COLIN_REGION = "Area 6d1 (PreCG) - right hemisphere";
     private static final String INVALID_REFSPACE = "invalid-referencespace";
     private static final String INVALID_PARCELLATION = "invalid-parcellation";
     private static final String INVALID_REGION = "invalid-region";
@@ -30,7 +30,7 @@ public class RegionRepositoryTest {
     public void shouldReturnAllRegionsForValidRefSpaceAndParcellation() {
         List<Region> regions = regionRepository.findAllByReferencespaceAndParcellation(COLIN, COLIN_PARCELLATION);
 
-        assertThat(regions, hasSize(106));
+        assertThat(regions, hasSize(222));
     }
 
     @Test
