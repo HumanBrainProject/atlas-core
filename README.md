@@ -1,4 +1,4 @@
-#Atlas Core
+# Atlas Core
 
 Application to provide endpoints with functionality for the atlas viewer and further information using also the knowledge graph.
 
