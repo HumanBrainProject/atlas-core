@@ -12,3 +12,5 @@ URL: http://s2i-java-atlas-core.apps-dev.hbp.eu/swagger-ui.html
 There are health endpoints provided with Spring Boot Actuator:
 
 URL: http://s2i-java-atlas-core.apps-dev.hbp.eu/actuator/health
+
+
