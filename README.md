@@ -5,12 +5,12 @@ Application to provide endpoints with functionality for the atlas viewer and fur
 ## Documentation 
 All endpoints are documented with swagger.
 
-URL: http://s2i-java-atlas-core.apps-dev.hbp.eu/swagger-ui.html
+URL: https://ebrains-atlascore.apps-dev.hbp.eu/swagger-ui.html
 
 ## Health and Metrics
 
 There are health endpoints provided with Spring Boot Actuator:
 
-URL: http://s2i-java-atlas-core.apps-dev.hbp.eu/actuator/health
+URL: https://ebrains-atlascore.apps-dev.hbp.eu/actuator/health
 
 
