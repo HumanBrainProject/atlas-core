@@ -8,13 +8,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TosControllerTest {
+public class StaticPageControllerTest {
 
     @InjectMocks
-    private TosController tosController;
+    private StaticPageController staticPageController;
 
     @Test
     public void shouldReturnTosSite() {
-        assertEquals("tos", tosController.getTos());
+        assertEquals("tos", staticPageController.getTos());
     }
 }
