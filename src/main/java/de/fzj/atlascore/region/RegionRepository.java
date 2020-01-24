@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 @Repository
 public class RegionRepository {
 
+    private static String areaLabel = null;
+
     private HashMap<String, Set<Region>> refSpaceRegions = new HashMap<>();
 
     private String getStringOrNullFromObject(JSONObject jsonObject, String key) {
@@ -40,8 +42,25 @@ public class RegionRepository {
         }
     }
 
+    private String getHemisphereFromNameOrNull(String name) {
+        if(name == null) {
+            return null;
+        }
+        if(name.toLowerCase().contains("hemisphere") && name.toLowerCase().contains("left")) {
+            return "left";
+        }
+        if(name.toLowerCase().contains("hemisphere") && name.toLowerCase().contains("right")) {
+            return "right";
+        }
+        return null;
+    }
+
     private void getRegionsFromStaticJson(String refSpace, JSONObject jsonObject) {
         JSONArray children = jsonObject.getJSONArray("children");
+        String label = getStringOrNullFromObject(jsonObject, "arealabel");
+        if(label != null) {
+            areaLabel = label;
+        }
         if(children.isEmpty()) {
             try {
                 refSpaceRegions.get(refSpace).add(
@@ -51,6 +70,8 @@ public class RegionRepository {
                                 .withStatus(getStringOrNullFromObject(jsonObject, "status"))
                                 .withRgb(getArrayOrNullFromObject(jsonObject,"rgb"))
                                 .withPosition(getArrayOrNullFromObject(jsonObject,"position"))
+                                .withLabel(areaLabel)
+                                .withHemisphere(getHemisphereFromNameOrNull(getStringOrNullFromObject(jsonObject, "name")))
                                 .build()
                 );
             } catch (Exception e) {
@@ -64,6 +85,7 @@ public class RegionRepository {
     }
 
     public List<Region> findAllByReferencespaceAndParcellation(String refSpace, String parcellation) {
+        areaLabel = null;
         if(!refSpaceRegions.containsKey(refSpace)) {
             refSpaceRegions.put(refSpace, new HashSet<>());
             try {

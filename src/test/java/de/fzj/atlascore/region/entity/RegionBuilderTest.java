@@ -14,6 +14,8 @@ public class RegionBuilderTest {
     private static final TractLength[] TRACTLENGTHS = new TractLength[]{new TractLength(), new TractLength()};
     private static final Double VOLUME = 2000.0;
     private static final Weights[] WEIGHTS = new Weights[]{new Weights()};
+    private static final String LABEL = "AREA_LABEL";
+    private static final String HEMISPHERE = "left";
 
     @Test
     public void shouldCreateRegionWithAllValues() {
@@ -27,6 +29,8 @@ public class RegionBuilderTest {
                 .withTractLengths(TRACTLENGTHS)
                 .withVolume(VOLUME)
                 .withWeights(WEIGHTS)
+                .withLabel(LABEL)
+                .withHemisphere(HEMISPHERE)
                 .build();
 
         assertEquals(NAME, buildRegion.getName());
@@ -39,5 +43,7 @@ public class RegionBuilderTest {
         assertEquals(VOLUME, buildRegion.getVolume());
         assertNotNull(buildRegion.getWeights());
         assertEquals(1, buildRegion.getWeights().length);
+        assertEquals(LABEL, buildRegion.getLabel());
+        assertEquals(HEMISPHERE, buildRegion.getHemisphere());
     }
 }

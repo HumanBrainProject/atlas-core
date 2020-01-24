@@ -27,6 +27,8 @@ public class Region {
     private Integer[] rgb;
     private Integer[] position;
     private String status;
+    private String label;
+    private String hemisphere;
 
     public Region() {
     }
@@ -119,6 +121,22 @@ public class Region {
         this.status = status;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getHemisphere() {
+        return hemisphere;
+    }
+
+    public void setHemisphere(String hemisphere) {
+        this.hemisphere = hemisphere;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,12 +152,14 @@ public class Region {
                 Arrays.equals(weights, region.weights) &&
                 Arrays.equals(rgb, region.rgb) &&
                 Arrays.equals(position, region.position) &&
-                Objects.equals(status, region.status);
+                Objects.equals(status, region.status) &&
+                Objects.equals(label, region.label) &&
+                Objects.equals(hemisphere, region.hemisphere);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, area, averageOrientation, centres, cortical, volume, status);
+        int result = Objects.hash(name, area, averageOrientation, centres, cortical, volume, status, label, hemisphere);
         result = 31 * result + Arrays.hashCode(tractLengths);
         result = 31 * result + Arrays.hashCode(weights);
         result = 31 * result + Arrays.hashCode(rgb);

@@ -12,6 +12,8 @@ public final class RegionBuilder {
     private Integer[] rgb;
     private Integer[] position;
     private String status;
+    private String label;
+    private String hemisphere;
 
     private RegionBuilder() {
     }
@@ -75,6 +77,16 @@ public final class RegionBuilder {
         return this;
     }
 
+    public RegionBuilder withLabel(String label) {
+        this.label = label;
+        return this;
+    }
+
+    public RegionBuilder withHemisphere(String hemisphere) {
+        this.hemisphere = hemisphere;
+        return this;
+    }
+
     public Region build() {
         Region region = new Region();
         region.setName(name);
@@ -88,6 +100,8 @@ public final class RegionBuilder {
         region.setRgb(rgb);
         region.setPosition(position);
         region.setStatus(status);
+        region.setLabel(label);
+        region.setHemisphere(hemisphere);
         return region;
     }
 }
