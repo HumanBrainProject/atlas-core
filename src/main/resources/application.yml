@@ -13,9 +13,13 @@ spring:
     banner-mode: console
   hateoas:
     use-hal-as-default-json-media-type: true
+  mvc:
+    favicon:
+      enabled: false
 management:
   endpoint:
     health:
       enabled: true
   endpoints:
     enabled-by-default: false
+
