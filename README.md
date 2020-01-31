@@ -17,6 +17,8 @@ All endpoints are documented with swagger.
 
 There are health endpoints provided with Spring Boot Actuator:
 
-[Health metrics](https://ebrains-atlascore.apps-dev.hbp.eu/actuator/health)
+[Health metrics - development](https://ebrains-atlascore.apps-dev.hbp.eu/actuator/health)
+
+[Health metrics - production](https://ebrains-atlascore.apps.hbp.eu/actuator/health)
 
 
