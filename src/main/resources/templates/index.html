@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,25 +12,63 @@
 </head>
 <body>
 <div class="container">
-    <h1>Ebrains Atlascore</h1>
-    <div>
-        <p>
-            The ebrains atlascore provides REST endpoint for functionality used by the atlas viewer.
-        </p>
-        <p>
-            For further information see following links:
-        </p>
+    <div class="jumbotron">
+        <h1 class="display-4">Ebrains Atlascore</h1>
+        <p class="lead">The ebrains atlascore provides a REST-API for functionality used by the atlas viewer.</p>
+        <img src="../static/images/HBP_Primary_RGB_BlackText.png" class="rounded float-right d-none d-lg-block" alt="..." th:src="@{/images/HBP_Primary_RGB_BlackText.png}">
+        <hr class="my-4">
+        <p>For further information see following links:</p>
     </div>
     <div>
-        <ul>
-            <li>
-                <a href="/swagger-ui.html">swagger documentation</a>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div>
+                    <h5>Documentation</h5>
+                    <p>
+                        The swagger documentation is a great way to learn more about the API.
+                        It is even possible to use the playground of the documentation and send requests without further development.
+                    </p>
+                    <a href="/swagger-ui.html" class="btn btn-primary">swagger documentation</a>
+                </div>
             </li>
-            <li>
-                <a href="https://github.com/HumanBrainProject/ebrains-atlascore" target="_blank">git repository</a>
+            <li class="list-group-item">
+                <div>
+                    <h5>EBRAINS</h5>
+                    <p>
+                        Learn more about EBRAINS and the tools and services it provides.
+                    </p>
+                    <a href="https://ebrains.eu/" target="_blank" class="btn btn-primary">ebrains</a>
+                </div>
             </li>
-            <li>
-                <a href="https://ebrains.eu/" target="_blank">ebrains</a>
+            <li class="list-group-item">
+                <div>
+                    <h5>Atlas Viewer</h5>
+                    <p>
+                        Jump directly into the atlas viewer.
+                    </p>
+                    <a href="https://interactive-viewer.apps.hbp.eu/" class="btn btn-primary">atlas viewer</a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div>
+                    <h5>Git Repository</h5>
+                    <p>
+                        The sourcecode is completely on GitHub.
+                    </p>
+                    <a href="https://github.com/HumanBrainProject/ebrains-atlascore" target="_blank" class="btn btn-primary">
+                        git repository
+                    </a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div>
+                    <h5>python library</h5>
+                    <p>
+                        Besides the REST-API there is a python library.
+                        The library is mainly a wrapper for the atlascore REST-API but has also extended features.
+                    </p>
+                    <a href="https://pypi.org/project/ebrains-atlascore/" class="btn btn-primary">python library</a>
+                </div>
             </li>
         </ul>
     </div>
