@@ -45,8 +45,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Atlas Core REST API",
-                "Description of all endpoints provided by the atlas core",
+                "Ebrains Atlascore REST API",
+                "Description of all endpoints provided by the atlascore",
                 "0.0.1",
                 "/tos",
                 new Contact("Vadim Marcenko", "", "v.marcenko@fz-juelich.de"),
