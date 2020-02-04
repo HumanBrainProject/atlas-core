@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Vadim Marcenko
  */
 @RestController
-@Api(value = "Provides operations against the allen brain api", tags = {"Allen brain"})
+@Api(value = "Provides operations against the allen brain api", tags = {"Allen human brain"})
 public class AllenBrainController {
 
     private final AllenBrainService allenBrainService;
@@ -25,7 +25,7 @@ public class AllenBrainController {
         this.allenBrainService = allenBrainService;
     }
 
-    @ApiOperation(value = "Get a structure of the allen brain")
+    @ApiOperation(value = "Get a structure of the allen human brain")
     @GetMapping(value = "/allen/structure", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getStructure() {
         return new ResponseEntity<>(allenBrainService.getOntologyStructure(), HttpStatus.OK);

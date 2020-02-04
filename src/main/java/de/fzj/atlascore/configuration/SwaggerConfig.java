@@ -34,7 +34,13 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiInfo())
                 .tags(
-                        new Tag("Allen brain", "Data from allen brain api"),
+                        new Tag(
+                                "Allen human brain",
+                                "Data from the Allen Human Brain Atlas (2010)" +
+                                        "<br>" +
+                                        "&copy; 2015 Allen Institute for Brain Science. Allen Brain Atlas API. " +
+                                        "Available from: <a href=\"http://www.brain-map.org/api/index.html\" target=\"_blank\">brain-map.org/api/index.html</a>"
+                        ),
                         new Tag("Referencespace", "Referencespace"),
                         new Tag("Parcellations", "Parcellations by referencespace"),
                         new Tag("Regions", "Regions by referencespace and parcellation")
