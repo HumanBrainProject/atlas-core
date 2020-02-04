@@ -1,14 +1,23 @@
 package de.fzj.atlascore.region;
 
 import de.fzj.atlascore.region.entity.Region;
+import de.fzj.atlascore.service.FilenameService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.AdditionalAnswers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class RegionRepositoryTest {
 
     private static final String COLIN = "colin";
@@ -18,11 +27,15 @@ public class RegionRepositoryTest {
     private static final String INVALID_PARCELLATION = "invalid-parcellation";
     private static final String INVALID_REGION = "invalid-region";
 
+    @Mock
+    private FilenameService filenameService;
+
+    @InjectMocks
     private RegionRepository regionRepository;
 
     @Before
     public void setUp() {
-        regionRepository = new RegionRepository();
+        when(filenameService.getFilenameForReferencespace(anyString())).then(AdditionalAnswers.returnsFirstArg());
     }
 
     //region === findAllByReferencespaceAndParcellation

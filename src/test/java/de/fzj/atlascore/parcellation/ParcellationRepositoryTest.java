@@ -2,8 +2,11 @@ package de.fzj.atlascore.parcellation;
 
 import de.fzj.atlascore.referencespace.Referencespace;
 import de.fzj.atlascore.referencespace.ReferencespaceRepository;
+import de.fzj.atlascore.service.FilenameService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -14,6 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,10 +28,18 @@ public class ParcellationRepositoryTest {
     private static final String PARCELLATION_NAME = "JuBrain Cytoarchitectonic Atlas";
 
     @Mock
+    private FilenameService filenameService;
+
+    @Mock
     private ReferencespaceRepository referencespaceRepository;
 
     @InjectMocks
     private ParcellationRepository parcellationRepository;
+
+    @Before
+    public void setUp() {
+        when(filenameService.getFilenameForReferencespace(anyString())).then(AdditionalAnswers.returnsFirstArg());
+    }
 
     @Test
     public void shouldReturnAllParcellationsForValidSpace() {

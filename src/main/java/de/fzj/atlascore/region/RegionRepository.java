@@ -2,6 +2,7 @@ package de.fzj.atlascore.region;
 
 import de.fzj.atlascore.region.entity.Region;
 import de.fzj.atlascore.region.entity.RegionBuilder;
+import de.fzj.atlascore.service.FilenameService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
@@ -22,9 +23,15 @@ import java.util.stream.Collectors;
 @Repository
 public class RegionRepository {
 
+    private final FilenameService filenameService;
+
     private static String areaLabel = null;
 
     private HashMap<String, Set<Region>> refSpaceRegions = new HashMap<>();
+
+    public RegionRepository(FilenameService filenameService) {
+        this.filenameService = filenameService;
+    }
 
     private String getStringOrNullFromObject(JSONObject jsonObject, String key) {
         try {
@@ -92,7 +99,7 @@ public class RegionRepository {
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(
                                 new ClassPathResource(
-                                        String.format("data/brains/%s.json", refSpace),
+                                        String.format("data/brains/%s.json", filenameService.getFilenameForReferencespace(refSpace)),
                                         this.getClass().getClassLoader()).getInputStream()
                         )
                 );

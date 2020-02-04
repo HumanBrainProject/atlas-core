@@ -20,11 +20,11 @@ public class ReferencespaceRepositoryTest {
         assertThat(
                 referencespaces.stream().map(Referencespace::getName).collect(Collectors.toList()),
                 hasItems(
-                        "bigbrain",
-                        "colin",
-                        "MNI152",
-                        "waxholmRatV2_0",
-                        "allenMouse"
+                        ReferencespaceRepository.BIG_BRAIN_NAME,
+                        ReferencespaceRepository.MNI_COLIN_27,
+                        ReferencespaceRepository.MNI_152,
+                        ReferencespaceRepository.WAXHOLM,
+                        ReferencespaceRepository.ALLEN_MOUSE
                 )
         );
         assertThat(referencespaces, hasSize(5));
@@ -32,18 +32,18 @@ public class ReferencespaceRepositoryTest {
 
     @Test
     public void shouldReturnReferencespaceForColin() {
-        Referencespace colin = referencespaceRepository.findOneByName("colin");
+        Referencespace colin = referencespaceRepository.findOneByName(ReferencespaceRepository.MNI_COLIN_27);
 
-        assertEquals("colin", colin.getName());
+        assertEquals(ReferencespaceRepository.MNI_COLIN_27, colin.getName());
     }
 
     @Test
     public void shouldReturnTrueForValidSpace() {
-        assertTrue(referencespaceRepository.isValidReferenceSpace("colin"));
-        assertTrue(referencespaceRepository.isValidReferenceSpace("bigbrain"));
-        assertTrue(referencespaceRepository.isValidReferenceSpace("MNI152"));
-        assertTrue(referencespaceRepository.isValidReferenceSpace("waxholmRatV2_0"));
-        assertTrue(referencespaceRepository.isValidReferenceSpace("allenMouse"));
+        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.MNI_COLIN_27));
+        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.BIG_BRAIN_NAME));
+        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.MNI_152));
+        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.WAXHOLM));
+        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.ALLEN_MOUSE));
     }
 
     @Test

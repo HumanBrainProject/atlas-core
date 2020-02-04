@@ -2,6 +2,7 @@ package de.fzj.atlascore.parcellation;
 
 import de.fzj.atlascore.referencespace.Referencespace;
 import de.fzj.atlascore.referencespace.ReferencespaceRepository;
+import de.fzj.atlascore.service.FilenameService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
@@ -27,9 +28,11 @@ import java.util.stream.Collectors;
 public class ParcellationRepository {
 
     private final ReferencespaceRepository referencespaceRepository;
+    private final FilenameService filenameService;
 
-    public ParcellationRepository(ReferencespaceRepository referencespaceRepository) {
+    public ParcellationRepository(ReferencespaceRepository referencespaceRepository, FilenameService filenameService) {
         this.referencespaceRepository = referencespaceRepository;
+        this.filenameService = filenameService;
     }
 
     public List<Parcellation> findAllByReferencespace(String refSpace) {
@@ -45,7 +48,7 @@ public class ParcellationRepository {
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(
                                 new ClassPathResource(
-                                        String.format("data/brains/%s.json", first.get().getName()),
+                                        String.format("data/brains/%s.json", filenameService.getFilenameForReferencespace(first.get().getName())),
                                         this.getClass().getClassLoader()).getInputStream()
                         )
                 );
