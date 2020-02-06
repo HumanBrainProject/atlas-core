@@ -17,4 +17,9 @@ public class StaticPageControllerTest {
     public void shouldReturnTosSite() {
         assertEquals("tos", staticPageController.getTos());
     }
+
+    @Test
+    public void shouldReturnMainPage() {
+        assertEquals("index", staticPageController.getMain());
+    }
 }
