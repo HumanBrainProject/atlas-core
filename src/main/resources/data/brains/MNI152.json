@@ -3,6 +3,7 @@
   "type": "template",
   "species": "Human",
   "useTheme": "dark",
+  "id": "https://nexus.humanbrainproject.org/v0/data/minds/core/referencespace/v1.0.0/1518c6d4-0700-4c90-ad8d-8d992b69687e",
   "ngId": "mni152",
   "nehubaConfigURL": "nehubaConfig/MNI152NehubaConfig",
   "parcellations": [

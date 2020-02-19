@@ -2,6 +2,7 @@
   "name": "MNI Colin 27",
   "type": "template",
   "species": "Human",
+  "id": "https://nexus.humanbrainproject.org/v0/data/minds/core/referencespace/v1.0.0/7f39f7be-445b-47c0-9791-e971c0b6d992",
   "useTheme": "dark",
   "ngId": "colin",
   "nehubaConfigURL": "nehubaConfig/colinNehubaConfig",
