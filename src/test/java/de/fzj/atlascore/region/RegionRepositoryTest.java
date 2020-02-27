@@ -15,7 +15,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RegionRepositoryTest {
@@ -26,6 +26,9 @@ public class RegionRepositoryTest {
     private static final String INVALID_REFSPACE = "invalid-referencespace";
     private static final String INVALID_PARCELLATION = "invalid-parcellation";
     private static final String INVALID_REGION = "invalid-region";
+    private static final String BIG_BRAIN = "bigbrain";
+    private static final String BIG_BRAIN_PARCELLATION_MAPS = "Cytoarchitectonic Maps";
+    private static final String BIG_BRAIN_PARCELLATION_LAYERS = "BigBrain Cortical Layers Segmentation";
 
     @Mock
     private FilenameService filenameService;
@@ -104,6 +107,25 @@ public class RegionRepositoryTest {
                 .findOneByReferencespaceAndParcellationAndName(COLIN, INVALID_PARCELLATION, INVALID_REGION);
 
         assertNull(region);
+    }
+    //endregion
+
+    //region === testing cache
+    @Test
+    public void shouldGetDataFromCacheOnSecondCall() {
+        regionRepository.findAllByReferencespaceAndParcellation(BIG_BRAIN, BIG_BRAIN_PARCELLATION_MAPS);
+        List<Region> regions = regionRepository.findAllByReferencespaceAndParcellation(BIG_BRAIN, BIG_BRAIN_PARCELLATION_MAPS);
+
+
+        assertNotNull(regions);
+        assertFalse(regions.isEmpty());
+        verify(filenameService, times(1)).getFilenameForReferencespace(anyString());
+        verify(filenameService, times(1)).getFilenameForReferencespace(BIG_BRAIN);
+
+        regionRepository.findAllByReferencespaceAndParcellation(BIG_BRAIN, BIG_BRAIN_PARCELLATION_LAYERS);
+
+        verify(filenameService, times(2)).getFilenameForReferencespace(anyString());
+        verify(filenameService, times(2)).getFilenameForReferencespace(BIG_BRAIN);
     }
     //endregion
 }

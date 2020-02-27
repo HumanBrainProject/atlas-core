@@ -62,7 +62,7 @@ public class RegionRepository {
         return null;
     }
 
-    private void getRegionsFromStaticJson(String refSpace, JSONObject jsonObject) {
+    private void getRegionsFromStaticJson(String regionCacheKey, JSONObject jsonObject) {
         JSONArray children = jsonObject.getJSONArray("children");
         String label = getStringOrNullFromObject(jsonObject, "arealabel");
         if(label != null) {
@@ -70,7 +70,7 @@ public class RegionRepository {
         }
         if(children.isEmpty()) {
             try {
-                refSpaceRegions.get(refSpace).add(
+                refSpaceRegions.get(regionCacheKey).add(
                         RegionBuilder
                                 .aRegion()
                                 .withName(getStringOrNullFromObject(jsonObject, "name"))
@@ -86,15 +86,15 @@ public class RegionRepository {
             }
         } else {
             for(Object o : children) {
-                getRegionsFromStaticJson(refSpace, (JSONObject) o);
+                getRegionsFromStaticJson(regionCacheKey, (JSONObject) o);
             }
         }
     }
 
     public List<Region> findAllByReferencespaceAndParcellation(String refSpace, String parcellation) {
         areaLabel = null;
-        if(!refSpaceRegions.containsKey(refSpace)) {
-            refSpaceRegions.put(refSpace, new HashSet<>());
+        if(!refSpaceRegions.containsKey(refSpace+parcellation)) {
+            refSpaceRegions.put(refSpace+parcellation, new HashSet<>());
             try {
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(
@@ -109,7 +109,7 @@ public class RegionRepository {
                 for (Object o : jsonArray) {
                     if (((JSONObject) o).get("name").toString().equals(parcellation)) {
                         for (int i = 0; i < ((JSONObject) o).getJSONArray("regions").length(); i++) {
-                            getRegionsFromStaticJson(refSpace, ((JSONObject) o).getJSONArray("regions").getJSONObject(i));
+                            getRegionsFromStaticJson(refSpace+parcellation, ((JSONObject) o).getJSONArray("regions").getJSONObject(i));
                         }
                     }
                 }
@@ -118,14 +118,14 @@ public class RegionRepository {
             }
         }
 
-        return new ArrayList<>(refSpaceRegions.get(refSpace));
+        return new ArrayList<>(refSpaceRegions.get(refSpace+parcellation));
     }
 
     public Region findOneByReferencespaceAndParcellationAndName(String refSpace, String parcellation, String name) {
-        if(!refSpaceRegions.containsKey(refSpace)) {
+        if(!refSpaceRegions.containsKey(refSpace+parcellation)) {
             findAllByReferencespaceAndParcellation(refSpace, parcellation);
         }
-        return refSpaceRegions.get(refSpace)
+        return refSpaceRegions.get(refSpace+parcellation)
                 .stream()
                 .filter(region -> region.getName().equals(name))
                 .findFirst().orElse(null);
