@@ -3,6 +3,7 @@ package de.fzj.atlascore.parcellation;
 import de.fzj.atlascore.referencespace.Referencespace;
 import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.service.FilenameService;
+import de.fzj.atlascore.service.JsonObjectService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
@@ -56,7 +57,11 @@ public class ParcellationRepository {
                 JSONObject jsonObject = new JSONObject(fileAsString);
                 JSONArray jsonArray = jsonObject.getJSONArray("parcellations");
                 for (Object o : jsonArray) {
-                    parcellations.add(new Parcellation(((JSONObject) o).get("name").toString()));
+                    JSONObject parcellation = (JSONObject) o;
+                    parcellations.add(new Parcellation(
+                            parcellation.get("name").toString(),
+                            JsonObjectService.getHashMapOrNullFromJsonObject(parcellation, "properties")
+                    ));
                 }
             } catch (IOException e) {
                 //TODO Log error

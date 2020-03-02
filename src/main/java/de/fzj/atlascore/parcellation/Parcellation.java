@@ -1,5 +1,9 @@
 package de.fzj.atlascore.parcellation;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 /**
@@ -7,15 +11,19 @@ import java.util.Objects;
  *
  * @author Vadim Marcenko
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Parcellation {
 
     private String name;
 
+    private HashMap<String, Object> properties;
+
     public Parcellation() {
     }
 
-    public Parcellation(String name) {
+    public Parcellation(String name, HashMap properties) {
         this.name = name;
+        this.properties = properties;
     }
 
     public String getName() {
@@ -24,6 +32,14 @@ public class Parcellation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public HashMap<String, Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(HashMap<String, Object> properties) {
+        this.properties = properties;
     }
 
     @Override
