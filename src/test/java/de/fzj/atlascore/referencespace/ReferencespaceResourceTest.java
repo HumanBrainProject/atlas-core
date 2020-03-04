@@ -14,7 +14,9 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class ReferencespaceResourceTest {
 
-    private String inputName;
+    private static final String REFERENCESPACE_BIGBRAIN = "bigbrain";
+    private static final String ID = "42-1337";
+    private String inputId;
     private HashMap<String, Object> properties = new HashMap<>();
 
     @Parameterized.Parameters
@@ -25,19 +27,20 @@ public class ReferencespaceResourceTest {
         });
     }
 
-    public ReferencespaceResourceTest(String inputName) {
-        this.inputName = inputName;
+    public ReferencespaceResourceTest(String inputId) {
+        this.inputId = inputId;
     }
 
     @Test
     public void shouldCreateReferencespaceAndAddLinks() {
-        properties.put("id", "42-1337");
+        properties.put("id", inputId);
+        properties.put("name", REFERENCESPACE_BIGBRAIN);
         Referencespace referencespace = new Referencespace(properties);
         ReferencespaceResource referencespaceResource = new ReferencespaceResource(referencespace);
 
-        assertEquals(inputName, referencespaceResource.getReferencespace().getName());
-        assertEquals("/referencespaces/" + inputName, referencespaceResource.getLink("self").getHref());
-        assertEquals("/referencespaces/" + inputName + "/parcellations", referencespaceResource.getLink("parcellations").getHref());
+        assertEquals(inputId, referencespaceResource.getReferencespace().getId());
+        assertEquals("/referencespaces/" + inputId, referencespaceResource.getLink("self").getHref());
+        assertEquals("/referencespaces/" + inputId + "/parcellations", referencespaceResource.getLink("parcellations").getHref());
         assertThat(referencespaceResource.getLinks(), hasSize(2));
     }
 }
