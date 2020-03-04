@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -25,12 +26,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ParcellationControllerTest {
 
+    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
+        put("key1", "value1");
+        put("key2", "value2");
+    }};
     private static final String REF_SPACE_NAME = "bigbrain";
     private static final String INVALID_REF_SPACE_NAME = "smallbrain";
     private static final String PARCELLATION_NAME_A = "par-a";
     private static final String PARCELLATION_NAME_B = "par-b";
-    private static final Parcellation PARCELLATION_A = new Parcellation(PARCELLATION_NAME_A);
-    private static final Parcellation PARCELLATION_B = new Parcellation(PARCELLATION_NAME_B);
+    private static final Parcellation PARCELLATION_A = new Parcellation(PROPERTIES);
+    private static final Parcellation PARCELLATION_B = new Parcellation(PROPERTIES);
 
     private static final List<Parcellation> PARCELLATIONS = Arrays.asList(
         PARCELLATION_A, PARCELLATION_B

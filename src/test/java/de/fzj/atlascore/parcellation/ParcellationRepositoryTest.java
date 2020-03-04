@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -23,6 +24,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ParcellationRepositoryTest {
 
+    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
+        put("key1", "value1");
+        put("key2", "value2");
+    }};
     private static final String REF_SPACE = "colin";
     private static final String REF_SPACE_INVALID = "invalid";
     private static final String PARCELLATION_NAME = "JuBrain Cytoarchitectonic Atlas";
@@ -44,7 +49,7 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnAllParcellationsForValidSpace() {
         when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-           new Referencespace(REF_SPACE)
+           new Referencespace(PROPERTIES)
         ));
 
         List<Parcellation> parcellations = parcellationRepository.findAllByReferencespace(REF_SPACE);
@@ -64,7 +69,7 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnEmptyListIfSpaceIsValidButNoFilePresent() {
         when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(REF_SPACE_INVALID)
+                new Referencespace(PROPERTIES)
         ));
 
         List<Parcellation> parcellations = parcellationRepository.findAllByReferencespace(REF_SPACE_INVALID);
@@ -75,7 +80,7 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnParcellationForValidSpace() {
         when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(REF_SPACE)
+                new Referencespace(PROPERTIES)
         ));
 
         Parcellation parcellation = parcellationRepository
@@ -87,7 +92,7 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnNullIfNoParcellationFound() {
         when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(REF_SPACE_INVALID)
+                new Referencespace(PROPERTIES)
         ));
 
         Parcellation parcellation = parcellationRepository

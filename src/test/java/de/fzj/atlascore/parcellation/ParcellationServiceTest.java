@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -20,6 +21,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ParcellationServiceTest {
 
+    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
+        put("key1", "value1");
+        put("key2", "value2");
+    }};
     private static final String REF_SPACE_BIGBRAIN = ReferencespaceRepository.BIG_BRAIN;
     private static final String BIGBRAIN_ONE_PARCELLATION = "Cytoarchitectonic Maps";
     private static final String REF_SPACE_COLIN = ReferencespaceRepository.MNI_COLIN_27;
@@ -41,34 +46,34 @@ public class ParcellationServiceTest {
     @Test
     public void shouldReturnParcellationsForBigBrain() {
         when(parcellationRepository.findAllByReferencespace(REF_SPACE_BIGBRAIN)).thenReturn(Arrays.asList(
-                new Parcellation(BIGBRAIN_ONE_PARCELLATION)
+                new Parcellation(PROPERTIES)
         ));
         List<Parcellation> parcellations = parcellationService.getParcellations(REF_SPACE_BIGBRAIN);
 
         assertThat(parcellations, not(empty()));
-        assertThat(parcellations, hasItem(new Parcellation(BIGBRAIN_ONE_PARCELLATION)));
+        assertThat(parcellations, hasItem(new Parcellation(PROPERTIES)));
     }
 
     @Test
     public void shouldReturnParcellationsForColin() {
         when(parcellationRepository.findAllByReferencespace(REF_SPACE_COLIN)).thenReturn(Arrays.asList(
-                new Parcellation(COLIN_ONE_PARCELLATION)
+                new Parcellation(PROPERTIES)
         ));
         List<Parcellation> parcellations = parcellationService.getParcellations(REF_SPACE_COLIN);
 
         assertThat(parcellations, not(empty()));
-        assertThat(parcellations, hasItem(new Parcellation(COLIN_ONE_PARCELLATION)));
+        assertThat(parcellations, hasItem(new Parcellation(PROPERTIES)));
     }
 
     @Test
     public void shouldReturnParcellationsForMni() {
         when(parcellationRepository.findAllByReferencespace(REF_SPACE_MIN)).thenReturn(Arrays.asList(
-                new Parcellation(MNI_ONE_PARCELLATION)
+                new Parcellation(PROPERTIES)
         ));
         List<Parcellation> parcellations = parcellationService.getParcellations(REF_SPACE_MIN);
 
         assertThat(parcellations, not(empty()));
-        assertThat(parcellations, hasItem(new Parcellation(MNI_ONE_PARCELLATION)));
+        assertThat(parcellations, hasItem(new Parcellation(PROPERTIES)));
     }
 
     @Test
@@ -86,11 +91,11 @@ public class ParcellationServiceTest {
     public void shouldReturnParcellationByName() {
         when(referencespaceRepository.isValidReferenceSpace(anyString())).thenReturn(true);
         when(parcellationRepository.findOneByReferencespaceAndName(REF_SPACE_COLIN, PARCELLATION_NAME)).thenReturn(
-                new Parcellation(PARCELLATION_NAME)
+                new Parcellation(PROPERTIES)
         );
         Parcellation parcellation = parcellationService.getParcellationByName(REF_SPACE_COLIN, PARCELLATION_NAME);
 
-        assertEquals(new Parcellation(PARCELLATION_NAME), parcellation);
+        assertEquals(new Parcellation(PROPERTIES), parcellation);
     }
 
     @Test

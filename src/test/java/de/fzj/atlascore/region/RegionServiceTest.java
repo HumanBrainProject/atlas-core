@@ -1,7 +1,5 @@
 package de.fzj.atlascore.region;
 
-import de.fzj.atlascore.parcellation.ParcellationRepository;
-import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.tvb.TVBDummyDataService;
 import de.fzj.atlascore.tvb.TVBService;
 import org.junit.Test;
@@ -21,10 +19,6 @@ public class RegionServiceTest {
     private static final String TVB = "tvb";
     private static final String JUBRAIN = "jubrain";
 
-    @Mock
-    private ReferencespaceRepository referencespaceRepository;
-    @Mock
-    private ParcellationRepository parcellationRepository;
     @Mock
     private RegionRepository regionRepository;
     @Mock

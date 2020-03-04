@@ -28,9 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RegionControllerTest {
 
     private static final String REF_SPACE_NAME = "bigbrain";
-    private static final String INVALID_REF_SPACE_NAME = "smallbrain";
     private static final String PARCELLATION_NAME = "par-a";
-    private static final String INVALID_PARCELLATION_NAME = "par-b";
     private static final String REGION_NAME_A = "region-a";
     private static final String REGION_NAME_B = "region-b";
     private static final Region REGION_A = RegionBuilder.aRegion().withName(REGION_NAME_A).build();

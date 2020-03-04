@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
@@ -14,6 +15,7 @@ import static org.junit.Assert.*;
 public class ReferencespaceResourceTest {
 
     private String inputName;
+    private HashMap<String, Object> properties = new HashMap<>();
 
     @Parameterized.Parameters
     public static Collection input() {
@@ -29,7 +31,8 @@ public class ReferencespaceResourceTest {
 
     @Test
     public void shouldCreateReferencespaceAndAddLinks() {
-        Referencespace referencespace = new Referencespace(inputName);
+        properties.put("id", "42-1337");
+        Referencespace referencespace = new Referencespace(properties);
         ReferencespaceResource referencespaceResource = new ReferencespaceResource(referencespace);
 
         assertEquals(inputName, referencespaceResource.getReferencespace().getName());

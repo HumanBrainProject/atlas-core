@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
@@ -16,6 +17,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ReferencespaceServiceTest {
 
+    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
+        put("key1", "value1");
+        put("key2", "value2");
+    }};
     private static final String REFERENCESPACE_BIGBRAIN = "bigbrain";
     private static final String REFERENCESPACE_COLIN = "colin";
     private static final String REFERENCESPACE_NAME_INVALID = "smallbrain";
@@ -29,11 +34,11 @@ public class ReferencespaceServiceTest {
     @Before
     public void setUp() {
         when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(REFERENCESPACE_BIGBRAIN),
-                new Referencespace(REFERENCESPACE_COLIN)
+                new Referencespace(PROPERTIES),
+                new Referencespace(PROPERTIES)
         ));
         when(referencespaceRepository.findOneById(REFERENCESPACE_BIGBRAIN))
-                .thenReturn(new Referencespace(REFERENCESPACE_BIGBRAIN));
+                .thenReturn(new Referencespace(PROPERTIES));
     }
 
     @Test

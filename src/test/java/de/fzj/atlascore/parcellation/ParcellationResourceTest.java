@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
@@ -13,6 +14,10 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class ParcellationResourceTest {
 
+    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
+        put("key1", "value1");
+        put("key2", "value2");
+    }};
     private String refSpace;
     private String inputName;
 
@@ -31,7 +36,7 @@ public class ParcellationResourceTest {
 
     @Test
     public void shouldCreateParcellationResourceAndAddLinks() {
-        Parcellation parcellation = new Parcellation(inputName);
+        Parcellation parcellation = new Parcellation(PROPERTIES);
         ParcellationResource parcellationResource = new ParcellationResource(parcellation, refSpace);
 
         assertEquals(inputName, parcellationResource.getParcellation().getName());

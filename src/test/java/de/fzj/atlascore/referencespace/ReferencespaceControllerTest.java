@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -25,11 +26,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ReferencespaceControllerTest {
 
+    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
+        put("key1", "value1");
+        put("key2", "value2");
+    }};
     private static final String BIGBRAIN = "bigbrain";
     private static final String COLIN = "colin";
     private static final String INVALID_SPACE = "invalid";
-    private static final Referencespace REFERENCESPACE_BIGBRAIN = new Referencespace(BIGBRAIN);
-    private static final Referencespace REFERENCESPACE_COLIN = new Referencespace(COLIN);
+    private static final Referencespace REFERENCESPACE_BIGBRAIN = new Referencespace(PROPERTIES);
+    private static final Referencespace REFERENCESPACE_COLIN = new Referencespace(PROPERTIES);
 
     private static final List<Referencespace> REFERENCESPACES = Arrays.asList(
             REFERENCESPACE_BIGBRAIN, REFERENCESPACE_COLIN
