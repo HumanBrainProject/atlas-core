@@ -21,11 +21,11 @@ public class ReferencespaceService {
     }
 
     public List<Referencespace> getReferencespaces() {
-        return this.referencespaceRepository.getAllReferencespacesWithProperties();
+        return this.referencespaceRepository.getAll();
 //        return referencespaceRepository.findAll();
     }
 
     public Referencespace getReferencespaceByName(String name) {
-        return referencespaceRepository.findOneByName(name);
+        return referencespaceRepository.findOneById(name);
     }
 }

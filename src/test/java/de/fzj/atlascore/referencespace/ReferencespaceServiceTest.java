@@ -32,7 +32,7 @@ public class ReferencespaceServiceTest {
                 new Referencespace(REFERENCESPACE_BIGBRAIN),
                 new Referencespace(REFERENCESPACE_COLIN)
         ));
-        when(referencespaceRepository.findOneByName(REFERENCESPACE_BIGBRAIN))
+        when(referencespaceRepository.findOneById(REFERENCESPACE_BIGBRAIN))
                 .thenReturn(new Referencespace(REFERENCESPACE_BIGBRAIN));
     }
 

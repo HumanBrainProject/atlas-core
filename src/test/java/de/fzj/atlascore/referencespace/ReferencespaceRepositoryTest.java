@@ -32,7 +32,7 @@ public class ReferencespaceRepositoryTest {
 
     @Test
     public void shouldReturnReferencespaceForColin() {
-        Referencespace colin = referencespaceRepository.findOneByName(ReferencespaceRepository.MNI_COLIN_27);
+        Referencespace colin = referencespaceRepository.findOneById(ReferencespaceRepository.MNI_COLIN_27);
 
         assertEquals(ReferencespaceRepository.MNI_COLIN_27, colin.getName());
     }

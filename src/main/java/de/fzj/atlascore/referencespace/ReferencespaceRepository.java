@@ -32,17 +32,17 @@ public class ReferencespaceRepository {
         return new ArrayList<>(referencespaceRepo.values());
     }
 
-    public List<String> getValidReferencespaces() {
+    public boolean isValid(String id) {
         return Arrays.asList(
                 BIG_BRAIN,
                 MNI_COLIN_27,
                 MNI_152,
                 WAXHOLM,
                 ALLEN_MOUSE
-        );
+        ).contains(id);
     }
 
-    public List<Referencespace> getAllReferencespacesWithProperties() {
+    public List<Referencespace> getAll() {
         for (Map.Entry<String, String> entry : FilenameService.FILES.entrySet()) {
             try {
                 BufferedReader reader = new BufferedReader(
@@ -66,7 +66,7 @@ public class ReferencespaceRepository {
         return new ArrayList<>(referencespaceRepo.values());
     }
 
-    public Referencespace findOneByName(String name) {
+    public Referencespace findOneById(String name) {
         return referencespaceRepo.get(name);
     }
 

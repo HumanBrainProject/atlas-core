@@ -28,7 +28,7 @@ public class ParcellationService {
     }
 
     public List<Parcellation> getParcellations(String refSpaceName) {
-        if(referencespaceRepository.getValidReferencespaces().contains(refSpaceName)) {
+        if(referencespaceRepository.isValid(refSpaceName)) {
             return parcellationRepository.findAllByReferencespace(refSpaceName);
         }
         throw new ResponseStatusException(
@@ -37,13 +37,13 @@ public class ParcellationService {
         );
     }
 
-    public Parcellation getParcellationByName(String refSpaceName, String name) {
-        if (referencespaceRepository.isValidReferenceSpace(refSpaceName)) {
-            return parcellationRepository.findOneByReferencespaceAndName(refSpaceName, name);
+    public Parcellation getParcellationByName(String refspaceId, String name) {
+        if (referencespaceRepository.isValid(refspaceId)) {
+            return parcellationRepository.findOneByReferencespaceAndName(refspaceId, name);
         } else {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    String.format("Referencespace: %s not found", refSpaceName)
+                    String.format("Referencespace: %s not found", refspaceId)
             );
         }
     }
