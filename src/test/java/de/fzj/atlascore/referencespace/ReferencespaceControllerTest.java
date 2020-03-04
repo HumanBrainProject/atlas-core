@@ -19,6 +19,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -27,17 +28,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ReferencespaceControllerTest {
 
     private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
-        put("key1", "value1");
-        put("key2", "value2");
+        put("name", BIGBRAIN);
+        put("id", ID);
     }};
     private static final String BIGBRAIN = "bigbrain";
-    private static final String COLIN = "colin";
+    private static final String ID = "42-1337";
     private static final String INVALID_SPACE = "invalid";
     private static final Referencespace REFERENCESPACE_BIGBRAIN = new Referencespace(PROPERTIES);
-    private static final Referencespace REFERENCESPACE_COLIN = new Referencespace(PROPERTIES);
 
     private static final List<Referencespace> REFERENCESPACES = Arrays.asList(
-            REFERENCESPACE_BIGBRAIN, REFERENCESPACE_COLIN
+            REFERENCESPACE_BIGBRAIN
     );
 
     @Autowired
@@ -56,11 +56,12 @@ public class ReferencespaceControllerTest {
     public void shouldReturnAllReferencespaces() throws Exception {
         MvcResult mvcResult = mockMvc
                 .perform(get("/referencespaces"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(status().isOk())
                 .andReturn();
-        JSONObject jsonResult = new JSONObject(mvcResult.getResponse().getContentAsString());
+        String jsonResult = mvcResult.getResponse().getContentAsString();
 
-        assertEquals(2, jsonResult.getJSONObject("_embedded").getJSONArray("referencespaces").length());
+        assertTrue(jsonResult.contains(ID));
     }
 
     @Test
@@ -69,9 +70,9 @@ public class ReferencespaceControllerTest {
                 .perform(get("/referencespaces/" + BIGBRAIN))
                 .andExpect(status().isOk())
                 .andReturn();
-        JSONObject jsonResult = new JSONObject(mvcResult.getResponse().getContentAsString());
+        String jsonResult = mvcResult.getResponse().getContentAsString();
 
-        assertEquals(BIGBRAIN, jsonResult.getJSONObject("referencespace").get("name").toString());
+        assertTrue(jsonResult.contains(ID));
     }
 
     @Test
