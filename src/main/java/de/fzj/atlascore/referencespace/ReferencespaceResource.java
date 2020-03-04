@@ -1,11 +1,8 @@
 package de.fzj.atlascore.referencespace;
 
 import de.fzj.atlascore.parcellation.ParcellationController;
-import io.micrometer.core.instrument.util.StringEscapeUtils;
-import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
-import org.unbescape.html.HtmlEscape;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -25,7 +22,7 @@ public class ReferencespaceResource extends ResourceSupport {
     public ReferencespaceResource(final Referencespace referencespace) {
         this.referencespace = referencespace;
         add(linkTo(methodOn(ReferencespaceController.class)
-                .getReferencespaceByName(referencespace.getId())
+                .getReferencespaceById(referencespace.getId())
         ).withSelfRel());
         add(linkTo(methodOn(ParcellationController.class)
                 .getAllParcellationsForReferencespace(referencespace.getId())

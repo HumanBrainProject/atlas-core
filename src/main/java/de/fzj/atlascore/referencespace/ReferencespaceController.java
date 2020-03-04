@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Controller to deliver a list of valid referencespaces and more details to one referencespace by name
+ * Controller to deliver a list of valid referencespaces and more details to one referencespace by id
  *
  * @see Referencespace
  * @see ReferencespaceResource
@@ -40,14 +40,14 @@ public class ReferencespaceController {
         return new Resources<>(referencespaces.stream().map(ReferencespaceResource::new).collect(Collectors.toList()));
     }
 
-    @GetMapping(value = "/{refSpaceName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{refSpaceId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Resource<ReferencespaceResource> getReferencespaceByName(@PathVariable("refSpaceName") String refSpaceName) {
-        Referencespace referencespaceByName = referencespaceService.getReferencespaceByName(refSpaceName);
+    public Resource<ReferencespaceResource> getReferencespaceById(@PathVariable("refSpaceId") String refSpaceId) {
+        Referencespace referencespaceByName = referencespaceService.getReferencespaceByName(refSpaceId);
         if (referencespaceByName == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    String.format("referencespace: %s not found", refSpaceName)
+                    String.format("referencespace: %s not found", refSpaceId)
             );
         }
         return new Resource<>(new ReferencespaceResource(referencespaceByName));
