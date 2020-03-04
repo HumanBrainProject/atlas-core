@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @author Vadim Marcenko
  */
 @RestController
-@RequestMapping(ControllerPaths.REFERENCESPACES + "/{refSpaceName}" + ControllerPaths.PARCELLATIONS)
+@RequestMapping(ControllerPaths.REFERENCESPACES + "/{refSpaceId}" + ControllerPaths.PARCELLATIONS)
 @Api(value = "Parcellations for all valid referencespaces", tags = {"Parcellations"})
 public class ParcellationController {
 
@@ -37,28 +37,28 @@ public class ParcellationController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Resources<ParcellationResource> getAllParcellationsForReferencespace(@PathVariable("refSpaceName") String refSpaceName) {
-        List<Parcellation> parcellations = parcellationService.getParcellations(refSpaceName);
+    public Resources<ParcellationResource> getAllParcellationsForReferencespace(@PathVariable("refSpaceId") String refSpaceId) {
+        List<Parcellation> parcellations = parcellationService.getParcellations(refSpaceId);
 
         return new Resources<>(
                 parcellations
                         .stream()
-                        .map(parcellation -> new ParcellationResource(parcellation, refSpaceName))
+                        .map(parcellation -> new ParcellationResource(parcellation, refSpaceId))
                         .collect(Collectors.toList())
         );
     }
 
     @GetMapping(value = "/{parcellationName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource<ParcellationResource> getParcellationForName(
-            @PathVariable("refSpaceName") String refSpaceName,
+            @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName) {
-        Parcellation parcellationByName = parcellationService.getParcellationByName(refSpaceName, parcellationName);
+        Parcellation parcellationByName = parcellationService.getParcellationByName(refSpaceId, parcellationName);
         if (parcellationByName == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    String.format("Parcellation: %s not found for referencespace: %s", parcellationName, refSpaceName)
+                    String.format("Parcellation: %s not found for referencespace: %s", parcellationName, refSpaceId)
             );
         }
-        return new Resource<>(new ParcellationResource(parcellationByName, refSpaceName));
+        return new Resource<>(new ParcellationResource(parcellationByName, refSpaceId));
     }
 }
