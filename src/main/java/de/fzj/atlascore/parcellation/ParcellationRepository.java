@@ -31,12 +31,12 @@ public class ParcellationRepository {
         this.filenameService = filenameService;
     }
 
-    public List<Parcellation> findAllByReferencespace(String refSpace) {
+    public List<Parcellation> findAllByReferencespace(String refSpaceId) {
         List<Parcellation> parcellations = new LinkedList<>();
         BufferedReader reader;
-        if(FilenameService.FILES.containsKey(refSpace)) {
+        if(FilenameService.FILES.containsKey(refSpaceId)) {
             try {
-                reader = filenameService.getBufferedReaderByReferencespaceId(refSpace);
+                reader = filenameService.getBufferedReaderByReferencespaceId(refSpaceId);
                 String fileAsString = reader.lines().collect(Collectors.joining(" "));
                 JSONObject jsonObject = new JSONObject(fileAsString);
                 JSONArray jsonArray = jsonObject.getJSONArray("parcellations");
@@ -54,8 +54,8 @@ public class ParcellationRepository {
         return parcellations;
     }
 
-    public Parcellation findOneByReferencespaceAndName(String refSpace, String name) {
-        return findAllByReferencespace(refSpace)
+    public Parcellation findOneByReferencespaceAndName(String refSpaceId, String name) {
+        return findAllByReferencespace(refSpaceId)
                 .stream()
                 .filter(parcellation -> parcellation.getName().equals(name))
                 .findFirst()
