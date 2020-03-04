@@ -48,8 +48,8 @@ public class RegionControllerTest {
 
     @Before
     public void setUp() {
-        when(regionService.getAllRegions(REF_SPACE_NAME, PARCELLATION_NAME)).thenReturn(REGIONS);
-        when(regionService.getRegionByName(REF_SPACE_NAME, PARCELLATION_NAME, REGION_NAME_A)).thenReturn(REGION_A);
+        when(regionService.getAll(REF_SPACE_NAME, PARCELLATION_NAME)).thenReturn(REGIONS);
+        when(regionService.getByName(REF_SPACE_NAME, PARCELLATION_NAME, REGION_NAME_A)).thenReturn(REGION_A);
     }
 
     @Test

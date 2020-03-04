@@ -131,10 +131,6 @@ public class RegionRepository {
             for (Object o : jsonArray) {
                 if (((JSONObject) o).get("name").toString().equals(parcellation)) {
                     regions.put("regions", ((JSONObject) o).getJSONArray("regions").toList());
-//                    JSONArray regions = ((JSONObject) o).getJSONArray("regions");
-//                    for (int i = 0; i < ((JSONObject) o).getJSONArray("regions").length(); i++) {
-//                        getRegionsFromStaticJson(refSpace+parcellation, ((JSONObject) o).getJSONArray("regions").getJSONObject(i));
-//                    }
                 }
             }
 

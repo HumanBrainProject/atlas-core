@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping(
-        ControllerPaths.REFERENCESPACES + "/{refSpaceName}" +
+        ControllerPaths.REFERENCESPACES + "/{refSpaceId}" +
         ControllerPaths.PARCELLATIONS + "/{parcellationName}" +
         ControllerPaths.REGIONS
 )
@@ -40,22 +40,22 @@ public class RegionController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Resources<RegionResource> getAllRegions(
-            @PathVariable("refSpaceName") String refSpaceName,
+            @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName) {
-        List<Region> regions = regionService.getAllRegions(refSpaceName, parcellationName);
+        List<Region> regions = regionService.getAll(refSpaceId, parcellationName);
         return new Resources<>(
                 regions
                         .stream()
-                        .map(region -> new RegionResource(region, refSpaceName, parcellationName))
+                        .map(region -> new RegionResource(region, refSpaceId, parcellationName))
                         .collect(Collectors.toList())
         );
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "full")
     public HashMap<String, Object> getFullRegions(
-            @PathVariable("refSpaceName") String refSpaceName,
+            @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName) {
-        HashMap<String, Object> fullRegionStructure = regionService.getFullRegionStructure(refSpaceName, parcellationName);
+        HashMap<String, Object> fullRegionStructure = regionService.getFullStructure(refSpaceId, parcellationName);
         if(fullRegionStructure == null || fullRegionStructure.isEmpty()) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
@@ -67,16 +67,16 @@ public class RegionController {
 
     @GetMapping(value = "/{regionName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource<RegionResource> getRegion(
-            @PathVariable("refSpaceName") String refSpaceName,
+            @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName,
             @PathVariable("regionName") String regionName) {
-        Region region = regionService.getRegionByName(refSpaceName, parcellationName, regionName);
+        Region region = regionService.getByName(refSpaceId, parcellationName, regionName);
         if (region == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
                     String.format("Region: %s not found in parcellation %s", regionName, parcellationName)
             );
         }
-        return new Resource<>(new RegionResource(region, refSpaceName, parcellationName));
+        return new Resource<>(new RegionResource(region, refSpaceId, parcellationName));
     }
 }

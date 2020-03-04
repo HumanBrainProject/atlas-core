@@ -28,42 +28,36 @@ public class RegionService {
     private static final String TVB = "tvb";
     private static final String JUBRAIN = "jubrain";
 
-    private final ReferencespaceRepository referencespaceRepository;
-    private final ParcellationRepository parcellationRepository;
     private final RegionRepository regionRepository;
     private final TVBDummyDataService tvbDummyDataService;
     private final TVBService tvbService;
 
     public RegionService(
-            ReferencespaceRepository referencespaceRepository,
-            ParcellationRepository parcellationRepository,
             RegionRepository regionRepository, TVBDummyDataService tvbDummyDataService,
             TVBService tvbService) {
-        this.referencespaceRepository = referencespaceRepository;
-        this.parcellationRepository = parcellationRepository;
         this.regionRepository = regionRepository;
         this.tvbDummyDataService = tvbDummyDataService;
         this.tvbService = tvbService;
     }
 
-    List<Region> getAllRegions(String refSpaceName, String parcellationName) {
-        if(refSpaceName.equals(TVB)) {
+    List<Region> getAll(String refspaceId, String parcellationName) {
+        if(refspaceId.equals(TVB)) {
             return tvbDummyDataService.getAllRegions();
         }
-        if(refSpaceName.equals(JUBRAIN)) {
+        if(refspaceId.equals(JUBRAIN)) {
             return tvbService.getAllRegions();
         }
-        return regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
+        return regionRepository.findAllByReferencespaceAndParcellation(refspaceId, parcellationName);
     }
 
-    Region getRegionByName(String refSpaceName, String parcellationName, String name) {
-        if(refSpaceName.equals(TVB)) {
+    Region getByName(String refspaceId, String parcellationName, String name) {
+        if(refspaceId.equals(TVB)) {
             return tvbDummyDataService.getRegionByName(name);
         }
-        return regionRepository.findOneByReferencespaceAndParcellationAndName(refSpaceName, parcellationName, name);
+        return regionRepository.findOneByReferencespaceAndParcellationAndName(refspaceId, parcellationName, name);
     }
 
-    HashMap<String, Object> getFullRegionStructure(String refSpaceId, String parcellationName) {
+    HashMap<String, Object> getFullStructure(String refSpaceId, String parcellationName) {
         return regionRepository.getFullRegionObjectFromFile(refSpaceId, parcellationName);
     }
 }

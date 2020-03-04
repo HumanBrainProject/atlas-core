@@ -37,7 +37,7 @@ public class RegionServiceTest {
 
     @Test
     public void shouldReturnTvbData() {
-        regionService.getAllRegions(TVB, PARCELLATION_NAME);
+        regionService.getAll(TVB, PARCELLATION_NAME);
 
         verify(tvbDummyDataService).getAllRegions();
         verifyZeroInteractions(tvbService);
@@ -47,7 +47,7 @@ public class RegionServiceTest {
 
     @Test
     public void shouldReturnJubrainData() {
-        regionService.getAllRegions(JUBRAIN, PARCELLATION_NAME);
+        regionService.getAll(JUBRAIN, PARCELLATION_NAME);
 
         verify(tvbService).getAllRegions();
         verifyZeroInteractions(tvbDummyDataService);
@@ -57,7 +57,7 @@ public class RegionServiceTest {
 
     @Test
     public void shouldReturnDataFromRegionRepository() {
-        regionService.getAllRegions(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME);
+        regionService.getAll(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME);
 
         verifyZeroInteractions(tvbDummyDataService);
         verifyZeroInteractions(tvbService);
@@ -66,7 +66,7 @@ public class RegionServiceTest {
 
     @Test
     public void shouldReturnOneRegionForTvb() {
-        regionService.getRegionByName(TVB, PARCELLATION_NAME, REGION_1);
+        regionService.getByName(TVB, PARCELLATION_NAME, REGION_1);
 
         verify(tvbDummyDataService).getRegionByName(REGION_1);
         verifyZeroInteractions(regionRepository);
@@ -74,7 +74,7 @@ public class RegionServiceTest {
 
     @Test
     public void shoulReturnOneRegionFromRepository() {
-        regionService.getRegionByName(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME, REGION_1);
+        regionService.getByName(BIGBRAIN_REFERENCESPACE, PARCELLATION_NAME, REGION_1);
 
         verifyZeroInteractions(tvbDummyDataService);
         verify(regionRepository)
