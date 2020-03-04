@@ -18,11 +18,11 @@ import static org.mockito.Mockito.when;
 public class ReferencespaceServiceTest {
 
     private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
-        put("key1", "value1");
-        put("key2", "value2");
+        put("name", REFERENCESPACE_BIGBRAIN);
+        put("id", ID);
     }};
     private static final String REFERENCESPACE_BIGBRAIN = "bigbrain";
-    private static final String REFERENCESPACE_COLIN = "colin";
+    private static final String ID = "42-1337";
     private static final String REFERENCESPACE_NAME_INVALID = "smallbrain";
 
     @Mock
@@ -33,7 +33,7 @@ public class ReferencespaceServiceTest {
 
     @Before
     public void setUp() {
-        when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
+        when(referencespaceRepository.getAll()).thenReturn(Arrays.asList(
                 new Referencespace(PROPERTIES),
                 new Referencespace(PROPERTIES)
         ));
@@ -48,13 +48,14 @@ public class ReferencespaceServiceTest {
 
     @Test
     public void shouldReturnReferenceSpaceForValidName() {
-        Referencespace referencespace = referencespaceService.getReferencespaceByName(REFERENCESPACE_BIGBRAIN);
+        Referencespace referencespace = referencespaceService.getReferencespaceById(REFERENCESPACE_BIGBRAIN);
 
         assertEquals(REFERENCESPACE_BIGBRAIN, referencespace.getName());
+        assertEquals(ID, referencespace.getId());
     }
 
     @Test
     public void shouldReturnNullForInvalidSpace() {
-        assertNull(referencespaceService.getReferencespaceByName(REFERENCESPACE_NAME_INVALID));
+        assertNull(referencespaceService.getReferencespaceById(REFERENCESPACE_NAME_INVALID));
     }
 }

@@ -22,10 +22,9 @@ public class ReferencespaceService {
 
     public List<Referencespace> getReferencespaces() {
         return this.referencespaceRepository.getAll();
-//        return referencespaceRepository.findAll();
     }
 
-    public Referencespace getReferencespaceByName(String name) {
-        return referencespaceRepository.findOneById(name);
+    public Referencespace getReferencespaceById(String id) {
+        return referencespaceRepository.findOneById(id);
     }
 }

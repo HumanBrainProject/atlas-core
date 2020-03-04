@@ -43,7 +43,7 @@ public class ReferencespaceController {
     @GetMapping(value = "/{refSpaceId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Resource<ReferencespaceResource> getReferencespaceById(@PathVariable("refSpaceId") String refSpaceId) {
-        Referencespace referencespaceByName = referencespaceService.getReferencespaceByName(refSpaceId);
+        Referencespace referencespaceByName = referencespaceService.getReferencespaceById(refSpaceId);
         if (referencespaceByName == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

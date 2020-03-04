@@ -49,7 +49,7 @@ public class ReferencespaceControllerTest {
     @Before
     public void setUp() {
         when(referencespaceService.getReferencespaces()).thenReturn(REFERENCESPACES);
-        when(referencespaceService.getReferencespaceByName(BIGBRAIN)).thenReturn(REFERENCESPACE_BIGBRAIN);
+        when(referencespaceService.getReferencespaceById(BIGBRAIN)).thenReturn(REFERENCESPACE_BIGBRAIN);
     }
 
     @Test
