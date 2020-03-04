@@ -7,6 +7,7 @@ import de.fzj.atlascore.tvb.TVBDummyDataService;
 import de.fzj.atlascore.tvb.TVBService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class RegionService {
         this.tvbService = tvbService;
     }
 
-    public List<Region> getAllRegions(String refSpaceName, String parcellationName) {
+    List<Region> getAllRegions(String refSpaceName, String parcellationName) {
         if(refSpaceName.equals(TVB)) {
             return tvbDummyDataService.getAllRegions();
         }
@@ -55,10 +56,14 @@ public class RegionService {
         return regionRepository.findAllByReferencespaceAndParcellation(refSpaceName, parcellationName);
     }
 
-    public Region getRegionByName(String refSpaceName, String parcellationName, String name) {
+    Region getRegionByName(String refSpaceName, String parcellationName, String name) {
         if(refSpaceName.equals(TVB)) {
             return tvbDummyDataService.getRegionByName(name);
         }
         return regionRepository.findOneByReferencespaceAndParcellationAndName(refSpaceName, parcellationName, name);
+    }
+
+    HashMap<String, Object> getFullRegionStructure(String refSpaceId, String parcellationName) {
+        return regionRepository.getFullRegionObjectFromFile(refSpaceId, parcellationName);
     }
 }

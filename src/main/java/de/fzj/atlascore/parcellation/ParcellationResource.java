@@ -27,6 +27,9 @@ public class ParcellationResource extends ResourceSupport {
         add(linkTo(methodOn(RegionController.class)
                 .getAllRegions(referencespace, parcellation.getName())
         ).withRel("regions"));
+        add(linkTo(methodOn(RegionController.class)
+                .getFullRegions(referencespace, parcellation.getName())
+        ).withRel("full-structure"));
     }
 
     public Parcellation getParcellation() {

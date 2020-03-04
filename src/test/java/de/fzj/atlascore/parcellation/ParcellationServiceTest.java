@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ParcellationServiceTest {
 
-    private static final String REF_SPACE_BIGBRAIN = ReferencespaceRepository.BIG_BRAIN_NAME;
+    private static final String REF_SPACE_BIGBRAIN = ReferencespaceRepository.BIG_BRAIN;
     private static final String BIGBRAIN_ONE_PARCELLATION = "Cytoarchitectonic Maps";
     private static final String REF_SPACE_COLIN = ReferencespaceRepository.MNI_COLIN_27;
     private static final String COLIN_ONE_PARCELLATION = "JuBrain Cytoarchitectonic Atlas";

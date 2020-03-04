@@ -7,12 +7,10 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +49,20 @@ public class RegionController {
                         .map(region -> new RegionResource(region, refSpaceName, parcellationName))
                         .collect(Collectors.toList())
         );
+    }
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "full")
+    public HashMap<String, Object> getFullRegions(
+            @PathVariable("refSpaceName") String refSpaceName,
+            @PathVariable("parcellationName") String parcellationName) {
+        HashMap<String, Object> fullRegionStructure = regionService.getFullRegionStructure(refSpaceName, parcellationName);
+        if(fullRegionStructure == null || fullRegionStructure.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("Full region data not found for parcellation: %s", parcellationName)
+            );
+        }
+        return fullRegionStructure;
     }
 
     @GetMapping(value = "/{regionName}", produces = MediaType.APPLICATION_JSON_VALUE)

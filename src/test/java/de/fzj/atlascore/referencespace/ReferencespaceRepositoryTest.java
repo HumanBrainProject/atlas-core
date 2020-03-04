@@ -20,7 +20,7 @@ public class ReferencespaceRepositoryTest {
         assertThat(
                 referencespaces.stream().map(Referencespace::getName).collect(Collectors.toList()),
                 hasItems(
-                        ReferencespaceRepository.BIG_BRAIN_NAME,
+                        ReferencespaceRepository.BIG_BRAIN,
                         ReferencespaceRepository.MNI_COLIN_27,
                         ReferencespaceRepository.MNI_152,
                         ReferencespaceRepository.WAXHOLM,
@@ -40,7 +40,7 @@ public class ReferencespaceRepositoryTest {
     @Test
     public void shouldReturnTrueForValidSpace() {
         assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.MNI_COLIN_27));
-        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.BIG_BRAIN_NAME));
+        assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.BIG_BRAIN));
         assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.MNI_152));
         assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.WAXHOLM));
         assertTrue(referencespaceRepository.isValidReferenceSpace(ReferencespaceRepository.ALLEN_MOUSE));

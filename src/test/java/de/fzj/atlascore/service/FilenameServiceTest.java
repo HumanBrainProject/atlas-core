@@ -11,7 +11,7 @@ public class FilenameServiceTest {
 
     @Test
     public void shouldReturnFilenameForBigBrain() {
-        assertEquals("bigbrain", filenameService.getFilenameForReferencespace(ReferencespaceRepository.BIG_BRAIN_NAME));
+        assertEquals("bigbrain", filenameService.getFilenameForReferencespace(ReferencespaceRepository.BIG_BRAIN));
     }
 
     @Test

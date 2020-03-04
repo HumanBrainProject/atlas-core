@@ -28,9 +28,7 @@ public class ParcellationService {
     }
 
     public List<Parcellation> getParcellations(String refSpaceName) {
-        if(refSpaceName.equals(ReferencespaceRepository.BIG_BRAIN_NAME) ||
-                refSpaceName.equals(ReferencespaceRepository.MNI_COLIN_27) ||
-                refSpaceName.equals(ReferencespaceRepository.MNI_152)) {
+        if(referencespaceRepository.getValidReferencespaces().contains(refSpaceName)) {
             return parcellationRepository.findAllByReferencespace(refSpaceName);
         }
         throw new ResponseStatusException(

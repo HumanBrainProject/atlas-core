@@ -21,7 +21,8 @@ public class ReferencespaceService {
     }
 
     public List<Referencespace> getReferencespaces() {
-        return referencespaceRepository.findAll();
+        return this.referencespaceRepository.getAllReferencespacesWithProperties();
+//        return referencespaceRepository.findAll();
     }
 
     public Referencespace getReferencespaceByName(String name) {

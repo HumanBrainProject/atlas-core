@@ -1,5 +1,11 @@
 package de.fzj.atlascore.referencespace;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+
+import java.util.HashMap;
+import java.util.Optional;
+
 /**
  * Representation of a Referencespace
  *
@@ -7,35 +13,33 @@ package de.fzj.atlascore.referencespace;
  */
 public class Referencespace {
 
-    private String name;
-    private String id;
+    private HashMap<String, Object> properties;
 
     // for JSON mapper
     public Referencespace() {
     }
 
-    public Referencespace(String name, String id) {
-        this.name = name;
-        this.id = id;
-    }
-
-    public Referencespace(String name) {
-        this.name = name;
+    public Referencespace(HashMap<String, Object> properties) {
+        this.properties = properties;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return Optional.of(properties.get("name")).orElse("").toString();
     }
 
     public String getId() {
-        return id;
+        String id = Optional.of(properties.get("id")).orElse("").toString();
+        int index = id.lastIndexOf("/");
+        return id.substring(index+1);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @JsonAnyGetter
+    public HashMap<String, Object> getProperties() {
+        return properties;
+    }
+
+    @JsonAnySetter
+    public void setProperties(HashMap<String, Object> properties) {
+        this.properties = properties;
     }
 }

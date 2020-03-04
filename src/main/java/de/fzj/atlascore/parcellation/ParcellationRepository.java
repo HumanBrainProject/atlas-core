@@ -1,20 +1,17 @@
 package de.fzj.atlascore.parcellation;
 
-import de.fzj.atlascore.referencespace.Referencespace;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.service.FilenameService;
-import de.fzj.atlascore.service.JsonObjectService;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -28,41 +25,28 @@ import java.util.stream.Collectors;
 @Repository
 public class ParcellationRepository {
 
-    private final ReferencespaceRepository referencespaceRepository;
     private final FilenameService filenameService;
 
-    public ParcellationRepository(ReferencespaceRepository referencespaceRepository, FilenameService filenameService) {
-        this.referencespaceRepository = referencespaceRepository;
+    public ParcellationRepository(FilenameService filenameService) {
         this.filenameService = filenameService;
     }
 
     public List<Parcellation> findAllByReferencespace(String refSpace) {
-        Optional<Referencespace> first = referencespaceRepository
-                .findAll()
-                .stream()
-                .filter(referencespace -> referencespace.getName().equals(refSpace))
-                .findFirst();
-
         List<Parcellation> parcellations = new LinkedList<>();
-        if(first.isPresent()) {
+        BufferedReader reader;
+        if(FilenameService.FILES.containsKey(refSpace)) {
             try {
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(
-                                new ClassPathResource(
-                                        String.format("data/brains/%s.json", filenameService.getFilenameForReferencespace(first.get().getName())),
-                                        this.getClass().getClassLoader()).getInputStream()
-                        )
-                );
+                reader = filenameService.getBufferedReaderByReferencespaceId(refSpace);
                 String fileAsString = reader.lines().collect(Collectors.joining(" "));
                 JSONObject jsonObject = new JSONObject(fileAsString);
                 JSONArray jsonArray = jsonObject.getJSONArray("parcellations");
                 for (Object o : jsonArray) {
                     JSONObject parcellation = (JSONObject) o;
-                    parcellations.add(new Parcellation(
-                            parcellation.get("name").toString(),
-                            JsonObjectService.getHashMapOrNullFromJsonObject(parcellation, "properties")
-                    ));
+                    HashMap hashMap = new ObjectMapper().readValue(parcellation.toString(), HashMap.class);
+                    hashMap.remove("regions");
+                    parcellations.add(new Parcellation(hashMap));
                 }
+                reader.close();
             } catch (IOException e) {
                 //TODO Log error
             }
