@@ -12,7 +12,7 @@ import java.util.HashMap;
 @Service
 public class FilenameService {
 
-    public static HashMap<String, String> FILES = new HashMap();
+    public static HashMap<String, String> FILES = new HashMap<>();
     {
         FILES.put(ReferencespaceRepository.BIG_BRAIN, "bigbrain");
         FILES.put(ReferencespaceRepository.MNI_COLIN_27, "colin");
