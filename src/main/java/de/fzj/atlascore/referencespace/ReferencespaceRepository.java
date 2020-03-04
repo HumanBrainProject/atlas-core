@@ -43,31 +43,36 @@ public class ReferencespaceRepository {
     }
 
     public List<Referencespace> getAll() {
-        for (Map.Entry<String, String> entry : FilenameService.FILES.entrySet()) {
-            try {
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(
-                                new ClassPathResource(
-                                        String.format("data/brains/%s.json", entry.getValue()),
-                                        this.getClass().getClassLoader()).getInputStream()
-                        )
-                );
-                String fileAsString = reader.lines().collect(Collectors.joining(" "));
-                JSONObject jsonObject = new JSONObject(fileAsString);
-                HashMap<String, Object> hashMap = new ObjectMapper().readValue(jsonObject.toString(), HashMap.class);
-                hashMap.remove("parcellations");
-                Referencespace referencespace = new Referencespace(hashMap);
-                referencespaceRepo.put(entry.getKey(), referencespace);
-                reader.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+        if(referencespaceRepo.isEmpty()) {
+            for (Map.Entry<String, String> entry : FilenameService.FILES.entrySet()) {
+                try {
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(
+                                    new ClassPathResource(
+                                            String.format("data/brains/%s.json", entry.getValue()),
+                                            this.getClass().getClassLoader()).getInputStream()
+                            )
+                    );
+                    String fileAsString = reader.lines().collect(Collectors.joining(" "));
+                    JSONObject jsonObject = new JSONObject(fileAsString);
+                    HashMap<String, Object> hashMap = new ObjectMapper().readValue(jsonObject.toString(), HashMap.class);
+                    hashMap.remove("parcellations");
+                    Referencespace referencespace = new Referencespace(hashMap);
+                    referencespaceRepo.put(entry.getKey(), referencespace);
+                    reader.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         return new ArrayList<>(referencespaceRepo.values());
     }
 
-    public Referencespace findOneById(String name) {
-        return referencespaceRepo.get(name);
+    public Referencespace findOneById(String id) {
+        if(referencespaceRepo.isEmpty()) {
+            getAll();
+        }
+        return referencespaceRepo.get(id);
     }
 
     public boolean isValidReferenceSpace(String name) {
