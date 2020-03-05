@@ -34,7 +34,7 @@ public class ParcellationRepository {
     public List<Parcellation> findAllByReferencespace(String refSpaceId) {
         List<Parcellation> parcellations = new LinkedList<>();
         BufferedReader reader;
-        if(FilenameService.FILES.containsKey(refSpaceId)) {
+        if(!filenameService.getFilenameForReferencespace(refSpaceId).isEmpty()) {
             try {
                 reader = filenameService.getBufferedReaderByReferencespaceId(refSpaceId);
                 String fileAsString = reader.lines().collect(Collectors.joining(" "));
