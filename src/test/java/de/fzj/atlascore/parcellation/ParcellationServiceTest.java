@@ -1,6 +1,7 @@
 package de.fzj.atlascore.parcellation;
 
 import de.fzj.atlascore.referencespace.ReferencespaceRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,15 +23,12 @@ import static org.mockito.Mockito.when;
 public class ParcellationServiceTest {
 
     private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
-        put("key1", "value1");
-        put("key2", "value2");
+        put("name", BIGBRAIN_ONE_PARCELLATION);
     }};
     private static final String REF_SPACE_BIGBRAIN = ReferencespaceRepository.BIG_BRAIN;
     private static final String BIGBRAIN_ONE_PARCELLATION = "Cytoarchitectonic Maps";
     private static final String REF_SPACE_COLIN = ReferencespaceRepository.MNI_COLIN_27;
-    private static final String COLIN_ONE_PARCELLATION = "JuBrain Cytoarchitectonic Atlas";
     private static final String REF_SPACE_MIN = ReferencespaceRepository.MNI_152;
-    private static final String MNI_ONE_PARCELLATION = "JuBrain Cytoarchitectonic Atlas";
     private static final String INVALID_REF_SPACE_NAME = "smallbrain";
     private static final String PARCELLATION_NAME = "par1";
 
@@ -42,6 +40,11 @@ public class ParcellationServiceTest {
 
     @InjectMocks
     private ParcellationService parcellationService;
+
+    @Before
+    public void setUp() {
+        when(referencespaceRepository.isValid(anyString())).thenCallRealMethod();
+    }
 
     @Test
     public void shouldReturnParcellationsForBigBrain() {
@@ -89,7 +92,6 @@ public class ParcellationServiceTest {
 
     @Test
     public void shouldReturnParcellationByName() {
-        when(referencespaceRepository.isValidReferenceSpace(anyString())).thenReturn(true);
         when(parcellationRepository.findOneByReferencespaceAndName(REF_SPACE_COLIN, PARCELLATION_NAME)).thenReturn(
                 new Parcellation(PROPERTIES)
         );
@@ -100,7 +102,6 @@ public class ParcellationServiceTest {
 
     @Test
     public void shouldThrowNotFoundExceptionIfRefSpaceNotValid() {
-        when(referencespaceRepository.isValidReferenceSpace(anyString())).thenReturn(false);
         try {
             parcellationService.getParcellationByName(INVALID_REF_SPACE_NAME, PARCELLATION_NAME);
             fail("ResponseStatusException expected");
