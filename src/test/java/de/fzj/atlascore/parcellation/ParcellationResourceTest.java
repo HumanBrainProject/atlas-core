@@ -14,10 +14,7 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class ParcellationResourceTest {
 
-    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
-        put("key1", "value1");
-        put("key2", "value2");
-    }};
+    private  HashMap<String, Object> PROPERTIES = new HashMap<>();
     private String refSpace;
     private String inputName;
 
@@ -36,6 +33,8 @@ public class ParcellationResourceTest {
 
     @Test
     public void shouldCreateParcellationResourceAndAddLinks() {
+        PROPERTIES = new HashMap<>();
+        PROPERTIES.put("name", inputName);
         Parcellation parcellation = new Parcellation(PROPERTIES);
         ParcellationResource parcellationResource = new ParcellationResource(parcellation, refSpace);
 
@@ -48,6 +47,6 @@ public class ParcellationResourceTest {
                 "/referencespaces/" + refSpace + "/parcellations/" + inputName + "/regions",
                 parcellationResource.getLink("regions").getHref()
         );
-        assertThat(parcellationResource.getLinks(), hasSize(2));
+        assertThat(parcellationResource.getLinks(), hasSize(3));
     }
 }
