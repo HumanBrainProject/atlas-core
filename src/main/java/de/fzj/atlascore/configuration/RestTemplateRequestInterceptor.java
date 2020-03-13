@@ -38,7 +38,7 @@ public class RestTemplateRequestInterceptor implements ClientHttpRequestIntercep
      * @param body the body of the request
      * @param execution used to invoke the next interceptor
      * @return a new ClientHttpResponse
-     * @throws IOException
+     * @throws IOException can be thrown on sending a request
      */
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {

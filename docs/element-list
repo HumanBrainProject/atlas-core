@@ -1,0 +1,12 @@
+de.fzj.atlascore
+de.fzj.atlascore.allen
+de.fzj.atlascore.configuration
+de.fzj.atlascore.datasets
+de.fzj.atlascore.exception
+de.fzj.atlascore.knowledgegraph
+de.fzj.atlascore.parcellation
+de.fzj.atlascore.referencespace
+de.fzj.atlascore.region
+de.fzj.atlascore.region.entity
+de.fzj.atlascore.service
+de.fzj.atlascore.tvb

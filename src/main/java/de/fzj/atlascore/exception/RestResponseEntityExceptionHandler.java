@@ -32,7 +32,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
      *
      * @param exception a {@link HttpClientErrorException}
      * @param response the error response, that needs to be customized
-     * @throws IOException
+     * @throws IOException is thrown if error could not be send
      */
     @ExceptionHandler(value = { HttpClientErrorException.class })
     protected void handleClientErrorException(

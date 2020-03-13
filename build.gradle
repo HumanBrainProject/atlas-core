@@ -70,3 +70,8 @@ configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
     compile.exclude module: 'spring-boot-starter-logging'
 }
+
+javadoc {
+    options.addBooleanOption('html5', true)
+    destinationDir = file("docs")
+}
