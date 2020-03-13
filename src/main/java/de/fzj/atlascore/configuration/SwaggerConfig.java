@@ -43,7 +43,8 @@ public class SwaggerConfig {
                         ),
                         new Tag("Referencespace", "Referencespace"),
                         new Tag("Parcellations", "Parcellations by referencespace"),
-                        new Tag("Regions", "Regions by referencespace and parcellation")
+                        new Tag("Regions", "Regions by referencespace and parcellation"),
+                        new Tag("Datasets", "Datasets for referencespaces/parcellations/regions")
                 )
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(authorizationHeaderScheme()));
