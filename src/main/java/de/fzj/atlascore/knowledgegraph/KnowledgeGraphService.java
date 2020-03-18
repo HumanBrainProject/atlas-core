@@ -9,7 +9,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * The KnowledgeGraphService is used for the communication with the external KnowledgeGraph.
@@ -66,9 +68,9 @@ public class KnowledgeGraphService {
         ArrayList filteredArray = new ArrayList();
 
         for(Object o : results) {
-            if(filterResultByParameter(o, REFERENCESPACE_CRITERIA, PARAMETER_ID, referencespace) &&
-                    filterResultByParameter(o, PARCELLATION_CRITERIA, PARAMETER_ID, parcellation) &&
-                    filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID, region)
+            if(filterResultByParameter(o, REFERENCESPACE_CRITERIA, PARAMETER_ID, Arrays.asList(referencespace)) &&
+                    filterResultByParameter(o, PARCELLATION_CRITERIA, PARAMETER_ID, Arrays.asList(parcellation)) &&
+                    filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID, Arrays.asList(region))
             ) {
                 filteredArray.add(o);
             }
@@ -98,7 +100,7 @@ public class KnowledgeGraphService {
      * @param referencespace Id of a referencespace in the KnowledgeGraph
      * @return A JSON formated list of datasets for referencespaces
      */
-    public Object getReferencespaceDatasets(String referencespace) {
+    public ArrayList getReferencespaceDatasets(String referencespace) {
         String url = kgUrl + DATASET_QUERY_REFERENCESPACE;
         if(!StringUtils.isEmpty(referencespace)) {
             url+="?referencespace=" +  referencespace;
@@ -114,7 +116,7 @@ public class KnowledgeGraphService {
      * @param region Id of a parcellation region in the KnowledgeGraph
      * @return A JSON formated list of datasets for regions
      */
-    public Object getRegionsDatasets(String region) {
+    public ArrayList getRegionsDatasets(String region) {
         String url = kgUrl + DATASET_QUERY_REGION;
         if(!StringUtils.isEmpty(region)) {
             url+="?region=" +  region;
@@ -123,22 +125,41 @@ public class KnowledgeGraphService {
         return getDatasetByUrl(url);
     }
 
+    /**
+     * Get a list of all datasets for regions.
+     * The results can be filtered by a list of region ids.
+     *
+     * @param regions List of parcellation region ids in the KnowledgeGraph
+     * @return A JSON formated list of datasets for regions
+     */
+    public ArrayList getRegionsFilteredByList(List<String> regions) {
+        ArrayList regionsDatasets = getRegionsDatasets(null);
+        ArrayList filteredArray = new ArrayList();
+        for(Object o : regionsDatasets) {
+            if(filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID, regions)) {
+                filteredArray.add(o);
+            }
+        }
+        return filteredArray;
+    }
+
     /*
     Filter results from a JSON List by given parameters.
     Possible parameters are defined as static variables.
      */
     private boolean filterResultByParameter(
-            Object o, String filterCriteria, String parameterName, String parameterValue) {
-        if(StringUtils.isEmpty(parameterValue)) {
+            Object o, String filterCriteria, String parameterName, List<String> parameterValue) {
+        if(parameterValue == null || parameterValue.isEmpty() || parameterValue.contains(null)) {
             return true;
         }
         try {
             ArrayList criteriaArray = (ArrayList) ((LinkedHashMap) o).get(filterCriteria);
             if(criteriaArray.size() != 0) {
                 for(Object criteriaObject : criteriaArray) {
-                    if (((LinkedHashMap) (criteriaObject))
-                            .get(parameterName)
-                            .equals(parameterValue)) {
+
+                    String value = ((LinkedHashMap) (criteriaObject))
+                            .get(parameterName).toString();
+                    if (parameterValue.contains(value)) {
                         return true;
                     }
                 }

@@ -9,6 +9,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,7 +27,10 @@ public class KnowledgeGraphServiceTest {
 
     @Before
     public void setUp() {
+
         ReflectionTestUtils.setField(knowledgeGraphService, "kgUrl", "kg");
+        when(restTemplate.getForObject(anyString(), eq(LinkedHashMap.class)))
+                .thenReturn(DummyData.getDatasets());
     }
 
     @Test
@@ -34,4 +42,64 @@ public class KnowledgeGraphServiceTest {
                 Object.class
         );
     }
+
+    //region === getAllDatasets
+
+    //endregion
+
+    //region === getParcellationDatasets
+    @Test
+    public void shouldReturnAllParcellationsWithoutFiltering() {
+        ArrayList parcellationDatasets = knowledgeGraphService.getParcellationDatasets(null);
+        assertEquals(2, parcellationDatasets.size());
+    }
+
+    @Test
+    public void shouldCallFilteredParcellations() {
+        knowledgeGraphService.getParcellationDatasets(DummyData.PARCELLATION_ID_WAXHOLM);
+        verify(restTemplate).getForObject(
+                eq("kg/query/minds/core/dataset/v1.0.0/ac_ds_parcellation/instances?parcellation=" + DummyData.PARCELLATION_ID_WAXHOLM),
+                any()
+        );
+    }
+    //endregion
+
+    //region === getReferencespaceDatasets
+    @Test
+    public void shouldReturnAllReferencespacesWithoutFiltering() {
+        assertEquals(2, knowledgeGraphService.getReferencespaceDatasets(null).size());
+    }
+
+    @Test
+    public void shouldReturnFilteredReferencespaces() {
+        knowledgeGraphService.getReferencespaceDatasets(DummyData.REFERENCESPACE_ID_WAXHOLM);
+        verify(restTemplate).getForObject(
+                eq("kg/query/minds/core/dataset/v1.0.0/ac_ds_referencespace/instances?referencespace=" + DummyData.REFERENCESPACE_ID_WAXHOLM),
+                any()
+        );
+    }
+    //endregion
+
+    //region === getRegionsDatasets
+    @Test
+    public void shouldReturnAllRegionsWithoutFiltering() {
+        assertEquals(2, knowledgeGraphService.getRegionsDatasets(null).size());
+    }
+
+    @Test
+    public void shouldReturnFilteredRegion() {
+        knowledgeGraphService.getRegionsDatasets(DummyData.REGION_ID_RAT_WHOLE);
+        verify(restTemplate).getForObject(
+                eq("kg/query/minds/core/dataset/v1.0.0/ac_ds_regions/instances?region=" + DummyData.REGION_ID_RAT_WHOLE),
+                any()
+        );
+    }
+    //endregion
+
+    //region === getRegionsFilteredByList
+    @Test
+    public void shouldReturnAllRegionFilteredByList() {
+        assertEquals(1, knowledgeGraphService.getRegionsFilteredByList(Arrays.asList(DummyData.REGION_ID_MOUSE_WHOLE)).size());
+    }
+    //endregion
 }
