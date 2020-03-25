@@ -1,7 +1,6 @@
 package de.fzj.atlascore.parcellation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.service.FilenameService;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,8 +16,6 @@ import java.util.stream.Collectors;
 /**
  * Repository for all parcellations in a given referencespace
  * At the moment the data is read from files
- *
- * @see ReferencespaceRepository
  *
  * @author Vadim Marcenko
  */
