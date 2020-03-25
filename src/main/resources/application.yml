@@ -1,5 +1,5 @@
 kg:
-  url: https://kg.humanbrainproject.org
+  url: https://kg.humanbrainproject.eu
 allen:
   url: http://api.brain-map.org/api/v2
 connectivity:
