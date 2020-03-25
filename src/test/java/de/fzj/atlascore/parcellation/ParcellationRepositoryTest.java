@@ -1,7 +1,5 @@
 package de.fzj.atlascore.parcellation;
 
-import de.fzj.atlascore.referencespace.Referencespace;
-import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import de.fzj.atlascore.service.FilenameService;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +11,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -27,10 +22,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ParcellationRepositoryTest {
 
-    private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
-        put("name", "colin");
-        put("id", REF_SPACE);
-    }};
     private static final String REF_SPACE = "colin";
     private static final String REF_SPACE_INVALID = "invalid";
     private static final String PARCELLATION_NAME = "JuBrain Cytoarchitectonic Atlas";
@@ -42,9 +33,6 @@ public class ParcellationRepositoryTest {
 
     @Mock
     private FilenameService filenameService;
-
-    @Mock
-    private ReferencespaceRepository referencespaceRepository;
 
     @InjectMocks
     private ParcellationRepository parcellationRepository;
@@ -58,10 +46,6 @@ public class ParcellationRepositoryTest {
 
     @Test
     public void shouldReturnAllParcellationsForValidSpace() {
-        when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-           new Referencespace(PROPERTIES)
-        ));
-
         List<Parcellation> parcellations = parcellationRepository.findAllByReferencespace(REF_SPACE);
 
         assertThat(parcellations, hasSize(1));
@@ -70,7 +54,6 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnEmptyListIfInvalidSpace() {
         when(filenameService.getFilenameForReferencespace(anyString())).thenReturn("");
-        when(referencespaceRepository.findAll()).thenReturn(Collections.emptyList());
 
         List<Parcellation> parcellations = parcellationRepository.findAllByReferencespace(REF_SPACE);
 
@@ -80,9 +63,6 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnEmptyListIfSpaceIsValidButNoFilePresent() {
         when(filenameService.getFilenameForReferencespace(anyString())).thenReturn("");
-        when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(PROPERTIES)
-        ));
 
         List<Parcellation> parcellations = parcellationRepository.findAllByReferencespace(REF_SPACE_INVALID);
 
@@ -91,10 +71,6 @@ public class ParcellationRepositoryTest {
 
     @Test
     public void shouldReturnParcellationForValidSpace() {
-        when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(PROPERTIES)
-        ));
-
         Parcellation parcellation = parcellationRepository
                 .findOneByReferencespaceAndName(REF_SPACE, PARCELLATION_NAME);
 
@@ -103,10 +79,6 @@ public class ParcellationRepositoryTest {
 
     @Test
     public void shouldReturnNullIfNoParcellationFound() {
-        when(referencespaceRepository.findAll()).thenReturn(Arrays.asList(
-                new Referencespace(PROPERTIES)
-        ));
-
         Parcellation parcellation = parcellationRepository
                 .findOneByReferencespaceAndName("dummy", "dummy");
 
