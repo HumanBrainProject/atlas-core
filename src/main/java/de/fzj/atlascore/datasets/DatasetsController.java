@@ -1,12 +1,16 @@
 package de.fzj.atlascore.datasets;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphIdConverter;
 import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(ControllerPaths.DATASETS)
@@ -15,8 +19,11 @@ public class DatasetsController {
 
     private final KnowledgeGraphService knowledgeGraphService;
 
-    public DatasetsController(KnowledgeGraphService knowledgeGraphService) {
+    private final KnowledgeGraphIdConverter knowledgeGraphIdConverter;
+
+    public DatasetsController(KnowledgeGraphService knowledgeGraphService, KnowledgeGraphIdConverter knowledgeGraphIdConverter) {
         this.knowledgeGraphService = knowledgeGraphService;
+        this.knowledgeGraphIdConverter = knowledgeGraphIdConverter;
     }
 
     @GetMapping(value = "/parcellations")
@@ -25,7 +32,7 @@ public class DatasetsController {
                     "Format: https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationatlas/v1.0.0/..."
             )
             @RequestParam(name = "id", required = false) String id) {
-        return knowledgeGraphService.getParcellationDatasets(id);
+        return knowledgeGraphService.getParcellationDatasets(knowledgeGraphIdConverter.convertParcellationId(id));
     }
 
     @GetMapping(value = "/referencespaces")
@@ -34,7 +41,7 @@ public class DatasetsController {
                     "Format: https://nexus.humanbrainproject.org/v0/data/minds/core/reference_space/v1.0.0/..."
             )
             @RequestParam(name = "id", required = false) String id) {
-        return knowledgeGraphService.getReferencespaceDatasets(id);
+        return knowledgeGraphService.getReferencespaceDatasets(knowledgeGraphIdConverter.convertReferencespaceId(id));
     }
 
     @GetMapping(value = "/regions")
@@ -43,7 +50,7 @@ public class DatasetsController {
                     "Format: https://nexus.humanbrainproject.org/v0/data/minds/core/parcellationregion/v1.0.0/..."
             )
             @RequestParam(name = "id", required = false) String id) {
-        return knowledgeGraphService.getRegionsDatasets(id);
+        return knowledgeGraphService.getRegionsDatasets(knowledgeGraphIdConverter.convertRegionId(id));
     }
 
     @GetMapping
@@ -54,11 +61,23 @@ public class DatasetsController {
             @RequestParam(name = "parcellation", required = false) String parcellation,
             @ApiParam(name="parcellationsregion id")
             @RequestParam(name = "region", required = false) String region) {
-        return knowledgeGraphService.getAllDatasets(referencespace, parcellation, region);
+        return knowledgeGraphService.getAllDatasets(
+                knowledgeGraphIdConverter.convertReferencespaceId(referencespace),
+                knowledgeGraphIdConverter.convertParcellationId(parcellation),
+                knowledgeGraphIdConverter.convertRegionId(region)
+        );
     }
 
     @PostMapping(value = "/regions")
     public Object getRegionsDatasets(@RequestBody List<String> regions) {
-        return knowledgeGraphService.getRegionsFilteredByList(regions);
+        if(regions == null || regions.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("no regions provided")
+            );
+        }
+        return knowledgeGraphService.getRegionsFilteredByList(
+                regions.stream().map(knowledgeGraphIdConverter::convertRegionId).collect(Collectors.toList())
+        );
     }
 }
