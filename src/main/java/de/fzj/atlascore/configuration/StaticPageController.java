@@ -18,4 +18,7 @@ public class StaticPageController {
 
     @RequestMapping(value = "/")
     public String getMain() { return "index"; }
+
+    @RequestMapping(value = "/doc")
+    public String getDoc() { return "doc"; }
 }
