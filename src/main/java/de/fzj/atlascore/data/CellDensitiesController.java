@@ -19,8 +19,8 @@ public class CellDensitiesController {
         return ResponseEntity.ok(imageServiceCommunicator.getCellDensities(inputData));
     }
 
-    @GetMapping
-    public Mask[] getDummyData() {
-        return new Mask[]{new Mask("abc", "123"), new Mask("def", "456")};
-    }
+//    @GetMapping
+//    public Mask[] getDummyData() {
+//        return new Mask[]{new Mask("abc", "123"), new Mask("def", "456")};
+//    }
 }
