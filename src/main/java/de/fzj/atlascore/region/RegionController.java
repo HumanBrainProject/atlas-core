@@ -1,6 +1,7 @@
 package de.fzj.atlascore.region;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import de.fzj.atlascore.region.entity.Region;
 import io.swagger.annotations.Api;
 import org.springframework.hateoas.Resource;
@@ -33,9 +34,11 @@ import java.util.stream.Collectors;
 public class RegionController {
 
     private final RegionService regionService;
+    private final KnowledgeGraphService knowledgeGraphService;
 
-    public RegionController(RegionService regionService) {
+    public RegionController(RegionService regionService, KnowledgeGraphService knowledgeGraphService) {
         this.regionService = regionService;
+        this.knowledgeGraphService = knowledgeGraphService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -78,5 +81,11 @@ public class RegionController {
             );
         }
         return new Resource<>(new RegionResource(region, refSpaceId, parcellationName));
+    }
+
+    @GetMapping(value = "/{regionId}/datasets", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Object getDatasets(@PathVariable("regionId") String regionId) {
+        return knowledgeGraphService.getRegionsDatasets(regionId);
     }
 }

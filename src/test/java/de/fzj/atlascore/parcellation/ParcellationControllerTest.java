@@ -1,5 +1,6 @@
 package de.fzj.atlascore.parcellation;
 
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import de.fzj.atlascore.referencespace.ReferencespaceRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -27,11 +26,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ParcellationControllerTest {
 
+    private static final String kgId = "ID123";
+    private static final HashMap<String, String> kgDataset = new LinkedHashMap<>() {{
+        put("kgId", kgId);
+    }};
+    private static final ArrayList<HashMap<String, String>> originDatasets = new ArrayList<>() {{
+        add(kgDataset);
+    }};
     private static final HashMap<String, Object> PROPERTIES = new HashMap<>() {{
         put("name", "value1");
+        put("originDatasets", originDatasets);
     }};
-    private static final String REF_SPACE_NAME = ReferencespaceRepository.BIG_BRAIN;//"bigbrain";
-    private static final String INVALID_REF_SPACE_NAME = "smallbrain";
+    private static final String REF_SPACE_NAME = ReferencespaceRepository.BIG_BRAIN;
     private static final String PARCELLATION_NAME_A = "par-a";
     private static final String PARCELLATION_NAME_B = "par-b";
     private static final Parcellation PARCELLATION_A = new Parcellation(PROPERTIES);
@@ -48,7 +54,7 @@ public class ParcellationControllerTest {
     private ParcellationService parcellationService;
 
     @MockBean
-    private ReferencespaceRepository referencespaceRepository;
+    private KnowledgeGraphService knowledgeGraphService;
 
     @Before
     public void setUp() {
@@ -89,5 +95,19 @@ public class ParcellationControllerTest {
                 String.format("Parcellation: %s not found for referencespace: %s", PARCELLATION_NAME_B, REF_SPACE_NAME),
                 mvcResult.getResponse().getErrorMessage()
         );
+    }
+
+    @Test
+    public void shouldReturnDatatsets() throws Exception {
+        when(knowledgeGraphService.getParcellationDatasets(kgId))
+                .thenReturn(new ArrayList<>(){{ add("Dataset: " +  kgId); }});
+        MvcResult mvcResult = mockMvc
+                .perform(get("/referencespaces/" + REF_SPACE_NAME + "/parcellations/" + kgId + "/datasets"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = mvcResult.getResponse().getContentAsString();
+
+        assertTrue(jsonResult.contains("Dataset: " + kgId));
     }
 }

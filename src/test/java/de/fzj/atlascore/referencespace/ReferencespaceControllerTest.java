@@ -1,5 +1,6 @@
 package de.fzj.atlascore.referencespace;
 
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +46,9 @@ public class ReferencespaceControllerTest {
 
     @MockBean
     private ReferencespaceService referencespaceService;
+
+    @MockBean
+    private KnowledgeGraphService knowledgeGraphService;
 
     @Before
     public void setUp() {
@@ -82,5 +87,19 @@ public class ReferencespaceControllerTest {
                 .andReturn();
 
         assertEquals("referencespace: " + INVALID_SPACE + " not found", mvcResult.getResponse().getErrorMessage());
+    }
+
+    @Test
+    public void shouldReturnDatasets() throws Exception {
+        when(knowledgeGraphService.getReferencespaceDatasets(ID))
+                .thenReturn(new ArrayList<>(){{ add("Dataset: " +  ID); }});
+        MvcResult mvcResult = mockMvc
+                .perform(get("/referencespaces/" + ID + "/datasets"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = mvcResult.getResponse().getContentAsString();
+
+        assertTrue(jsonResult.contains("Dataset: " + ID));
     }
 }

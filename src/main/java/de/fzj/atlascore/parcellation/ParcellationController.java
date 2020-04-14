@@ -1,6 +1,7 @@
 package de.fzj.atlascore.parcellation;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import io.swagger.annotations.Api;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -31,9 +32,11 @@ import java.util.stream.Collectors;
 public class ParcellationController {
 
     private final ParcellationService parcellationService;
+    private final KnowledgeGraphService knowledgeGraphService;
 
-    public ParcellationController(ParcellationService parcellationService) {
+    public ParcellationController(ParcellationService parcellationService, KnowledgeGraphService knowledgeGraphService) {
         this.parcellationService = parcellationService;
+        this.knowledgeGraphService = knowledgeGraphService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,5 +63,12 @@ public class ParcellationController {
             );
         }
         return new Resource<>(new ParcellationResource(parcellationByName, refSpaceId));
+    }
+
+    @GetMapping(value = "/{parcellationId}/datasets", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object getDatasets(
+            @PathVariable("refSpaceId") String refSpaceId,
+            @PathVariable("parcellationId") String parcellationId) {
+        return knowledgeGraphService.getParcellationDatasets(parcellationId);
     }
 }

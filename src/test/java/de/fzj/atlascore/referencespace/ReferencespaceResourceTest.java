@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
 public class ReferencespaceResourceTest {
 
     private static final String REFERENCESPACE_BIGBRAIN = "bigbrain";
-    private static final String ID = "42-1337";
     private String inputId;
     private HashMap<String, Object> properties = new HashMap<>();
 
@@ -41,6 +40,7 @@ public class ReferencespaceResourceTest {
         assertEquals(inputId, referencespaceResource.getReferencespace().getId());
         assertEquals("/referencespaces/" + inputId, referencespaceResource.getLink("self").getHref());
         assertEquals("/referencespaces/" + inputId + "/parcellations", referencespaceResource.getLink("parcellations").getHref());
-        assertThat(referencespaceResource.getLinks(), hasSize(2));
+        assertEquals("/referencespaces/" + inputId + "/datasets", referencespaceResource.getLink("data").getHref());
+        assertThat(referencespaceResource.getLinks(), hasSize(3));
     }
 }

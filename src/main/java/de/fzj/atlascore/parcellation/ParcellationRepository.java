@@ -58,4 +58,12 @@ public class ParcellationRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    public Parcellation findOneByReferencespaceAndId(String refspaceId, String parcellationId) {
+        return findAllByReferencespace(refspaceId)
+                .stream()
+                .filter(parcellation -> parcellation.getId().equals(parcellationId))
+                .findFirst()
+                .orElse(null);
+    }
 }

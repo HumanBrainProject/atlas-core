@@ -4,9 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
@@ -14,6 +12,13 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class ParcellationResourceTest {
 
+    private static final String kgId = "ID123";
+    private static final HashMap<String, String> kgDataset = new LinkedHashMap<>() {{
+        put("kgId", kgId);
+    }};
+    private static final ArrayList<HashMap<String, String>> originDatasets = new ArrayList<>() {{
+        add(kgDataset);
+    }};
     private  HashMap<String, Object> PROPERTIES = new HashMap<>();
     private String refSpace;
     private String inputName;
@@ -35,6 +40,7 @@ public class ParcellationResourceTest {
     public void shouldCreateParcellationResourceAndAddLinks() {
         PROPERTIES = new HashMap<>();
         PROPERTIES.put("name", inputName);
+        PROPERTIES.put("originDatasets", originDatasets);
         Parcellation parcellation = new Parcellation(PROPERTIES);
         ParcellationResource parcellationResource = new ParcellationResource(parcellation, refSpace);
 
@@ -47,6 +53,10 @@ public class ParcellationResourceTest {
                 "/referencespaces/" + refSpace + "/parcellations/" + inputName + "/regions",
                 parcellationResource.getLink("regions").getHref()
         );
-        assertThat(parcellationResource.getLinks(), hasSize(3));
+        assertEquals(
+                "/referencespaces/" + refSpace + "/parcellations/" + kgId + "/datasets",
+                parcellationResource.getLink("data").getHref()
+        );
+        assertThat(parcellationResource.getLinks(), hasSize(4));
     }
 }

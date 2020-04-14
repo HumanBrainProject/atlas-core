@@ -1,5 +1,6 @@
 package de.fzj.atlascore.region;
 
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import de.fzj.atlascore.region.entity.Region;
 import de.fzj.atlascore.region.entity.RegionBuilder;
 import org.json.JSONObject;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class RegionControllerTest {
     private static final String REF_SPACE_NAME = "bigbrain";
     private static final String PARCELLATION_NAME = "par-a";
     private static final String REGION_NAME_A = "region-a";
+    private static final String REGION_ID = "region-a-id";
     private static final String REGION_NAME_B = "region-b";
     private static final Region REGION_A = RegionBuilder.aRegion().withName(REGION_NAME_A).build();
     private static final Region REGION_B = RegionBuilder.aRegion().withName(REGION_NAME_B).build();
@@ -43,6 +46,9 @@ public class RegionControllerTest {
 
     @MockBean
     private RegionService regionService;
+
+    @MockBean
+    private KnowledgeGraphService knowledgeGraphService;
 
     @Before
     public void setUp() {
@@ -83,5 +89,21 @@ public class RegionControllerTest {
                 String.format("Region: %s not found in parcellation %s", REGION_NAME_B, PARCELLATION_NAME),
                 mvcResult.getResponse().getErrorMessage()
         );
+    }
+
+    @Test
+    public void shouldReturnDatatsets() throws Exception {
+        when(knowledgeGraphService.getRegionsDatasets(REGION_ID))
+                .thenReturn(new ArrayList<>(){{ add("Dataset: " +  REGION_ID); }});
+        MvcResult mvcResult = mockMvc
+                .perform(
+                        get("/referencespaces/" + REF_SPACE_NAME + "/parcellations/" +
+                                PARCELLATION_NAME + "/regions/" + REGION_ID + "/datasets"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResult = mvcResult.getResponse().getContentAsString();
+
+        assertTrue(jsonResult.contains("Dataset: " + REGION_ID));
     }
 }

@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Optional;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 /**
  * Representation of a Parcellation
@@ -28,6 +27,12 @@ public class Parcellation {
 
     public String getName() {
         return Optional.of(properties.get("name")).orElse("").toString();
+    }
+
+    public String getId()  {
+        Object originDatasets = properties.get("originDatasets");
+        Object kgId = ((LinkedHashMap) ((ArrayList) originDatasets).get(0)).get("kgId");
+        return kgId.toString();
     }
 
     @JsonAnyGetter

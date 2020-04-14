@@ -24,6 +24,9 @@ public class ReferencespaceResource extends ResourceSupport {
         add(linkTo(methodOn(ReferencespaceController.class)
                 .getReferencespaceById(referencespace.getId())
         ).withSelfRel());
+        add(linkTo(methodOn(ReferencespaceController.class)
+                .getDatasets(referencespace.getId())
+        ).withRel("data"));
         add(linkTo(methodOn(ParcellationController.class)
                 .getAllParcellationsForReferencespace(referencespace.getId())
         ).withRel("parcellations"));

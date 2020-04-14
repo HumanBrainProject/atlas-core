@@ -47,4 +47,15 @@ public class ParcellationService {
             );
         }
     }
+
+    public Parcellation getParcellationById(String refspaceId, String parcellationId) {
+        if (referencespaceRepository.isValid(refspaceId)) {
+            return parcellationRepository.findOneByReferencespaceAndId(refspaceId, parcellationId);
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("Referencespace: %s not found", refspaceId)
+            );
+        }
+    }
 }

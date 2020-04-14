@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The KnowledgeGraphService is used for the communication with the external KnowledgeGraph.
@@ -35,10 +36,11 @@ public class KnowledgeGraphService {
     private String kgUrl;
 
     private final RestTemplate restTemplate;
+    private final KnowledgeGraphIdConverter knowledgeGraphIdConverter;
 
-
-    public KnowledgeGraphService(RestTemplate restTemplate) {
+    public KnowledgeGraphService(RestTemplate restTemplate, KnowledgeGraphIdConverter knowledgeGraphIdConverter) {
         this.restTemplate = restTemplate;
+        this.knowledgeGraphIdConverter = knowledgeGraphIdConverter;
     }
 
     /**
@@ -68,9 +70,14 @@ public class KnowledgeGraphService {
         ArrayList filteredArray = new ArrayList();
 
         for(Object o : results) {
-            if(filterResultByParameter(o, REFERENCESPACE_CRITERIA, PARAMETER_ID, Arrays.asList(referencespace)) &&
-                    filterResultByParameter(o, PARCELLATION_CRITERIA, PARAMETER_ID, Arrays.asList(parcellation)) &&
-                    filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID, Arrays.asList(region))
+            if(
+                    filterResultByParameter(
+                            o, REFERENCESPACE_CRITERIA, PARAMETER_ID,
+                            Arrays.asList(knowledgeGraphIdConverter.convertReferencespaceId(referencespace))) &&
+                    filterResultByParameter(o, PARCELLATION_CRITERIA, PARAMETER_ID,
+                            Arrays.asList(knowledgeGraphIdConverter.convertParcellationId(parcellation))) &&
+                    filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID,
+                            Arrays.asList(knowledgeGraphIdConverter.convertRegionId(region)))
             ) {
                 filteredArray.add(o);
             }
@@ -88,7 +95,7 @@ public class KnowledgeGraphService {
     public ArrayList getParcellationDatasets(String parcellation) {
         String url = kgUrl + DATASET_QUERY_PARCELLATION;
         if(!StringUtils.isEmpty(parcellation)) {
-            url+="?parcellation=" +  parcellation;
+            url+="?parcellation=" +  knowledgeGraphIdConverter.convertParcellationId(parcellation);
         }
         return getDatasetByUrl(url);
     }
@@ -103,7 +110,7 @@ public class KnowledgeGraphService {
     public ArrayList getReferencespaceDatasets(String referencespace) {
         String url = kgUrl + DATASET_QUERY_REFERENCESPACE;
         if(!StringUtils.isEmpty(referencespace)) {
-            url+="?referencespace=" +  referencespace;
+            url+="?referencespace=" +  knowledgeGraphIdConverter.convertReferencespaceId(referencespace);
         }
 
         return getDatasetByUrl(url);
@@ -119,7 +126,7 @@ public class KnowledgeGraphService {
     public ArrayList getRegionsDatasets(String region) {
         String url = kgUrl + DATASET_QUERY_REGION;
         if(!StringUtils.isEmpty(region)) {
-            url+="?region=" +  region;
+            url+="?region=" +  knowledgeGraphIdConverter.convertRegionId(region);
         }
 
         return getDatasetByUrl(url);
@@ -136,7 +143,8 @@ public class KnowledgeGraphService {
         ArrayList regionsDatasets = getRegionsDatasets(null);
         ArrayList filteredArray = new ArrayList();
         for(Object o : regionsDatasets) {
-            if(filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID, regions)) {
+            if(filterResultByParameter(o, REGION_CRITERIA, PARAMETER_ID,
+                    regions.stream().map(knowledgeGraphIdConverter::convertRegionId).collect(Collectors.toList()))) {
                 filteredArray.add(o);
             }
         }

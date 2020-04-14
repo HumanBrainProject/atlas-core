@@ -1,6 +1,7 @@
 package de.fzj.atlascore.referencespace;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
+import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import io.swagger.annotations.Api;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -28,9 +29,11 @@ import java.util.stream.Collectors;
 public class ReferencespaceController {
 
     private final ReferencespaceService referencespaceService;
+    private final KnowledgeGraphService knowledgeGraphService;
 
-    public ReferencespaceController(ReferencespaceService referencespaceService) {
+    public ReferencespaceController(ReferencespaceService referencespaceService, KnowledgeGraphService knowledgeGraphService) {
         this.referencespaceService = referencespaceService;
+        this.knowledgeGraphService = knowledgeGraphService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,5 +54,11 @@ public class ReferencespaceController {
             );
         }
         return new Resource<>(new ReferencespaceResource(referencespaceByName));
+    }
+
+    @GetMapping(value = "/{refSpaceId}/datasets", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Object getDatasets(@PathVariable("refSpaceId") String refSpaceId) {
+        return knowledgeGraphService.getReferencespaceDatasets(refSpaceId);
     }
 }
