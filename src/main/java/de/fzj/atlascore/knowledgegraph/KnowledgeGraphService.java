@@ -65,6 +65,7 @@ public class KnowledgeGraphService {
      */
     @Cacheable("api-data")
     public ArrayList getAllDatasets(String referencespace, String parcellation, String region) {
+        LOGGER.info("Data without cache");
         String url = kgUrl + DATASET_QUERY;
         ArrayList results = getDatasetByUrl(url);
         ArrayList filteredArray = new ArrayList();

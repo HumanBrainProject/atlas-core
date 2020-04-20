@@ -28,4 +28,12 @@ public class Mask {
     public void setRegionId(String regionId) {
         this.regionId = regionId;
     }
+
+    @Override
+    public String toString() {
+        return "Mask{" +
+                "parcellationId='" + parcellationId + '\'' +
+                ", regionId='" + regionId + '\'' +
+                '}';
+    }
 }

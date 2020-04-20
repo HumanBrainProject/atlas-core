@@ -1,6 +1,9 @@
 package de.fzj.atlascore.region;
 
 import de.fzj.atlascore.configuration.ControllerPaths;
+import de.fzj.atlascore.data.CellDensities;
+import de.fzj.atlascore.data.CellDensitiesInput;
+import de.fzj.atlascore.data.Mask;
 import de.fzj.atlascore.knowledgegraph.KnowledgeGraphService;
 import de.fzj.atlascore.region.entity.Region;
 import io.swagger.annotations.Api;
@@ -8,6 +11,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -87,5 +91,18 @@ public class RegionController {
     @ResponseBody
     public Object getDatasets(@PathVariable("regionId") String regionId) {
         return knowledgeGraphService.getRegionsDatasets(regionId);
+    }
+
+    @PostMapping(
+            value = "/{regionId}/cell-densities",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<CellDensities> getCellDensities(
+            @PathVariable("refSpaceId") String refSpaceId,
+            @PathVariable("regionId") String regionId,
+            @PathVariable("parcellationName") String parcellationName,
+            @RequestBody(required = false) CellDensitiesInput inputData) {
+        return ResponseEntity.ok(regionService.getCellDensities(parcellationName, regionId, inputData));
     }
 }

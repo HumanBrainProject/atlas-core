@@ -1,8 +1,10 @@
 package de.fzj.atlascore.data;
 
+import java.util.List;
+
 public class CellDensities {
 
-    private Mask[] masks;
+    private List<Mask> masks;
     private double mean;
     private double standardDeviation;
     private double median;
@@ -13,7 +15,7 @@ public class CellDensities {
     public CellDensities() {
     }
 
-    public CellDensities(Mask[] masks, double mean, double standardDeviation, double median, double mode, double voxels, DistributionData[] distributionData) {
+    public CellDensities(List<Mask> masks, double mean, double standardDeviation, double median, double mode, double voxels, DistributionData[] distributionData) {
         this.masks = masks;
         this.mean = mean;
         this.standardDeviation = standardDeviation;
@@ -23,11 +25,11 @@ public class CellDensities {
         this.distributionData = distributionData;
     }
 
-    public Mask[] getMasks() {
+    public List<Mask> getMasks() {
         return masks;
     }
 
-    public void setMasks(Mask[] masks) {
+    public void setMasks(List<Mask> masks) {
         this.masks = masks;
     }
 

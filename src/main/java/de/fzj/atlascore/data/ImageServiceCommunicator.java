@@ -2,10 +2,12 @@ package de.fzj.atlascore.data;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ImageServiceCommunicator {
 
-    public CellDensities getCellDensities(Mask[] masks) {
+    public CellDensities getCellDensities(List<Mask> masks) {
         /**
          * Call ImageService with a list of masks:
          * Mask defined by:
