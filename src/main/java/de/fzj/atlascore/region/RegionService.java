@@ -77,6 +77,6 @@ public class RegionService {
             masks = Arrays.asList(new Mask(parcellationName, regionId));
             Arrays.asList(new Mask(parcellationName, regionId));
         }
-        return imageServiceCommunicator.getCellDensities(masks);
+        return imageServiceCommunicator.getCellDensities(masks, inputData.getMaskCombination());
     }
 }

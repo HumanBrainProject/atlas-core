@@ -18,6 +18,6 @@ public class CellDensitiesController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CellDensities> getCellDensities(@RequestBody(required = false) List<Mask> inputData) {
-        return ResponseEntity.ok(imageServiceCommunicator.getCellDensities(inputData));
+        return ResponseEntity.ok(imageServiceCommunicator.getCellDensities(inputData, MaskCombination.INTERSECTION));
     }
 }

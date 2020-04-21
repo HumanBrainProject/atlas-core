@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public class ImageServiceCommunicator {
 
-    public CellDensities getCellDensities(List<Mask> masks) {
+    public CellDensities getCellDensities(List<Mask> masks, MaskCombination maskCombination) {
         /**
          * Call ImageService with a list of masks:
          * Mask defined by:
@@ -20,7 +20,7 @@ public class ImageServiceCommunicator {
 
         return new CellDensities(
                 masks,
-                237.56355746025292,
+                maskCombination, 237.56355746025292,
                 24.582238428256325,
                 255,
                 255,

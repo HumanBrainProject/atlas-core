@@ -5,6 +5,7 @@ import java.util.List;
 public class CellDensities {
 
     private List<Mask> masks;
+    private MaskCombination maskCombination;
     private double mean;
     private double standardDeviation;
     private double median;
@@ -15,8 +16,9 @@ public class CellDensities {
     public CellDensities() {
     }
 
-    public CellDensities(List<Mask> masks, double mean, double standardDeviation, double median, double mode, double voxels, DistributionData[] distributionData) {
+    public CellDensities(List<Mask> masks, MaskCombination maskCombination, double mean, double standardDeviation, double median, double mode, double voxels, DistributionData[] distributionData) {
         this.masks = masks;
+        this.maskCombination = maskCombination;
         this.mean = mean;
         this.standardDeviation = standardDeviation;
         this.median = median;
@@ -31,6 +33,14 @@ public class CellDensities {
 
     public void setMasks(List<Mask> masks) {
         this.masks = masks;
+    }
+
+    public MaskCombination getMaskCombination() {
+        return maskCombination;
+    }
+
+    public void setMaskCombination(MaskCombination maskCombination) {
+        this.maskCombination = maskCombination;
     }
 
     public double getMean() {
