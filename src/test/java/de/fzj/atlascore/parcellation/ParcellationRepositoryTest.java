@@ -11,6 +11,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -72,9 +74,9 @@ public class ParcellationRepositoryTest {
     @Test
     public void shouldReturnParcellationForValidSpace() {
         Parcellation parcellation = parcellationRepository
-                .findOneByReferencespaceAndName(REF_SPACE, PARCELLATION_NAME);
+                .findOneByReferencespaceAndName(REF_SPACE, URLEncoder.encode(PARCELLATION_NAME, Charset.defaultCharset()));
 
-        assertEquals(PARCELLATION_NAME, parcellation.getName());
+        assertEquals(URLEncoder.encode(PARCELLATION_NAME, Charset.defaultCharset()), parcellation.getName());
     }
 
     @Test

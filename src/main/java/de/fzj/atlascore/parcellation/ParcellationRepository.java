@@ -52,7 +52,8 @@ public class ParcellationRepository {
     }
 
     public Parcellation findOneByReferencespaceAndName(String refSpaceId, String name) {
-        return findAllByReferencespace(refSpaceId)
+        List<Parcellation> allByReferencespace = findAllByReferencespace(refSpaceId);
+        return allByReferencespace
                 .stream()
                 .filter(parcellation -> parcellation.getName().equals(name))
                 .findFirst()

@@ -29,7 +29,7 @@ public class Parcellation {
     }
 
     public String getName() {
-        return Optional.of(UrlEncoded.encodeString(properties.get("name").toString(), Charset.defaultCharset())).orElse("").toString();
+        return Optional.of(URLEncoder.encode(properties.get("name").toString(), Charset.defaultCharset())).orElse("").toString();
     }
 
     public String getId()  {
