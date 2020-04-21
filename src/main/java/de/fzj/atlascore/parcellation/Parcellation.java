@@ -3,8 +3,11 @@ package de.fzj.atlascore.parcellation;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.eclipse.jetty.util.UrlEncoded;
 
 import javax.swing.text.html.Option;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -26,13 +29,20 @@ public class Parcellation {
     }
 
     public String getName() {
-        return Optional.of(properties.get("name")).orElse("").toString();
+        return Optional.of(UrlEncoded.encodeString(properties.get("name").toString(), Charset.defaultCharset())).orElse("").toString();
     }
 
     public String getId()  {
         Object originDatasets = properties.get("originDatasets");
-        Object kgId = ((LinkedHashMap) ((ArrayList) originDatasets).get(0)).get("kgId");
-        return kgId.toString();
+        if(originDatasets != null) {
+            try {
+                Object kgId = ((LinkedHashMap) ((ArrayList) originDatasets).get(0)).get("kgId");
+                return kgId.toString();
+            } catch(Exception e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     @JsonAnyGetter

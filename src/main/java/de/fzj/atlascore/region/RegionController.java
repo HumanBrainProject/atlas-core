@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,11 +51,15 @@ public class RegionController {
     public Resources<RegionResource> getAllRegions(
             @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName) {
-        List<Region> regions = regionService.getAll(refSpaceId, parcellationName);
+        List<Region> regions = regionService.getAll(refSpaceId, URLDecoder.decode(parcellationName, Charset.defaultCharset()));
         return new Resources<>(
                 regions
                         .stream()
-                        .map(region -> new RegionResource(region, refSpaceId, parcellationName))
+                        .map(region -> new RegionResource(
+                                region,
+                                refSpaceId,
+                                URLDecoder.decode(parcellationName, Charset.defaultCharset())
+                        ))
                         .collect(Collectors.toList())
         );
     }
@@ -62,11 +68,11 @@ public class RegionController {
     public HashMap<String, Object> getFullRegions(
             @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName) {
-        HashMap<String, Object> fullRegionStructure = regionService.getFullStructure(refSpaceId, parcellationName);
+        HashMap<String, Object> fullRegionStructure = regionService.getFullStructure(refSpaceId, URLDecoder.decode(parcellationName, Charset.defaultCharset()));
         if(fullRegionStructure == null || fullRegionStructure.isEmpty()) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    String.format("Full region data not found for parcellation: %s", parcellationName)
+                    String.format("Full region data not found for parcellation: %s", URLDecoder.decode(parcellationName, Charset.defaultCharset()))
             );
         }
         return fullRegionStructure;
@@ -77,14 +83,14 @@ public class RegionController {
             @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("parcellationName") String parcellationName,
             @PathVariable("regionName") String regionName) {
-        Region region = regionService.getByName(refSpaceId, parcellationName, regionName);
+        Region region = regionService.getByName(refSpaceId, URLDecoder.decode(parcellationName, Charset.defaultCharset()), regionName);
         if (region == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    String.format("Region: %s not found in parcellation %s", regionName, parcellationName)
+                    String.format("Region: %s not found in parcellation %s", regionName, URLDecoder.decode(parcellationName, Charset.defaultCharset()))
             );
         }
-        return new Resource<>(new RegionResource(region, refSpaceId, parcellationName));
+        return new Resource<>(new RegionResource(region, refSpaceId, URLDecoder.decode(parcellationName, Charset.defaultCharset())));
     }
 
     @GetMapping(value = "/{regionId}/datasets", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -103,6 +109,6 @@ public class RegionController {
             @PathVariable("regionId") String regionId,
             @PathVariable("parcellationName") String parcellationName,
             @RequestBody(required = false) CellDensitiesInput inputData) {
-        return ResponseEntity.ok(regionService.getCellDensities(parcellationName, regionId, inputData));
+        return ResponseEntity.ok(regionService.getCellDensities(URLDecoder.decode(parcellationName, Charset.defaultCharset()), regionId, inputData));
     }
 }

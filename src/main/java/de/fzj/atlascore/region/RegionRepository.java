@@ -49,6 +49,7 @@ public class RegionRepository {
         }
     }
 
+
     private String getHemisphereFromNameOrNull(String name) {
         if(name == null) {
             return null;
@@ -63,12 +64,17 @@ public class RegionRepository {
     }
 
     private void getRegionsFromStaticJson(String regionCacheKey, JSONObject jsonObject) {
-        JSONArray children = jsonObject.getJSONArray("children");
+        JSONArray children;
+        try {
+            children = jsonObject.getJSONArray("children");
+        } catch(Exception e) {
+            children = null;
+        }
         String label = getStringOrNullFromObject(jsonObject, "arealabel");
         if(label != null) {
             areaLabel = label;
         }
-        if(children.isEmpty()) {
+        if(children == null || children.isEmpty()) {
             try {
                 refSpaceRegions.get(regionCacheKey).add(
                         RegionBuilder
