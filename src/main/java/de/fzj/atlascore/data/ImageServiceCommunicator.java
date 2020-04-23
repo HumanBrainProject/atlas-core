@@ -1,11 +1,20 @@
 package de.fzj.atlascore.data;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class ImageServiceCommunicator {
+
+    private HashMap<String, CellDensities> cellDensities;
 
     public CellDensities getCellDensities(List<Mask> masks, MaskCombination maskCombination) {
         /**
@@ -20,13 +29,84 @@ public class ImageServiceCommunicator {
 
         return new CellDensities(
                 masks,
-                maskCombination, 237.56355746025292,
+                maskCombination,
+                237.56355746025292,
                 24.582238428256325,
                 255,
                 255,
                 13655596,
                 createDistributionData()
         );
+    }
+
+    public HashMap<String, CellDensities> getCellDensities() {
+        if(cellDensities == null) {
+            cellDensities = new LinkedHashMap<>();
+            try {
+                readResultsFromFile();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return cellDensities;
+    }
+
+    private void readResultsFromFile() throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                        new ClassPathResource(
+                                "data/cell-densities/ALL_RESULT.csv",
+                                this.getClass().getClassLoader()).getInputStream()
+                )
+        );
+
+        // Read first line with headers
+        // NAME, MEAN, STDEV, MEDIAN, MODE, VOXELS
+        System.out.println(reader.readLine());
+        // Read next lines with data
+        String dataLine = reader.readLine();
+        while(dataLine != null) {
+            String[] cellDensitieData = dataLine.split(",");
+            cellDensities.put(
+                    cellDensitieData[0],
+                    new CellDensities(
+                            null,
+                            null,
+                            Double.parseDouble(cellDensitieData[1].trim()),
+                            Double.parseDouble(cellDensitieData[2].trim()),
+                            Double.parseDouble(cellDensitieData[3].trim()),
+                            Double.parseDouble(cellDensitieData[4].trim()),
+                            Double.parseDouble(cellDensitieData[5].trim()),
+                            readDistributionDataFromFile(cellDensitieData[0])
+                    )
+            );
+            dataLine = reader.readLine();
+        }
+    }
+
+    private DistributionData[] readDistributionDataFromFile(String name) {
+        List<DistributionData> distributionData = new LinkedList<>();
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            new ClassPathResource(
+                                    "data/cell-densities/histogram_" + name + ".csv",
+                                    this.getClass().getClassLoader()).getInputStream()
+                    )
+            );
+            String data = reader.readLine();
+            while (data != null) {
+                String[] splitData = data.split(",");
+                distributionData.add(new DistributionData(
+                        Integer.parseInt(splitData[0].trim()),
+                        Integer.parseInt(splitData[1].trim())
+                ));
+                data = reader.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return distributionData.stream().toArray(DistributionData[]::new);
     }
 
     private DistributionData[] createDistributionData() {
