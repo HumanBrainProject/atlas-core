@@ -31,6 +31,7 @@ public class KnowledgeGraphService {
     private static final String DATASET_QUERY_REFERENCESPACE = "/query/minds/core/dataset/v1.0.0/ac_ds_referencespace/instances";
     private static final String DATASET_QUERY_PARCELLATION = "/query/minds/core/dataset/v1.0.0/ac_ds_parcellation/instances";
     private static final String DATASET_QUERY_REGION = "/query/minds/core/dataset/v1.0.0/ac_ds_regions/instances";
+    private static final String DATASET_QUERY_BY_ID = "/query/minds/core/dataset/v1.0.0/Ac_ds_datasets_by_id/instances";
     private static final Logger LOGGER = LogManager.getLogger(KnowledgeGraphService.class);
     @Value("${kg.url}")
     private String kgUrl;
@@ -150,6 +151,26 @@ public class KnowledgeGraphService {
             }
         }
         return filteredArray;
+    }
+
+    /**
+     * Get One single dataset by its KnowledgeGraph id
+     *
+     * @param id Dataset id in the KnowledgeGraph
+     * @return One single Dataset for given id or null
+     */
+    public Object getDatasetById(String id) {
+        String url = kgUrl + DATASET_QUERY_BY_ID;
+        if(!StringUtils.isEmpty(id)) {
+            url+="?id=" +  knowledgeGraphIdConverter.convertDatasetId(id);
+        }
+
+        ArrayList datasets = getDatasetByUrl(url);
+        if(datasets == null || datasets.isEmpty()) {
+            return null;
+        } else {
+            return datasets.get(0);
+        }
     }
 
     /*

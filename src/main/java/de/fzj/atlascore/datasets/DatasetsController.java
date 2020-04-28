@@ -64,6 +64,11 @@ public class DatasetsController {
         );
     }
 
+    @GetMapping(value = "/{id}")
+    public Object getDatasetById(@RequestParam(name = "id") String id) {
+        return knowledgeGraphService.getDatasetById(id);
+    }
+
     @PostMapping(value = "/regions")
     public Object getRegionsDatasets(@RequestBody List<String> regions) {
         if(regions == null || regions.isEmpty()) {
