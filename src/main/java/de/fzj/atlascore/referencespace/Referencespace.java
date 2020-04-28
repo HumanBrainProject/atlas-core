@@ -2,6 +2,7 @@ package de.fzj.atlascore.referencespace;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.google.common.base.Strings;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -28,7 +29,10 @@ public class Referencespace {
     }
 
     public String getId() {
-        String id = Optional.of(properties.get("id")).orElse("").toString();
+        String id = Optional.ofNullable(properties.get("id")).orElse("").toString();
+        if(Strings.isNullOrEmpty(id)) {
+            id = Optional.ofNullable(properties.get("fullId")).orElse("").toString();
+        }
         int index = id.lastIndexOf("/");
         return id.substring(index+1);
     }

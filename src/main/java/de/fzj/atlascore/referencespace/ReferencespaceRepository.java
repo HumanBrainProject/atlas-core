@@ -22,7 +22,7 @@ public class ReferencespaceRepository {
 
     public static String BIG_BRAIN = "a1655b99-82f1-420f-a3c2-fe80fd4c8588";
     public static String MNI_COLIN_27 = "7f39f7be-445b-47c0-9791-e971c0b6d992";
-    public static String MNI_152 = "1518c6d4-0700-4c90-ad8d-8d992b69687e";
+    public static String MNI_152 = "dafcffc5-4826-4bf1-8ff6-46b8a31ff8e2";
     public static String WAXHOLM = "495e1936-b37c-461b-aca6-9de690038be1";
     public static String ALLEN_MOUSE = "4891f87d-8f9b-4c5a-b65d-ce8b3e942771";
 
