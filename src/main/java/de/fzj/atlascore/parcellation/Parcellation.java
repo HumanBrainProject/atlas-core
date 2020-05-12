@@ -29,7 +29,8 @@ public class Parcellation {
     }
 
     public String getName() {
-        return Optional.of(URLEncoder.encode(properties.get("name").toString(), Charset.defaultCharset())).orElse("").toString();
+        return Optional.ofNullable(URLEncoder.encode(properties.get("name").toString(), Charset.defaultCharset()))
+                .orElse("");
     }
 
     public String getId()  {
@@ -39,10 +40,10 @@ public class Parcellation {
                 Object kgId = ((LinkedHashMap) ((ArrayList) originDatasets).get(0)).get("kgId");
                 return kgId.toString();
             } catch(Exception e) {
-                return null;
+                return getName();
             }
         }
-        return null;
+        return getName();
     }
 
     @JsonAnyGetter
