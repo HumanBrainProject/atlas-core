@@ -14,6 +14,20 @@ import java.util.List;
 @Service
 public class ImageServiceCommunicator {
 
+    private static final HashMap<String, String> CORTICAL_LAYER_MAPPING = new LinkedHashMap() {{
+        put("cortical layer 1", "layer1");
+        put("cortical layer 2", "layer2");
+        put("cortical layer 3", "layer3");
+        put("cortical layer 4", "layer4");
+        put("cortical layer 5", "layer5");
+        put("cortical layer 6", "layer6");
+    }};
+
+    private static final HashMap<String, String> CYTOARCHITECTONIC_MAPPING = new LinkedHashMap<>() {{
+       put("Area hOc1 (V1, 17, CalcS)", "v1");
+       put("Area hOc2 (V2, 18)", "v2");
+    }};
+
     private HashMap<String, CellDensities> cellDensities;
 
     public CellDensities getCellDensities(List<Mask> masks, MaskCombination maskCombination) {
@@ -26,6 +40,10 @@ public class ImageServiceCommunicator {
          * ? "url" : "string"
          * }
          */
+
+        for(Mask m : masks) {
+            m.getRegionId();
+        }
 
         return new CellDensities(
                 masks,
@@ -48,6 +66,7 @@ public class ImageServiceCommunicator {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println(cellDensities.keySet());
         return cellDensities;
     }
 
@@ -62,7 +81,7 @@ public class ImageServiceCommunicator {
 
         // Read first line with headers
         // NAME, MEAN, STDEV, MEDIAN, MODE, VOXELS
-        System.out.println(reader.readLine());
+        reader.readLine();
         // Read next lines with data
         String dataLine = reader.readLine();
         while(dataLine != null) {
@@ -124,5 +143,9 @@ public class ImageServiceCommunicator {
                 new DistributionData(200,324),
                 new DistributionData(255,99)
         };
+    }
+
+    private String regionNameMapping(String region1, String region2) {
+        return "";
     }
 }
