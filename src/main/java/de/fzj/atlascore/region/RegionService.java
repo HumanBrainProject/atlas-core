@@ -11,7 +11,6 @@ import de.fzj.atlascore.tvb.TVBDummyDataService;
 import de.fzj.atlascore.tvb.TVBService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
