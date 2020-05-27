@@ -69,13 +69,14 @@ public class RegionService {
     }
 
     CellDensities getCellDensities(String parcellationName, String regionId, CellDensitiesInput inputData) {
-        List<Mask> masks = inputData.getMasks();
-        if(masks != null && masks.size() > 0) {
-            masks.add(new Mask(parcellationName, regionId));
-        } else {
-            masks = Arrays.asList(new Mask(parcellationName, regionId));
-            Arrays.asList(new Mask(parcellationName, regionId));
-        }
-        return imageServiceCommunicator.getCellDensities(masks, inputData.getMaskCombination());
+//        List<Mask> masks = inputData.getMasks();
+//        if(masks != null && masks.size() > 0) {
+//            masks.add(new Mask(parcellationName, regionId));
+//        } else {
+//            masks = Arrays.asList(new Mask(parcellationName, regionId));
+//            Arrays.asList(new Mask(parcellationName, regionId));
+//        }
+        return imageServiceCommunicator.getCellDensities(regionId, inputData.getMasks(), inputData.getMaskCombination());
+//        return imageServiceCommunicator.getCellDensities(masks, inputData.getMaskCombination());
     }
 }

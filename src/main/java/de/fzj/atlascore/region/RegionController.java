@@ -104,7 +104,7 @@ public class RegionController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<CellDensities> getCellDensities(
+    public ResponseEntity<CellDensities> getCellDensitiesForId(
             @PathVariable("refSpaceId") String refSpaceId,
             @PathVariable("regionId") String regionId,
             @PathVariable("parcellationName") String parcellationName,

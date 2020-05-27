@@ -2,6 +2,7 @@ package de.fzj.atlascore.data;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,6 +31,36 @@ public class ImageServiceCommunicator {
 
     private HashMap<String, CellDensities> cellDensities;
 
+    public CellDensities getCellDensities(String region, List<Mask> masks, MaskCombination maskCombination) {
+        try {
+            readResultsFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String mappedLayerRegion = !StringUtils.isEmpty(CORTICAL_LAYER_MAPPING.get(region)) ? CORTICAL_LAYER_MAPPING.get(region) : region;
+
+        if(StringUtils.isEmpty(mappedLayerRegion)) {
+            //throw not found Exception
+        } else {
+            if(masks.isEmpty()) {
+                //throw Input Exception
+            } else {
+                String resultName = mappedLayerRegion + "_" + masks.get(0).getRegionId();
+                return cellDensities.get(resultName);
+            }
+        }
+        return new CellDensities(
+                masks,
+                maskCombination,
+                237.56355746025292,
+                24.582238428256325,
+                255,
+                255,
+                13655596,
+                createDistributionData()
+        );
+    }
+
     public CellDensities getCellDensities(List<Mask> masks, MaskCombination maskCombination) {
         /**
          * Call ImageService with a list of masks:
@@ -40,7 +71,6 @@ public class ImageServiceCommunicator {
          * ? "url" : "string"
          * }
          */
-
         for(Mask m : masks) {
             m.getRegionId();
         }
@@ -58,19 +88,21 @@ public class ImageServiceCommunicator {
     }
 
     public HashMap<String, CellDensities> getCellDensities() {
-        if(cellDensities == null) {
-            cellDensities = new LinkedHashMap<>();
-            try {
-                readResultsFromFile();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+        try {
+            readResultsFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         System.out.println(cellDensities.keySet());
         return cellDensities;
     }
 
     private void readResultsFromFile() throws IOException {
+        if(cellDensities == null) {
+            cellDensities = new HashMap<>();
+        } else {
+            return;
+        }
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
                         new ClassPathResource(
