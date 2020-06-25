@@ -56,6 +56,13 @@ public class KnowledgeGraphService {
         );
     }
 
+    public Object getReferencespaces() {
+        return restTemplate.getForObject(
+                kgUrl + "/query/minds/core/referencespace/v1.0.0/atlascore_referencespaces/instances",
+                Object.class
+        );
+    }
+
     /**
      * Get all datasets from the KnowledgeGraph. The results can be filtered by different parameters.
      *
