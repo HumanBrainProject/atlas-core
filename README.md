@@ -1,3 +1,5 @@
+> :warning: This repository is deprecated. Please refer to <http://github.com/fzj-inm1-bda/siibra-api> for the latest development
+
 # Ebrains Atlascore
 
 Application to provide endpoints with functionality for the atlas viewer and further information using also the knowledge graph.
